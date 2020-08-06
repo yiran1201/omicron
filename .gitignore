@@ -1,0 +1,8 @@
+# Block node_modules folder under sub-folders
+*/node_modules
+
+# Block .vscode foler under sub-folders
+*/.vscode
+
+# Block .vscode foler under current path
+.vscode
