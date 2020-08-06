@@ -7,6 +7,11 @@ git init
 
 
 - git login on the device
+```
+git config --global user.name "yiran1201"
+git config --global user.email "yiranchen1201@gmail.com"
+```
+
 - connect to remote git repo 
 ```
 git remote add origin https://github.com/yiran1201/omicron.git
@@ -33,3 +38,7 @@ git add -A
 git commit -m "..."
 ```
 
+- Push to repo
+```
+git push origin master
+```

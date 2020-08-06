@@ -1,8 +1,23 @@
 # Block node_modules folder under sub-folders
 */node_modules
 
-# Block .vscode foler under sub-folders
+# Block .vscode folder under sub-folders
 */.vscode
 
-# Block .vscode foler under current path
+# Block .vscode folder under current path
 .vscode
+
+# Block.DS_Store folder under current path
+.DS_Store
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*/package-lock.json
+
+# Optional npm cache directory
+.npm
