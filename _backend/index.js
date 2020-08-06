@@ -6,8 +6,7 @@ import WatchRoute from './routes/watch-route'
 import CatRoute from './routes/cat-route'
 import InvoiceRoute from './routes/invoice-route'
 import bodyParser from "body-parser";
-//import { sample2 } from './routes/test'
-//console.log(sample2)
+
 
 const port = 7777;
 const app = Express();

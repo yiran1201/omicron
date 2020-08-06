@@ -1,12 +1,12 @@
 import { Router } from "express";
-import Invoice from '../models/invoice-models'
+import InvoiceModel from '../models/invoice-models'
 
 const router = Router()
 
 router.post("/", (request, response) => {
   console.log('*** POST /api/invoice/')
   // how to use request.body ?
-  const invoiceDocument = new Invoice({
+  const invoiceDocument = new InvoiceModel({
     price: request.body.price,
     quantity: request.body.quantity,
     date: request.body.date,

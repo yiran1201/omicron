@@ -58,6 +58,7 @@ npm run start
 ##  创造路径
 - 写好的路径要放在index.js
 
+
 ## 常见问题
 - Error: listen EADDRINUSE: address already in use :::7777  
 - exit console control+c
@@ -71,3 +72,23 @@ npm run start
 
 ## project的全局搜索
 - 是shift +command+f
+
+## 导入东西
+- 文件text.js
+``` javascript
+export const sample = 123;
+export const sample2 = 888
+export const sample3 = 999
+const sample4 = 1000
+export default 456;
+```
+
+- 导入
+``` javascript
+import { sample2 } from './test.js' // 999
+import Test from './test.js' // 456
+console.log(sample2)
+```
+
+- 导入普通的export要用大括号且名字需对上
+- 导入export default不需大括号且名字随便起
