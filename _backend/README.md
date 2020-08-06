@@ -92,3 +92,35 @@ console.log(sample2)
 
 - 导入普通的export要用大括号且名字需对上
 - 导入export default不需大括号且名字随便起
+
+## http- 网络传输协议
+- status code
+- 200 success
+- 302 redirect
+- 404 not found
+- 403 access forbidden
+- 500 internal server error
+
+## 异步 async
+``` javascript
+const yibu = () => {
+  console.log(1111)
+
+// 用来对未来做事情 这个case是隔1000毫秒
+// setTimeout 属于promise的一种 
+// promise是异步操作
+// 异步是asynchronous，简称async
+  setTimeout(() => {
+    console.log(2222)
+  }, 3000)
+
+  console.log(3333)
+}
+
+console.log(yibu())
+```
+## 不小心进入文本
+- 按esc 
+- 按 shift+:
+- 输入q
+- enter
