@@ -18,7 +18,18 @@ git remote
 ```
 
 ## Commit 3 cycles
+- Check git status
+```
+git status
+```
+
 - Add all changed file
 ```
 git add -A
 ```
+
+- Add commit message 
+```
+git commit -m "..."
+```
+
