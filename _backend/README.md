@@ -124,3 +124,24 @@ console.log(yibu())
 - 按 shift+:
 - 输入q
 - enter
+
+## 创建新的route
+- 在routes folder下写route 文件
+```javascript
+import { Router } from "express";
+const router = Router();
+router.get("/", (request, response) => {
+  response.status(200).json("xxx");
+})
+export default router;
+```
+
+- 去index.js import文件
+```javascript
+import 随便取一个名字 from './routes/文件名'
+app.use(route_path, 随便取一个名字)
+```
+
+- 定义模型 去models folder下写model 文件
+- get post put delete
+- postman 

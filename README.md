@@ -1,4 +1,5 @@
 ## how to start git
+- control +c 推出服务器
 - initialize project
 ```bash
 git init
