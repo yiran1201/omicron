@@ -44,3 +44,7 @@ git commit -m "..."
 ```
 git push origin master
 ```
+
+## read log
+- cd ../ 上一级
+- ls 展示

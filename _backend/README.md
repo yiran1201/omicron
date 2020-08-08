@@ -145,3 +145,13 @@ app.use(route_path, 随便取一个名字)
 - 定义模型 去models folder下写model 文件
 - get post put delete
 - postman 
+
+## 什么是MVC
+- M是model，定义数据结构跟数据库的数据形状
+- C是Controler，等同于每一个route下面的操作
+- V是view，前端展示逻辑
+
+## change directory 改变路径/目录
+- cd ../是回上一级
+- ls 是展示当前路径的所有东西
+- cd <文件夹名> 去文件夹名下面的目录

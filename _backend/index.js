@@ -7,6 +7,7 @@ import CatRoute from './routes/cat-route'
 import InvoiceRoute from './routes/invoice-route'
 import bodyParser from "body-parser";
 import DogRoute from "./routes/dog-route"
+import MockRoute from "./routes/mock-route"
 
 
 const port = 7777;
@@ -27,7 +28,8 @@ app.use("/invoice", (request, response) => {
 app.use("/api/watch", WatchRoute)
 app.use("/api/invoice", InvoiceRoute)
 app.use("/cat", CatRoute)
-app.use('/api/dog',DogRoute)//
+app.use('/api/dog', DogRoute)//
+app.use('/api/mock', MockRoute)
 
 
 // "/" match所有的path

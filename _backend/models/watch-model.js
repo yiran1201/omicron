@@ -4,7 +4,7 @@ import { Schema, model } from "mongoose";
 const Watch = new Schema({
   color: String, 
   name: String, 
-  price: Number
+  price: String
 })
 
 // model(ModelName, Model, CollectionName)
