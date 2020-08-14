@@ -1,6 +1,7 @@
 import './BuildWatch.scss';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/scss/image-gallery.scss';
+import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 
 import React from 'react';
 
@@ -43,6 +44,7 @@ import 硅胶表带 from '../../asset/images/watchbands/硅胶表带.png';
 import 表带白 from '../../asset/images/watchbands/表带白.png';
 import 黑橘 from '../../asset/images/watchbands/黑橘.png';
 import 全黑 from '../../asset/images/watchbands/全黑.png';
+import {useState} from 'react';
 
 const WATCH_IMAGES = [
   {original: 机械电子1, thumbnail: 机械电子},
@@ -74,7 +76,42 @@ const WATCH_BANDS = [
   {original: 全黑, thumbnail: 全黑},
 ];
 
+const FACES = [
+  {name: '机械电子', source: 机械电子},
+  {name: '极简表盘', source: 极简表盘},
+  {name: '淡雅金', source: 淡雅金},
+  {name: '火烈鸟', source: 火烈鸟},
+  {name: '珍爱永恒', source: 珍爱永恒},
+  {name: '珍珠白', source: 珍珠白},
+  {name: '粉红女郎', source: 粉红女郎},
+  {name: '经典', source: 经典},
+  {name: '绽放', source: 绽放},
+  {name: '缎金', source: 缎金},
+  {name: '缎金绿', source: 缎金绿},
+  {name: '缎金黑', source: 缎金黑},
+  {name: '花花公子', source: 花花公子},
+  {name: '蓝调', source: 蓝调},
+  {name: '轮回', source: 轮回},
+  {name: '银白', source: 银白},
+];
+
+const BANDS = [
+  {name: '通用双射表带', source: 通用双射表带},
+  {name: '浅棕', source: 浅棕},
+  {name: '深棕', source: 深棕},
+  {name: '硅胶表带', source: 硅胶表带},
+  {name: '表带白', source: 表带白},
+  {name: '黑橘', source: 黑橘},
+  {name: '全黑', source: 全黑},
+];
+
 const BuildWatch = () => {
+  const [openFaceOption, setFaceOption] = useState(false);
+  const [openBandOption, setBandOption] = useState(false);
+
+  const [watchFace, setWatchFace] = useState(机械电子);
+  const [watchBand, setWatchBand] = useState(通用双射表带);
+
   return (
     <div>
       <div className='alert alert-warning'>
@@ -84,13 +121,86 @@ const BuildWatch = () => {
       <span>word one</span>
       <p>word two</p>
 
+      <div
+        style={{
+          width: 720,
+          height: 300,
+          margin: '0 auto',
+          position: 'relative',
+          display: 'flex',
+        }}>
+        <div
+          style={{
+            position: 'absolute',
+            height: 145,
+            width: 145,
+            left: 258,
+            top: 74,
+            zIndex: 1000,
+            border: '6px outset',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+          }}>
+          <img src={watchFace} alt='watch-face' style={{height: '100%'}} />
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+          }}>
+          <img src={watchBand} alt='watch-band' style={{width: '100%'}} />
+        </div>
+      </div>
+
+      <div style={{maxWidth: '420px', margin: '0 auto 30px', display: 'flex'}}>
+        <Dropdown
+          isOpen={openFaceOption}
+          toggle={() => setFaceOption(!openFaceOption)}>
+          <DropdownToggle caret>表盘</DropdownToggle>
+          <DropdownMenu>
+            {FACES.map((face) => {
+              return (
+                <DropdownItem
+                  key={face.name}
+                  disabled={face.source === watchFace}
+                  onClick={() => setWatchFace(face.source)}>
+                  {face.name}
+                </DropdownItem>
+              );
+            })}
+          </DropdownMenu>
+        </Dropdown>
+
+        <Dropdown
+          style={{marginLeft: 8}}
+          isOpen={openBandOption}
+          toggle={() => setBandOption(!openBandOption)}>
+          <DropdownToggle caret>表带</DropdownToggle>
+          <DropdownMenu>
+            {BANDS.map((band) => {
+              return (
+                <DropdownItem
+                  key={band.name}
+                  disabled={band.source === watchBand}
+                  onClick={() => setWatchBand(band.source)}>
+                  {band.name}
+                </DropdownItem>
+              );
+            })}
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+
       <div style={{maxWidth: '420px', margin: '0 auto'}}>
         <ImageGallery items={WATCH_IMAGES} slideDuration={200} />
-
       </div>
       <div style={{maxWidth: '780px', margin: '0 auto'}}>
         <ImageGallery items={WATCH_BANDS} slideDuration={200} />
-//       </div>
+      </div>
     </div>
   );
 };
