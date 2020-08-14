@@ -1,7 +1,13 @@
 import './BuildWatch.scss';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/scss/image-gallery.scss';
-import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Card,
+} from 'reactstrap';
 
 import React from 'react';
 
@@ -109,8 +115,8 @@ const BuildWatch = () => {
   const [openFaceOption, setFaceOption] = useState(false);
   const [openBandOption, setBandOption] = useState(false);
 
-  const [watchFace, setWatchFace] = useState(机械电子);
-  const [watchBand, setWatchBand] = useState(通用双射表带);
+  const [watchFace, setWatchFace] = useState(珍珠白);
+  const [watchBand, setWatchBand] = useState(全黑);
 
   return (
     <div>
@@ -121,11 +127,11 @@ const BuildWatch = () => {
       <span>word one</span>
       <p>word two</p>
 
-      <div
+      <Card
         style={{
           width: 720,
           height: 300,
-          margin: '0 auto',
+          margin: '0 auto 16px',
           position: 'relative',
           display: 'flex',
         }}>
@@ -137,7 +143,7 @@ const BuildWatch = () => {
             left: 258,
             top: 74,
             zIndex: 1000,
-            border: '6px outset',
+            border: '6px outset #444',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
@@ -154,13 +160,20 @@ const BuildWatch = () => {
           }}>
           <img src={watchBand} alt='watch-band' style={{width: '100%'}} />
         </div>
-      </div>
+      </Card>
 
-      <div style={{maxWidth: '420px', margin: '0 auto 30px', display: 'flex'}}>
+      <div
+        style={{
+          maxWidth: '420px',
+          margin: '0 auto 30px',
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
         <Dropdown
+          direction='left'
           isOpen={openFaceOption}
           toggle={() => setFaceOption(!openFaceOption)}>
-          <DropdownToggle caret>表盘</DropdownToggle>
+          <DropdownToggle caret>Watch Face</DropdownToggle>
           <DropdownMenu>
             {FACES.map((face) => {
               return (
@@ -176,10 +189,11 @@ const BuildWatch = () => {
         </Dropdown>
 
         <Dropdown
+          direction='right'
           style={{marginLeft: 8}}
           isOpen={openBandOption}
           toggle={() => setBandOption(!openBandOption)}>
-          <DropdownToggle caret>表带</DropdownToggle>
+          <DropdownToggle caret>Watch Band</DropdownToggle>
           <DropdownMenu>
             {BANDS.map((band) => {
               return (
