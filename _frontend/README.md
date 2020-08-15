@@ -91,3 +91,18 @@ d -> 2
 - flex-direction 为row 的情况，justify-content是左右对齐，algin-item是上下对齐
 - flex-direction 为 column 的情况，justify-content是上下对齐，algin-item是左右对齐
 - flexbox default direction是row
+
+
+## onClick function
+- 任何元素上都可以有
+-这个function不是马上执行的，它只有满足user click这个动作的时候才会执行
+
+## 大括号的使用
+- 如果在html里面写Javascript都要加大括号 （react的规定）
+- html tag例如<div></div> 里面加property， 只有property value要加大括号，如果value是 fixed 的string可以不加大括号
+
+## table
+- <thead></thead> table head 最上面哪一行
+- <tr> table row
+- <th> table cell head
+- <td> table cell

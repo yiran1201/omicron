@@ -5,7 +5,6 @@
   position: relative;
   display: flex;
   border-radius: 16px;
-  // background: #222;
   overflow: hidden;
 
   .watch-face {
@@ -44,4 +43,12 @@
   display: flex;
   justify-content: center;
 
+  .watch-band-dropdown {
+    margin-left: 6px;
+  }
+}
+
+.price-table {
+  width: 720px;
+  margin: 0 auto
 }
