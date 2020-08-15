@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Card,
+  Table,
 } from 'reactstrap';
 
 import React from 'react';
@@ -37,7 +38,7 @@ import {useState} from 'react';
 
 const FACES = [
   {name: '机械电子', source: 机械电子},
-  {name: '极简表盘', source: 极简表盘},
+  {name: '极简表盘', source: 极简表盘, price: 1000},
   {name: '淡雅金', source: 淡雅金},
   {name: '火烈鸟', source: 火烈鸟},
   {name: '珍爱永恒', source: 珍爱永恒},
@@ -114,9 +115,8 @@ const BuildWatch = () => {
           </DropdownMenu>
         </Dropdown>
 
-        <Dropdown
+        <Dropdown  style={{marginLeft:6}}
           direction='right'
-          style={{marginLeft: 8}}
           isOpen={openBandOption}
           toggle={() => setBandOption(!openBandOption)}>
           <DropdownToggle caret>Watch Band</DropdownToggle>
@@ -133,7 +133,40 @@ const BuildWatch = () => {
             })}
           </DropdownMenu>
         </Dropdown>
+
+        {/** TODO, 在这里加个dropdown */}
       </div>
+
+      <Table bordered>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Watch Face</th>
+            <th>Watch Band</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope='row'>1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope='row'>2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope='row'>Total</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </Table>
     </div>
   );
 };
