@@ -11,70 +11,150 @@ import {
 
 import React from 'react';
 
-import 机械电子 from '../../asset/images/watches/机械电子.png';
-import 极简表盘 from '../../asset/images/watches/极简表盘.png';
-import 淡雅金 from '../../asset/images/watches/淡雅金.png';
-import 火烈鸟 from '../../asset/images/watches/火烈鸟.png';
-import 珍爱永恒 from '../../asset/images/watches/珍爱永恒.png';
-import 珍珠白 from '../../asset/images/watches/珍珠白.png';
-import 经典 from '../../asset/images/watches/经典.png';
-import 绽放 from '../../asset/images/watches/绽放.png';
-import 缎金 from '../../asset/images/watches/缎金.png';
-import 缎金绿 from '../../asset/images/watches/缎金绿.png';
-import 缎金黑 from '../../asset/images/watches/缎金黑.png';
-import 花花公子 from '../../asset/images/watches/花花公子.png';
-import 蓝调 from '../../asset/images/watches/蓝调.png';
-import 轮回 from '../../asset/images/watches/轮回.png';
-import 银白 from '../../asset/images/watches/银白.png';
-import 通用双射表带 from '../../asset/images/watchbands/通用双射表带.png';
-import 深棕 from '../../asset/images/watchbands/深棕.png';
-import 硅胶表带 from '../../asset/images/watchbands/硅胶表带.png';
-import 表带白 from '../../asset/images/watchbands/表带白.png';
-import 全黑 from '../../asset/images/watchbands/全黑.png';
 import {useState} from 'react';
 
 const FACES = [
-  {name: '机械电子', source: 机械电子, price: 200},
-  {name: '极简表盘', source: 极简表盘, price: 1000},
-  {name: '淡雅金', source: 淡雅金, price: 800},
-  {name: '火烈鸟', source: 火烈鸟, price: 500},
-  {name: '珍爱永恒', source: 珍爱永恒, price: 600},
-  {name: '珍珠白', source: 珍珠白, price: 1000},
+  {
+    name: '机械电子',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287709/omicron/%E6%9C%BA%E6%A2%B0%E7%94%B5%E5%AD%90_u4pr5s.png',
+    price: 200,
+  },
+  {
+    name: '极简表盘',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287703/omicron/%E6%9E%81%E7%AE%80%E8%A1%A8%E7%9B%98_qv5zwm.png',
+    price: 1000,
+  },
+  {
+    name: '淡雅金',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287715/omicron/%E6%B7%A1%E9%9B%85%E9%87%91_zg4lnx.png',
+    price: 800,
+  },
+  {
+    name: '火烈鸟',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287711/omicron/%E7%81%AB%E7%83%88%E9%B8%9F_x9obzq.png',
+    price: 500,
+  },
+  {
+    name: '珍爱永恒',
+    source:
+      'https://cloudinary.com/console/c-a0643e7bd73367c0e4760167630ff6/media_library/folders/360296438e92671b1582c1b3301fce92/asset/d1b0bfa2ccf46a1eb1d832d9ae0fb484/manage/summary',
+    price: 600,
+  },
+  {
+    name: '珍珠白',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287709/omicron/%E7%8F%8D%E7%8F%A0%E7%99%BD_fam3wq.png',
+    price: 1000,
+  },
   {
     name: '粉红女郎',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287737/omicron/%E7%B2%89%E7%BA%A2%E5%A5%B3%E9%83%8E_swyvei.png',
     price: 1200,
   },
-  {name: '经典', source: 经典, price: 500},
-  {name: '绽放', source: 绽放, price: 600},
-  {name: '缎金', source: 缎金, price: 600},
-  {name: '缎金绿', source: 缎金绿, price: 1000},
-  {name: '缎金黑', source: 缎金黑, price: 1000},
-  {name: '花花公子', source: 花花公子, price: 200},
-  {name: '蓝调', source: 蓝调, price: 300},
-  {name: '轮回', source: 轮回, price: 700},
-  {name: '银白', source: 银白, price: 200},
+  {
+    name: '经典',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287726/omicron/%E7%BB%8F%E5%85%B8_mq54gk.png',
+    price: 500,
+  },
+  {
+    name: '绽放',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287737/omicron/%E7%BB%BD%E6%94%BE_mqi8cz.png',
+    price: 600,
+  },
+  {
+    name: '缎金',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287729/omicron/%E7%BC%8E%E9%87%91_dfp1bz.png',
+    price: 600,
+  },
+  {
+    name: '缎金绿',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287724/omicron/%E7%BC%8E%E9%87%91%E7%BB%BF_l6jw3j.png',
+    price: 1000,
+  },
+  {
+    name: '缎金黑',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287727/omicron/%E7%BC%8E%E9%87%91%E9%BB%91_jnrtak.png',
+    price: 1000,
+  },
+  {
+    name: '花花公子',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287715/omicron/%E8%8A%B1%E8%8A%B1%E5%85%AC%E5%AD%90_y3frua.png',
+    price: 200,
+  },
+  {
+    name: '蓝调',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287737/omicron/%E8%93%9D%E8%B0%83_l3gekx.png',
+    price: 300,
+  },
+  {
+    name: '轮回',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287735/omicron/%E8%BD%AE%E5%9B%9E_u6kbyt.png',
+    price: 700,
+  },
+  {
+    name: '银白',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287736/omicron/%E9%93%B6%E7%99%BD_eqrnwx.png',
+    price: 200,
+  },
 ];
 
 const BANDS = [
-  {name: '通用双射表带', source: 通用双射表带, price: 150},
+  {
+    name: '通用双射表带',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529677/omicron/%E9%80%9A%E7%94%A8%E5%8F%8C%E5%B0%84%E8%A1%A8%E5%B8%A6_ekrnoe.png',
+    price: 150,
+  },
   {
     name: '浅棕',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529683/omicron/%E6%B5%85%E6%A3%95_aiqa4g.png',
     price: 200,
   },
-  {name: '深棕', source: 深棕, price: 200},
-  {name: '硅胶表带', source: 硅胶表带, price: 100},
-  {name: '表带白', source: 表带白, price: 100},
+  {
+    name: '深棕',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529680/omicron/%E6%B7%B1%E6%A3%95_z20qes.png',
+    price: 200,
+  },
+  {
+    name: '硅胶表带',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529676/omicron/%E7%A1%85%E8%83%B6%E8%A1%A8%E5%B8%A6_yzr4r0.png',
+    price: 100,
+  },
+  {
+    name: '表带白',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529676/omicron/%E8%A1%A8%E5%B8%A6%E7%99%BD_fagcrc.png',
+    price: 100,
+  },
   {
     name: '黑橘',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529683/omicron/%E9%BB%91%E6%A9%98_i34w9q.png',
     price: 600,
   },
-  {name: '全黑', source: 全黑, price: 1000},
+  {
+    name: '全黑',
+    source:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529678/omicron/%E5%85%A8%E9%BB%91_jnaegd.png',
+    price: 1000,
+  },
 ];
 
 const BuildWatch = () => {
