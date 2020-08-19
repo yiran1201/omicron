@@ -13,7 +13,7 @@
     width: 145px;
     left: 258px;
     top: 74px;
-    z-index: 1000;
+    z-index: 1000; //使得表盘覆盖在表带上
     border: 6px outset #444;
     border-radius: 50%;
     display: flex;
@@ -50,5 +50,17 @@
 
 .price-table {
   width: 720px;
-  margin: 0 auto
+  margin: 0 auto;
+  background: rgb(78, 155, 143);
+
+  td,
+  th {
+    color: rgb(228, 196, 119);
+  }
+
+}
+
+.btn {
+  background-color: rgb(228, 196, 119);
+
 }

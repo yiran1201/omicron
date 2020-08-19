@@ -69,7 +69,7 @@ d -> 2
 - margin：1px 只有一个参数时表示上下左右全部相同间距
 
 - padding是内间距
-- 判断两个却别的最好方法是给一个background color去看
+- 判断两个区别的最好方法是给一个background color去看
 
 ## border
 - border: px type color

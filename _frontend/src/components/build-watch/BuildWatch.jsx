@@ -41,7 +41,8 @@ const FACES = [
   {
     name: '珍爱永恒',
     source:
-      'https://cloudinary.com/console/c-a0643e7bd73367c0e4760167630ff6/media_library/folders/360296438e92671b1582c1b3301fce92/asset/d1b0bfa2ccf46a1eb1d832d9ae0fb484/manage/summary',
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287716/omicron/%E7%8F%8D%E7%88%B1%E6%B0%B8%E6%81%92_jem6ii.png',
+
     price: 600,
   },
   {
@@ -118,42 +119,57 @@ const BANDS = [
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529677/omicron/%E9%80%9A%E7%94%A8%E5%8F%8C%E5%B0%84%E8%A1%A8%E5%B8%A6_ekrnoe.png',
     price: 150,
+    background:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597810117/omicron/%E9%80%9A%E7%94%A8%E5%8F%8C%E5%B0%84%E8%83%8C%E6%99%AF_mll3zm.png',
   },
   {
     name: '浅棕',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529683/omicron/%E6%B5%85%E6%A3%95_aiqa4g.png',
     price: 200,
+    background:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597814274/omicron/%E6%B5%85%E6%A3%95.png',
   },
   {
     name: '深棕',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529680/omicron/%E6%B7%B1%E6%A3%95_z20qes.png',
+
     price: 200,
+    background:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597813186/omicron/%E6%B5%85%E6%A3%95_op8udc.png',
   },
   {
     name: '硅胶表带',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529676/omicron/%E7%A1%85%E8%83%B6%E8%A1%A8%E5%B8%A6_yzr4r0.png',
     price: 100,
+    background:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597815477/omicron/Screen_Shot_2020-08-18_at_10.36.42_PM_ouiizs.png',
   },
   {
     name: '表带白',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529676/omicron/%E8%A1%A8%E5%B8%A6%E7%99%BD_fagcrc.png',
     price: 100,
+    background:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597808563/omicron/%E8%A1%A8%E5%B8%A6%E7%99%BD_drjzwi.png',
   },
   {
     name: '黑橘',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529683/omicron/%E9%BB%91%E6%A9%98_i34w9q.png',
     price: 600,
+    background:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597811391/omicron/97d4270dd9cca1a0d7bf7abb4ce374ca_kvduhd.jpg',
   },
   {
     name: '全黑',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529678/omicron/%E5%85%A8%E9%BB%91_jnaegd.png',
     price: 1000,
+    background:
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597805825/omicron/%E5%85%A8%E9%BB%91%E8%A1%A8%E5%B8%A6%E8%83%8C%E6%99%AF_ju9sxl.jpg',
   },
 ];
 
@@ -161,23 +177,27 @@ const BuildWatch = () => {
   const [watchFace, setWatchFace] = useState(FACES[5]);
   const [openFaceOption, setFaceOption] = useState(false);
 
-  const [watchBand, setWatchBand] = useState(BANDS[6]);
+  const [watchBand, setWatchBand] = useState(BANDS[0]);
   const [openBandOption, setBandOption] = useState(false);
-
-  const [boxBackground, setBoxBackground] = useState('#fff');
 
   return (
     <div>
       <div className='h1 text-center mt-5 mb-4'>Customize Your Watch</div>
 
-      <Card className='watch-card' style={{background: boxBackground}}>
+      <div
+        className='watch-card'
+        style={{
+          backgroundImage: `url(${watchBand.background})`, //在jsx里面只能放带变量的style,scss里放的是常量的style
+          //$里面走的是variable JS逻辑
+          backgroundSize: 'cover', //这个可以放SCSS
+        }}>
         <div className='watch-face'>
           <img src={watchFace.source} alt='watch-face' />
         </div>
         <div className='watch-band'>
           <img src={watchBand.source} alt='watch-band' />
         </div>
-      </Card>
+      </div>
 
       <div className='option-bar'>
         <Dropdown
@@ -222,14 +242,6 @@ const BuildWatch = () => {
                   key={band.name}
                   disabled={band.source === watchBand}
                   onClick={() => {
-                    if (band.name === '表带白') {
-                      setBoxBackground('rgb(38, 68, 97)');
-                    } else if (band.name === '通用双射表带') {
-                      setBoxBackground('rgb(211,211,211)');
-                    } else {
-                      setBoxBackground('#fff');
-                    }
-
                     setWatchBand(band);
                   }}>
                   {band.name}
@@ -280,6 +292,20 @@ const BuildWatch = () => {
               </td>
             </tr>
             <tr>
+              <th scope='row'>Tax</th>
+              <td></td>
+              <td>
+                <CurrencyFormat
+                  thousandSeparator={true}
+                  prefix={'$'}
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                  displayType={'text'}
+                  value={(watchFace.price + watchBand.price) * 0.12}
+                />
+              </td>
+            </tr>
+            <tr>
               <th scope='row'>Total</th>
               <td></td>
               <td>
@@ -289,7 +315,7 @@ const BuildWatch = () => {
                   decimalScale={2}
                   fixedDecimalScale={true}
                   displayType={'text'}
-                  value={watchFace.price + watchBand.price}
+                  value={(watchFace.price + watchBand.price) * 1.12}
                 />
               </td>
             </tr>
