@@ -106,3 +106,9 @@ d -> 2
 - <tr> table row
 - <th> table cell head
 - <td> table cell
+
+## onChange
+-  input select  textarea里面都有的event trigger
+-  event.target.value 能拿到状态转换之后的值
+-  event.preventDefault() 阻止除了当前input以外的event 改变
+- event.target.value默认返回string值

@@ -51,16 +51,25 @@
 .price-table {
   width: 720px;
   margin: 0 auto;
-  background: rgb(78, 155, 143);
+
+
+  div.h2 {
+    color: black;
+  }
 
   td,
   th {
-    color: rgb(228, 196, 119);
+    color: black;
+  }
+
+  .price-font {
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
   }
 
 }
 
 .btn {
-  background-color: rgb(228, 196, 119);
+  background-color: rgb(78, 155, 143);
 
 }

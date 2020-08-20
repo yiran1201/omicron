@@ -5,13 +5,13 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Card,
   Table,
 } from 'reactstrap';
 
 import React from 'react';
 
 import {useState} from 'react';
+import Pdf from 'react-to-pdf';
 
 const FACES = [
   {
@@ -120,7 +120,7 @@ const BANDS = [
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529677/omicron/%E9%80%9A%E7%94%A8%E5%8F%8C%E5%B0%84%E8%A1%A8%E5%B8%A6_ekrnoe.png',
     price: 150,
     background:
-      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597810117/omicron/%E9%80%9A%E7%94%A8%E5%8F%8C%E5%B0%84%E8%83%8C%E6%99%AF_mll3zm.png',
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597870804/omicron/Screen_Shot_2020-08-19_at_1.59.48_PM_f1tyyo.png',
   },
   {
     name: '浅棕',
@@ -137,7 +137,7 @@ const BANDS = [
 
     price: 200,
     background:
-      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597813186/omicron/%E6%B5%85%E6%A3%95_op8udc.png',
+      'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597813186/omicron/%E6%B7%B1%E6%A3%95_op8udc.png',
   },
   {
     name: '硅胶表带',
@@ -173,6 +173,8 @@ const BANDS = [
   },
 ];
 
+const ref = React.createRef();
+
 const BuildWatch = () => {
   const [watchFace, setWatchFace] = useState(FACES[5]);
   const [openFaceOption, setFaceOption] = useState(false);
@@ -181,8 +183,8 @@ const BuildWatch = () => {
   const [openBandOption, setBandOption] = useState(false);
 
   return (
-    <div>
-      <div className='h1 text-center mt-5 mb-4'>Customize Your Watch</div>
+    <div ref={ref} style={{width: 760, margin: '0 auto'}}>
+      <div className='h1 text-center mt-5'>Customize Your Watch</div>
 
       <div
         className='watch-card'
@@ -253,7 +255,7 @@ const BuildWatch = () => {
       </div>
 
       <div className='price-table'>
-        <div className='h2 text-center text-primary'>Price List</div>
+        <div className='h2 text-center'>Price List</div>
         <Table bordered className=' table-hover'>
           <thead>
             <tr>
@@ -266,7 +268,7 @@ const BuildWatch = () => {
             <tr>
               <th scope='row'>Watch Face</th>
               <td>{watchFace.name}</td>
-              <td>
+              <td className='price-font'>
                 <CurrencyFormat
                   thousandSeparator={true}
                   prefix={'$'}
@@ -280,7 +282,7 @@ const BuildWatch = () => {
             <tr>
               <th scope='row'>Watch Band</th>
               <td>{watchBand.name}</td>
-              <td>
+              <td className='price-font'>
                 <CurrencyFormat
                   thousandSeparator={true}
                   prefix={'$'}
@@ -294,7 +296,7 @@ const BuildWatch = () => {
             <tr>
               <th scope='row'>Tax</th>
               <td></td>
-              <td>
+              <td className='price-font'>
                 <CurrencyFormat
                   thousandSeparator={true}
                   prefix={'$'}
@@ -308,7 +310,7 @@ const BuildWatch = () => {
             <tr>
               <th scope='row'>Total</th>
               <td></td>
-              <td>
+              <td className='price-font'>
                 <CurrencyFormat
                   thousandSeparator={true}
                   prefix={'$'}
@@ -323,13 +325,19 @@ const BuildWatch = () => {
         </Table>
 
         <p className='text-right'>
-          <button
-            className='btn btn-primary'
-            onClick={() => {
-              window.print();
+          <Pdf
+            targetRef={ref}
+            filename='code-example.pdf'
+            options={{
+              // orientation: 'Letter',
+              unit: 'in',
             }}>
-            Print Invoice
-          </button>
+            {({toPdf}) => (
+              <button className='btn btn-primary' onClick={toPdf}>
+                Print Invoice
+              </button>
+            )}
+          </Pdf>
         </p>
       </div>
     </div>
