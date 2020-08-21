@@ -25,6 +25,12 @@ const Contract = () => {
   const [selectedTerm, setSelectedTerm] = useState('');
   const [openLogisticOption, setLogisticOption] = useState(false);
   const [selectedLogistic, setSelectedLogistic] = useState('');
+  const [clientName, setClientName] = useState('xxx');
+  const [streetAddress1, setStreetAddress1] = useState('xxx');
+  const [streetAddress2, setStreetAddress2] = useState('xxx');
+  const [city, setCity] = useState('xxx');
+  const [state, setState] = useState('xxx');
+  const [zipCode,setZipCode]=useState('xxx')
   return (
     <div className='mt-4' id='contract-page'>
       <div className='text-center'>
@@ -121,7 +127,7 @@ const Contract = () => {
         </Row>
 
         <Row>
-          <Col cs={12}>
+          <Col xs={12}>
             <div className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text' id=''>
@@ -131,11 +137,117 @@ const Contract = () => {
               <input
                 type='text'
                 className='form-control'
-                value={'xxx'}
-                onChange={() => {}}
+                value={clientName}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setClientName(event.target.value);
+                }}
               />
             </div>
           </Col>
+        </Row>
+
+        <Row>
+          <Col xs={12}>
+            <div className='input-group'>
+              <div className='input-group-prepend'>
+                <span className='input-group-text' id=''>
+                  Street Address 1
+                </span>
+              </div>
+              <input
+                type='text'
+                className='form-control'
+                value={streetAddress1}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setStreetAddress1(event.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={12}>
+            <div className='input-group'>
+              <div className='input-group-prepend'>
+                <span className='input-group-text' id=''>
+                  Street Address 2
+                </span>
+              </div>
+              <input
+                type='text'
+                className='form-control'
+                value={streetAddress2}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setStreetAddress2(event.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={6}>
+            <div className='input-group'>
+              <div className='input-group-prepend'>
+                <span className='input-group-text' id=''>
+                  City
+                </span>
+              </div>
+              <input
+                type='text'
+                className='form-control'
+                value={city}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setCity(event.target.value);
+                }}
+              />
+            </div>
+          </Col>
+          <Col xs={3}>
+            <div className='input-group'>
+              <div className='input-group-prepend'>
+                <span className='input-group-text' id=''>
+                  State
+                </span>
+              </div>
+              <input
+                type='text'
+                className='form-control'
+                value={state}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setState(event.target.value);
+                }}
+              />
+            </div>
+          </Col>
+
+          <Col xs={3}>
+            <div className='input-group'>
+              <div className='input-group-prepend'>
+                <span className='input-group-text' id=''>
+                Zip Code
+                </span>
+              </div>
+              <input
+                type='text'
+                className='form-control'
+                value={zipCode}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setZipCode(event.target.value);
+                }}
+              />
+            </div>
+          </Col>
+
+
+
         </Row>
       </Container>
     </div>
