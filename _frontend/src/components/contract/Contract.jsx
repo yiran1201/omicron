@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import './Contract.scss';
 import Logo from './logo.png';
@@ -48,16 +48,10 @@ const Contract = () => {
   const [state, setState] = useState('');
   const [zipCode, setZipCode] = useState('');
 
-  // eslint-disable-next-line
-  useEffect(() => {
-    fillDemoData();
-    //setModal(true);
-  });
-
   const onSubmit = () => {
     setSubmitForm({
-      unitPrice: unitPrice,
-      quantity: quantity,
+      unitPrice: Number(unitPrice),
+      quantity: Number(quantity),
       paymentTerm: selectedTerm,
       logistic: selectedLogistic,
       clientName: clientName,
@@ -75,11 +69,11 @@ const Contract = () => {
   const fillDemoData = () => {
     setQuantity(QUANTITY_OPTIONS[2]);
     setUnitPrice(200);
-    setClientName('abc company');
+    setClientName('DealPartner, LLC');
     setSelectedLogistic(LOGISTIC_OPTIONS[1]);
     setSelectedTerm(PAYMENT_TERMS[1]);
-    setStreetAddress1('dkjgh');
-    setStreetAddress2('biyliuj');
+    setStreetAddress1('1399 industry Ave');
+    setStreetAddress2('suite 103');
     setCity('San Francisco');
     setState('CA');
     setZipCode(94053);
@@ -114,7 +108,7 @@ const Contract = () => {
       <div className='text-center h2'>Omicron</div>
       <Container>
         <Row>
-          <Col xs={6}>
+          <Col sm={12} md={6} className='address-col mb-md-0'>
             <Dropdown
               direction='down'
               isOpen={openTermOption}
@@ -134,7 +128,7 @@ const Contract = () => {
               </DropdownMenu>
             </Dropdown>
           </Col>
-          <Col xs={6}>
+          <Col sm={12} md={6}>
             <Dropdown
               direction='down'
               isOpen={openLogisticOption}
@@ -157,7 +151,7 @@ const Contract = () => {
         </Row>
 
         <Row>
-          <Col xs={6}>
+          <Col md={6} sm={12} className='address-col mb-md-0'>
             <div className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>$</span>
@@ -174,7 +168,7 @@ const Contract = () => {
               />
             </div>
           </Col>
-          <Col xs={6}>
+          <Col md={6} sm={12}>
             <div className='input-group'>
               <div className='input-group-prepend'>
                 <label
@@ -265,7 +259,7 @@ const Contract = () => {
         </Row>
 
         <Row>
-          <Col xs={6}>
+          <Col xs={12} md={6} className='mb-md-0 address-col'>
             <div className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text' id=''>
@@ -283,7 +277,7 @@ const Contract = () => {
               />
             </div>
           </Col>
-          <Col xs={2}>
+          <Col sm={12} md={3} className='mb-md-0 address-col'>
             <div className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text' id=''>
@@ -302,11 +296,11 @@ const Contract = () => {
             </div>
           </Col>
 
-          <Col xs={4}>
+          <Col sm={12} md={3}>
             <div className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text' id=''>
-                  ZipCode
+                  Zip
                 </span>
               </div>
               <input

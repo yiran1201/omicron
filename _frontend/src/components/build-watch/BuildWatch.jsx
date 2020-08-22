@@ -176,55 +176,32 @@ const BANDS = [
 const ref = React.createRef();
 
 const BuildWatch = () => {
-  const [watchFace, setWatchFace] = useState(FACES[5]);
+  const [watchFace, setWatchFace] = useState(FACES[2]);
   const [openFaceOption, setFaceOption] = useState(false);
 
-  const [watchBand, setWatchBand] = useState(BANDS[0]);
+  const [watchBand, setWatchBand] = useState(BANDS[2]);
   const [openBandOption, setBandOption] = useState(false);
 
-  return (
-    <div ref={ref} style={{width: 760, margin: '0 auto'}}>
-      <div className='h1 text-center mt-5'>Customize Your Watch</div>
-
-      <div
-        className='watch-card'
-        style={{
-          backgroundImage: `url(${watchBand.background})`, //在jsx里面只能放带变量的style,scss里放的是常量的style
-          //$里面走的是variable JS逻辑
-          backgroundSize: 'cover', //这个可以放SCSS
-        }}>
-        <div className='watch-face'>
-          <img src={watchFace.source} alt='watch-face' />
-        </div>
-        <div className='watch-band'>
-          <img src={watchBand.source} alt='watch-band' />
-        </div>
-      </div>
-
+  const OptionBar = () => {
+    return (
       <div className='option-bar'>
         <Dropdown
-          direction='left'
+          direction='down'
           isOpen={openFaceOption}
           toggle={() => setFaceOption(!openFaceOption)}>
-          <DropdownToggle caret tag='button' className='btn btn-info'>
-            Watch Face
+          <DropdownToggle
+            caret
+            tag='button'
+            className='btn btn-secondary text-right'>
+            {watchFace.name}
           </DropdownToggle>
-          <DropdownMenu>
-            {/* <DropdownItem onClick={() => setWatchFace(FACES[0].source)}>
-              {FACES[0].name}
-            </DropdownItem>
-            <DropdownItem onClick={() => setWatchFace(FACES[1].source)}>
-              {FACES[1].name}
-            </DropdownItem>
-            <DropdownItem onClick={() => setWatchFace(FACES[2].source)}>
-              {FACES[2].name}
-            </DropdownItem> */}
+          <DropdownMenu className='watch-dropdown'>
             {FACES.map((face) => {
               return (
                 <DropdownItem
                   // 在react 下面render array,array里面的每一个元素都必须要又一个unique key
                   key={face.name}
-                  disabled={face.source === watchFace}
+                  disabled={face.name === watchFace.name}
                   onClick={() => setWatchFace(face)}>
                   {face.name}
                 </DropdownItem>
@@ -234,19 +211,21 @@ const BuildWatch = () => {
         </Dropdown>
 
         <Dropdown
-          className='watch-band-dropdown'
-          direction='right'
+          direction='down'
           isOpen={openBandOption}
           toggle={() => setBandOption(!openBandOption)}>
-          <DropdownToggle caret tag='button' className='btn btn-info'>
-            Watch Band
+          <DropdownToggle
+            caret
+            tag='button'
+            className='btn btn-secondary text-right ml-1'>
+            {watchBand.name}
           </DropdownToggle>
-          <DropdownMenu>
+          <DropdownMenu className='watch-dropdown'>
             {BANDS.map((band) => {
               return (
                 <DropdownItem
                   key={band.name}
-                  disabled={band.source === watchBand}
+                  disabled={band.name === watchBand.name}
                   onClick={() => {
                     setWatchBand(band);
                   }}>
@@ -257,93 +236,120 @@ const BuildWatch = () => {
           </DropdownMenu>
         </Dropdown>
       </div>
+    );
+  };
 
-      <div className='price-table'>
-        <div className='h2 text-center'>Price List</div>
-        <Table bordered className=' table-hover'>
-          <thead>
-            <tr>
-              <td></td>
-              <th>Name</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope='row'>Watch Face</th>
-              <td>{watchFace.name}</td>
-              <td className='price-font'>
-                <CurrencyFormat
-                  thousandSeparator={true}
-                  prefix={'$'}
-                  decimalScale={2}
-                  fixedDecimalScale={true}
-                  displayType={'text'}
-                  value={watchFace.price}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope='row'>Watch Band</th>
-              <td>{watchBand.name}</td>
-              <td className='price-font'>
-                <CurrencyFormat
-                  thousandSeparator={true}
-                  prefix={'$'}
-                  decimalScale={2}
-                  fixedDecimalScale={true}
-                  displayType={'text'}
-                  value={watchBand.price}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope='row'>Tax</th>
-              <td></td>
-              <td className='price-font'>
-                <CurrencyFormat
-                  thousandSeparator={true}
-                  prefix={'$'}
-                  decimalScale={2}
-                  fixedDecimalScale={true}
-                  displayType={'text'}
-                  value={(watchFace.price + watchBand.price) * 0.12}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope='row'>Total</th>
-              <td></td>
-              <td className='price-font'>
-                <CurrencyFormat
-                  thousandSeparator={true}
-                  prefix={'$'}
-                  decimalScale={2}
-                  fixedDecimalScale={true}
-                  displayType={'text'}
-                  value={(watchFace.price + watchBand.price) * 1.12}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </Table>
+  const PriceTable = () => {
+    return (
+      <Table bordered className='table-border table-hover mt-4'>
+        <thead>
+          <tr>
+            <th>Price List</th>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope='row'>Watch Face</th>
+            <td>{watchFace.name}</td>
+            <td className='price-font'>
+              <CurrencyFormat
+                thousandSeparator={true}
+                prefix={'$'}
+                decimalScale={2}
+                fixedDecimalScale={true}
+                displayType={'text'}
+                value={watchFace.price}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th scope='row'>Watch Band</th>
+            <td>{watchBand.name}</td>
+            <td className='price-font'>
+              <CurrencyFormat
+                thousandSeparator={true}
+                prefix={'$'}
+                decimalScale={2}
+                fixedDecimalScale={true}
+                displayType={'text'}
+                value={watchBand.price}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th scope='row'>Tax</th>
+            <td></td>
+            <td className='price-font'>
+              <CurrencyFormat
+                thousandSeparator={true}
+                prefix={'$'}
+                decimalScale={2}
+                fixedDecimalScale={true}
+                displayType={'text'}
+                value={(watchFace.price + watchBand.price) * 0.12}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th scope='row'>Total</th>
+            <td></td>
+            <td className='price-font'>
+              <CurrencyFormat
+                thousandSeparator={true}
+                prefix={'$'}
+                decimalScale={2}
+                fixedDecimalScale={true}
+                displayType={'text'}
+                value={(watchFace.price + watchBand.price) * 1.12}
+              />
+            </td>
+          </tr>
+          <tr>
+            <th colSpan={3}>
+              <Pdf
+                targetRef={ref}
+                filename='code-example.pdf'
+                options={{unit: 'in'}}>
+                {({toPdf}) => (
+                  <button
+                    className='btn btn-secondary btn-block'
+                    onClick={toPdf}>
+                    Print Invoice
+                  </button>
+                )}
+              </Pdf>
+            </th>
+          </tr>
+        </tbody>
+      </Table>
+    );
+  };
 
-        <p className='text-right'>
-          <Pdf
-            targetRef={ref}
-            filename='code-example.pdf'
-            options={{
-              // orientation: 'Letter',
-              unit: 'in',
-            }}>
-            {({toPdf}) => (
-              <button className='btn btn-info' onClick={toPdf}>
-                Print Invoice
-              </button>
-            )}
-          </Pdf>
-        </p>
+  return (
+    <div ref={ref} className='mt-4' id='build-watch-page'>
+      {/* <div className='text-center h2'>Customization</div> */}
+
+      <OptionBar />
+      <div className='model-wrapper'>
+        <div
+          className='watch-card'
+          style={{
+            backgroundImage: `url(${watchBand.background})`, //在jsx里面只能放带变量的style,scss里放的是常量的style
+            //$里面走的是variable JS逻辑
+            backgroundSize: 'cover', //这个可以放SCSS
+          }}>
+          <div className='watch-face'>
+            <img src={watchFace.source} alt='watch-face' />
+          </div>
+          <div className='watch-band'>
+            <img src={watchBand.source} alt='watch-band' />
+          </div>
+        </div>
       </div>
+
+      <PriceTable />
     </div>
   );
 };

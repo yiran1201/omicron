@@ -184,7 +184,7 @@ const Generator = (props) => {
 
 ## react router
 
-- browserrouter 加 switch相当于一个一个书本的夹子
+- browserouter 加 switch相当于一个一个书本的夹子
 - route 就相当于书本的每一页，path相当于页码，component相当于内容
 ````jsx
 <BrowserRouter>
