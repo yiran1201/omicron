@@ -206,7 +206,9 @@ const BuildWatch = () => {
           direction='left'
           isOpen={openFaceOption}
           toggle={() => setFaceOption(!openFaceOption)}>
-          <DropdownToggle caret>Watch Face</DropdownToggle>
+          <DropdownToggle caret tag='button' className='btn btn-info'>
+            Watch Face
+          </DropdownToggle>
           <DropdownMenu>
             {/* <DropdownItem onClick={() => setWatchFace(FACES[0].source)}>
               {FACES[0].name}
@@ -236,7 +238,9 @@ const BuildWatch = () => {
           direction='right'
           isOpen={openBandOption}
           toggle={() => setBandOption(!openBandOption)}>
-          <DropdownToggle caret>Watch Band</DropdownToggle>
+          <DropdownToggle caret tag='button' className='btn btn-info'>
+            Watch Band
+          </DropdownToggle>
           <DropdownMenu>
             {BANDS.map((band) => {
               return (
@@ -333,7 +337,7 @@ const BuildWatch = () => {
               unit: 'in',
             }}>
             {({toPdf}) => (
-              <button className='btn btn-primary' onClick={toPdf}>
+              <button className='btn btn-info' onClick={toPdf}>
                 Print Invoice
               </button>
             )}

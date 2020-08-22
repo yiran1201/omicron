@@ -1,42 +1,45 @@
 ## jsx
-- x是指xml- cross markup language 用别的语言写html 好处是render的更快
 
-## react 和html之前的联系
-- 在index.html里面,有
+- x 是指 xml- cross markup language 用别的语言写 html 好处是 render 的更快
+
+## react 和 html 之前的联系
+
+- 在 index.html 里面,有
+
 ```html
 <div id="root"></div>
 ```
 
-- index.js里面，有
+- index.js 里面，有
+
 ```js
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-- 将App component导入html里面
+- 将 App component 导入 html 里面
 
-- 如果在project 里面import .js或者.jsx 是不用加后缀的
-- 比如import App.jsx
+- 如果在 project 里面 import .js 或者.jsx 是不用加后缀的
+- 比如 import App.jsx
+
 ```js
 import AppComponent from './components/app/App';
 ```
 
+## 开 developer console
 
-## 开developer console
 - shift + command + c
 
-
 ## VScode 快捷键
+
 - 删掉一行 command + x
 - 删掉一行 shift + command + k
 - 移行 option + 方向键
 
-## 常用的tag
+## 常用的 tag
+
 - div -> dimension 下面可以放任何东西, 会占一行
 - span -> 可以放在任何东西下面，并且与任何东西并行
-- p -> paragraph 能放span，a, button。p会占一行
+- p -> paragraph 能放 span，a, button。p 会占一行
 - a -> link
 - button
 - form
@@ -47,12 +50,20 @@ import AppComponent from './components/app/App';
 - img -> picture
 
 ## 状态编程 state programming
+
 - 网页很多个状态
 - 控制每个状态能够显示不一样的东西
-```jsx
 
+```jsx
+const [unitPrice, setUnitPrice] = useState(500);
+```
+
+- unitPrice 是状态值
+- setUnitPrice 是改变状态值的函数也是一个 function
+- 500 是状态初始值
 
 ## Destructor 解析器
+
 ```js
 const arr = [1, 2, 3, 4]
 const [c, d] = arr
@@ -61,54 +72,125 @@ c -> 1
 d -> 2
 ```
 
-## margin 和padding的区别
-- margin是外间距
+## margin 和 padding 的区别
+
+- margin 是外间距
 - margin: up right down left 四个参数
 - margin: up (right & left) down 三个参数
 - margin：(up & down) (right & left) 两个参数
 - margin：1px 只有一个参数时表示上下左右全部相同间距
 
-- padding是内间距
-- 判断两个区别的最好方法是给一个background color去看
+- padding 是内间距
+- 判断两个区别的最好方法是给一个 background color 去看
 
 ## border
+
 - border: px type color
 - border: 8px solid red 例子
 
 ## border-radius
-- 是画弧用的，可以给px 可以给%
-- 如果要画到圆就是50%
+
+- 是画弧用的，可以给 px 可以给%
+- 如果要画到圆就是 50%
 
 ## img
-- 一般要修改img的style 都要在外面加一个div
 
-## position relative 和absolute 的关系
-- relative直接在parent
-- absolute 在children，有absolute就一定有方向，方向包括上下左右
-- default是left:0 top:0
+- 一般要修改 img 的 style 都要在外面加一个 div
+
+## position relative 和 absolute 的关系
+
+- relative 直接在 parent
+- absolute 在 children，有 absolute 就一定有方向，方向包括上下左右
+- default 是 left:0 top:0
 
 ## flexbox
-- flex-direction 为row 的情况，justify-content是左右对齐，algin-item是上下对齐
-- flex-direction 为 column 的情况，justify-content是上下对齐，algin-item是左右对齐
-- flexbox default direction是row
 
+- flex-direction 为 row 的情况，justify-content 是左右对齐，algin-item 是上下对齐
+- flex-direction 为 column 的情况，justify-content 是上下对齐，algin-item 是左右对齐
+- flexbox default direction 是 row
 
 ## onClick function
-- 任何元素上都可以有
--这个function不是马上执行的，它只有满足user click这个动作的时候才会执行
+
+- 任何元素上都可以有 -这个 function 不是马上执行的，它只有满足 user click 这个动作的时候才会执行
 
 ## 大括号的使用
-- 如果在html里面写Javascript都要加大括号 （react的规定）
-- html tag例如<div></div> 里面加property， 只有property value要加大括号，如果value是 fixed 的string可以不加大括号
+
+- 如果在 html 里面写 Javascript 都要加大括号 （react 的规定）
+- html tag 例如<div></div> 里面加 property， 只有 property value 要加大括号，如果 value 是 fixed 的 string 可以不加大括号
 
 ## table
+
 - <thead></thead> table head 最上面哪一行
 - <tr> table row
 - <th> table cell head
 - <td> table cell
 
 ## onChange
--  input select  textarea里面都有的event trigger
--  event.target.value 能拿到状态转换之后的值
--  event.preventDefault() 阻止除了当前input以外的event 改变
-- event.target.value默认返回string值
+
+- input select textarea 里面都有的 event trigger
+- event.target.value 能拿到状态转换之后的值
+- event.preventDefault() 阻止除了当前 input 以外的 event 改变
+- event.target.value 默认返回 string 值
+
+## props
+
+- parent 把 form 传递到 child
+- submitForm 是来自 parent state 的值
+- attribute 的名字是随便取的,for example 在这里是 form
+
+```jsx
+<Generator form={submitForm} />
+```
+
+- child 能通过 props 读取 parent 传进来的值
+
+```jsx
+const Generator = (props) => {
+  return <div>{props.form.logistic}</div>;
+};
+```
+
+## 书名号
+
+- 如果两个书名号之间没有 children 则书名号可以简写,下面是 example
+
+```jsx
+<div></div>
+```
+
+等同于
+
+```jsx
+<div />
+```
+
+```jsx
+<Generator></Generator>
+```
+
+等同于
+
+```jsx
+<Generator />
+```
+
+## style 里面常用的 size 暗号
+
+- xl 大于 1200 px
+- lg 是 large 992 到 1200 之间
+- md 是 medium 768 到 992 之间
+- sm 是 small 576 到 768 之间
+- xs 小于 576
+
+## react router
+
+- browserrouter 加 switch相当于一个一个书本的夹子
+- route 就相当于书本的每一页，path相当于页码，component相当于内容
+````jsx
+<BrowserRouter>
+  <Switch>
+    <Route path='/' component={BuildWatchPage} exact />
+    <Route path='/contract' component={ContractPage} exact />
+  </Switch>
+</BrowserRouter>
+````

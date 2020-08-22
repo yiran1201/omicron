@@ -1,6 +1,8 @@
+import React, {useState, useEffect} from 'react';
+
 import './Contract.scss';
-import React, {useState} from 'react';
 import Logo from './logo.png';
+
 import {
   Container,
   Row,
@@ -9,7 +11,13 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from 'reactstrap';
+import Generator from './Generator';
 
 const QUANTITY_OPTIONS = [300, 500, 1000, 1500];
 
@@ -21,16 +29,83 @@ const LOGISTIC_OPTIONS = [
 const Contract = () => {
   const [quantity, setQuantity] = useState(QUANTITY_OPTIONS[0]);
   const [unitPrice, setUnitPrice] = useState(500);
+  const [clientName, setClientName] = useState('');
+  const [submitForm, setSubmitForm] = useState({});
+
   const [openTermOption, setTermOption] = useState(false);
   const [selectedTerm, setSelectedTerm] = useState('');
+
   const [openLogisticOption, setLogisticOption] = useState(false);
   const [selectedLogistic, setSelectedLogistic] = useState('');
-  const [clientName, setClientName] = useState('xxx');
-  const [streetAddress1, setStreetAddress1] = useState('xxx');
-  const [streetAddress2, setStreetAddress2] = useState('xxx');
-  const [city, setCity] = useState('xxx');
-  const [state, setState] = useState('xxx');
-  const [zipCode,setZipCode]=useState('xxx')
+
+  // Modal
+  const [openModal, setModal] = useState(false);
+
+  // Address
+  const [streetAddress1, setStreetAddress1] = useState('');
+  const [streetAddress2, setStreetAddress2] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipCode, setZipCode] = useState('');
+
+  // eslint-disable-next-line
+  useEffect(() => {
+    fillDemoData();
+    //setModal(true);
+  });
+
+  const onSubmit = () => {
+    setSubmitForm({
+      unitPrice: unitPrice,
+      quantity: quantity,
+      paymentTerm: selectedTerm,
+      logistic: selectedLogistic,
+      clientName: clientName,
+      address: {
+        streetAddress1: streetAddress1,
+        streetAddress2: streetAddress2,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+      },
+    });
+    setModal(true);
+  };
+
+  const fillDemoData = () => {
+    setQuantity(QUANTITY_OPTIONS[2]);
+    setUnitPrice(200);
+    setClientName('abc company');
+    setSelectedLogistic(LOGISTIC_OPTIONS[1]);
+    setSelectedTerm(PAYMENT_TERMS[1]);
+    setStreetAddress1('dkjgh');
+    setStreetAddress2('biyliuj');
+    setCity('San Francisco');
+    setState('CA');
+    setZipCode(94053);
+  };
+
+  const InvoiceModal = () => {
+    return (
+      <Modal isOpen={openModal}>
+        <ModalHeader toggle={() => setModal(false)}>
+          Purchase Agreement
+        </ModalHeader>
+        <ModalBody>
+          <Generator form={submitForm} />
+        </ModalBody>
+        <ModalFooter>
+          <Button color='secondary' onClick={() => setModal(false)}>
+            Cancel
+          </Button>
+          <Button color='primary' onClick={() => setModal(false)}>
+            Accept
+          </Button>
+        </ModalFooter>
+      </Modal>
+    );
+  };
+
   return (
     <div className='mt-4' id='contract-page'>
       <div className='text-center'>
@@ -208,7 +283,7 @@ const Contract = () => {
               />
             </div>
           </Col>
-          <Col xs={3}>
+          <Col xs={2}>
             <div className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text' id=''>
@@ -227,11 +302,11 @@ const Contract = () => {
             </div>
           </Col>
 
-          <Col xs={3}>
+          <Col xs={4}>
             <div className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text' id=''>
-                Zip Code
+                  ZipCode
                 </span>
               </div>
               <input
@@ -245,11 +320,31 @@ const Contract = () => {
               />
             </div>
           </Col>
+        </Row>
 
+        <Row>
+          <Col xs={12}>
+            <button
+              className='btn btn-warning btn-block'
+              onClick={() => fillDemoData()}>
+              Demo
+            </button>
+          </Col>
+        </Row>
 
-
+        <Row>
+          <Col xs={12}>
+            <button
+              className='btn btn-primary btn-block'
+              onClick={() => onSubmit()}>
+              Generate
+            </button>
+          </Col>
         </Row>
       </Container>
+
+      {/** Modal是一个function，一般放在最外面div*/}
+      <InvoiceModal />
     </div>
   );
 };
