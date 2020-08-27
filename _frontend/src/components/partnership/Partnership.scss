@@ -1,0 +1,17 @@
+#samples-page {
+  max-width: 750px;
+  margin: 0 auto;
+
+  .brand-card {
+    height: 120px;
+  }
+
+  .brand-card:hover {
+    cursor: pointer;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+  }
+
+  .chart-wrapper {
+    overflow-x: auto;
+  }
+}

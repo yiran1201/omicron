@@ -7,4 +7,13 @@
   .row {
     margin-bottom: 1rem;
   }
+
+}
+
+.invoice-modal {
+  max-width: 80% !important;
+
+  @media (max-width: 578px) { // media query
+    max-width: 100% !important;
+  }
 }

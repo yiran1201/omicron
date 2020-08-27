@@ -115,10 +115,11 @@ const FACES = [
 
 const BANDS = [
   {
-    name: '通用双射表带',
+    name: '通用双射',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529677/omicron/%E9%80%9A%E7%94%A8%E5%8F%8C%E5%B0%84%E8%A1%A8%E5%B8%A6_ekrnoe.png',
     price: 150,
+    caseColor: '#444',
     background:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597870804/omicron/Screen_Shot_2020-08-19_at_1.59.48_PM_f1tyyo.png',
   },
@@ -127,6 +128,7 @@ const BANDS = [
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529683/omicron/%E6%B5%85%E6%A3%95_aiqa4g.png',
     price: 200,
+    caseColor: '#8d6e63',
     background:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597814274/omicron/%E6%B5%85%E6%A3%95.png',
   },
@@ -134,8 +136,8 @@ const BANDS = [
     name: '深棕',
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529680/omicron/%E6%B7%B1%E6%A3%95_z20qes.png',
-
     price: 200,
+    caseColor: '#795548',
     background:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597813186/omicron/%E6%B7%B1%E6%A3%95_op8udc.png',
   },
@@ -144,6 +146,7 @@ const BANDS = [
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529676/omicron/%E7%A1%85%E8%83%B6%E8%A1%A8%E5%B8%A6_yzr4r0.png',
     price: 100,
+    caseColor: '#444',
     background:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597815477/omicron/Screen_Shot_2020-08-18_at_10.36.42_PM_ouiizs.png',
   },
@@ -152,6 +155,7 @@ const BANDS = [
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529676/omicron/%E8%A1%A8%E5%B8%A6%E7%99%BD_fagcrc.png',
     price: 100,
+    caseColor: '#444',
     background:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597808563/omicron/%E8%A1%A8%E5%B8%A6%E7%99%BD_drjzwi.png',
   },
@@ -160,6 +164,7 @@ const BANDS = [
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529683/omicron/%E9%BB%91%E6%A9%98_i34w9q.png',
     price: 600,
+    caseColor: '#444',
     background:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597811391/omicron/97d4270dd9cca1a0d7bf7abb4ce374ca_kvduhd.jpg',
   },
@@ -168,6 +173,7 @@ const BANDS = [
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529678/omicron/%E5%85%A8%E9%BB%91_jnaegd.png',
     price: 1000,
+    caseColor: '#444',
     background:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597805825/omicron/%E5%85%A8%E9%BB%91%E8%A1%A8%E5%B8%A6%E8%83%8C%E6%99%AF_ju9sxl.jpg',
   },
@@ -192,7 +198,7 @@ const BuildWatch = () => {
           <DropdownToggle
             caret
             tag='button'
-            className='btn btn-secondary text-right'>
+            className='btn btn-circle btn-theme'>
             {watchFace.name}
           </DropdownToggle>
           <DropdownMenu className='watch-dropdown'>
@@ -217,7 +223,7 @@ const BuildWatch = () => {
           <DropdownToggle
             caret
             tag='button'
-            className='btn btn-secondary text-right ml-1'>
+            className='btn btn-circle btn-theme'>
             {watchBand.name}
           </DropdownToggle>
           <DropdownMenu className='watch-dropdown'>
@@ -241,7 +247,7 @@ const BuildWatch = () => {
 
   const PriceTable = () => {
     return (
-      <Table bordered className='table-border table-hover mt-4'>
+      <Table bordered className='table-border table-hover'>
         <thead>
           <tr>
             <th>Price List</th>
@@ -313,9 +319,7 @@ const BuildWatch = () => {
                 filename='code-example.pdf'
                 options={{unit: 'in'}}>
                 {({toPdf}) => (
-                  <button
-                    className='btn btn-secondary btn-block'
-                    onClick={toPdf}>
+                  <button className='btn btn-theme btn-block' onClick={toPdf}>
                     Print Invoice
                   </button>
                 )}
@@ -330,8 +334,17 @@ const BuildWatch = () => {
   return (
     <div ref={ref} className='mt-4' id='build-watch-page'>
       {/* <div className='text-center h2'>Customization</div> */}
+      <nav aria-label='breadcrumb'>
+        <ol className='breadcrumb'>
+          <li className='breadcrumb-item active' aria-current='page'>
+            Omicron
+          </li>
+          <li className='breadcrumb-item active' aria-current='page'>
+            Build Your Watch
+          </li>
+        </ol>
+      </nav>
 
-      <OptionBar />
       <div className='model-wrapper'>
         <div
           className='watch-card'
@@ -340,7 +353,9 @@ const BuildWatch = () => {
             //$里面走的是variable JS逻辑
             backgroundSize: 'cover', //这个可以放SCSS
           }}>
-          <div className='watch-face'>
+          <div
+            className='watch-face'
+            style={{border: `6px outset ${watchBand.caseColor}`}}>
             <img src={watchFace.source} alt='watch-face' />
           </div>
           <div className='watch-band'>
@@ -348,6 +363,8 @@ const BuildWatch = () => {
           </div>
         </div>
       </div>
+
+      <OptionBar />
 
       <PriceTable />
     </div>

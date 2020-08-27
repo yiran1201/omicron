@@ -81,7 +81,7 @@ const Contract = () => {
 
   const InvoiceModal = () => {
     return (
-      <Modal isOpen={openModal}>
+      <Modal isOpen={openModal} className='invoice-modal'>
         <ModalHeader toggle={() => setModal(false)}>
           Purchase Agreement
         </ModalHeader>
@@ -211,6 +211,7 @@ const Contract = () => {
                   event.preventDefault();
                   setClientName(event.target.value);
                 }}
+                required
               />
             </div>
           </Col>

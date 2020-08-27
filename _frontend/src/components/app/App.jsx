@@ -2,7 +2,7 @@ import './App.scss';
 import React, {useState} from 'react';
 import BuildWatchPage from '../build-watch/BuildWatch';
 import ContractPage from '../contract/Contract';
-import SamplesPage from '../samples/Samples';
+import PartnershipPage from '../partnership/Partnership';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import {
@@ -33,7 +33,7 @@ const App = () => {
               <NavLink href='/contract'>Contract</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='/samples'>Samples</NavLink>
+              <NavLink href='/partnership'>Partnership</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
@@ -49,7 +49,7 @@ const App = () => {
         <Switch>
           <Route path='/' component={BuildWatchPage} exact />
           <Route path='/contract' component={ContractPage} exact />
-          <Route path='/samples' component={SamplesPage} exact />
+          <Route path='/partnership' component={PartnershipPage} exact />
         </Switch>
       </BrowserRouter>
     </div>
