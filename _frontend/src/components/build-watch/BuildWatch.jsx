@@ -155,7 +155,7 @@ const BANDS = [
     source:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529676/omicron/%E8%A1%A8%E5%B8%A6%E7%99%BD_fagcrc.png',
     price: 100,
-    caseColor: '#444',
+    caseColor: '#eceff1',
     background:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597808563/omicron/%E8%A1%A8%E5%B8%A6%E7%99%BD_drjzwi.png',
   },
@@ -179,6 +179,11 @@ const BANDS = [
   },
 ];
 
+const WARRANTY = [
+  {option: '12 months', price: 40},
+  {option: '24 months', price: 80},
+];
+
 const ref = React.createRef();
 
 const BuildWatch = () => {
@@ -187,6 +192,9 @@ const BuildWatch = () => {
 
   const [watchBand, setWatchBand] = useState(BANDS[2]);
   const [openBandOption, setBandOption] = useState(false);
+
+  const [warranty, setWarranty] = useState(WARRANTY[1]);
+  const [openWarrantyOption, setWarrantyOption] = useState(false);
 
   const OptionBar = () => {
     return (
@@ -210,6 +218,30 @@ const BuildWatch = () => {
                   disabled={face.name === watchFace.name}
                   onClick={() => setWatchFace(face)}>
                   {face.name}
+                </DropdownItem>
+              );
+            })}
+          </DropdownMenu>
+        </Dropdown>
+
+        <Dropdown
+          direction='down'
+          isOpen={openWarrantyOption}
+          toggle={() => setWarrantyOption(!openWarrantyOption)}>
+          <DropdownToggle
+            caret
+            tag='button'
+            className='btn btn-circle btn-theme'>
+            {warranty.option}
+          </DropdownToggle>
+          <DropdownMenu className='watch-dropdown'>
+            {WARRANTY.map((warrantyItem) => {
+              return (
+                <DropdownItem
+                  key={warrantyItem.option}
+                  disabled={warrantyItem.option === warranty.option}
+                  onClick={() => setWarranty(warrantyItem)}>
+                  {warrantyItem.option}
                 </DropdownItem>
               );
             })}
@@ -285,6 +317,21 @@ const BuildWatch = () => {
             </td>
           </tr>
           <tr>
+            <th scope='row'>Warranty</th>
+            <td></td>
+            <td className='price-font'>
+              <CurrencyFormat
+                thousandSeparator={true}
+                prefix={'$'}
+                decimalScale={2}
+                fixedDecimalScale={true}
+                displayType={'text'}
+                value={warranty.price}
+              />
+            </td>
+          </tr>
+
+          <tr>
             <th scope='row'>Tax</th>
             <td></td>
             <td className='price-font'>
@@ -294,7 +341,9 @@ const BuildWatch = () => {
                 decimalScale={2}
                 fixedDecimalScale={true}
                 displayType={'text'}
-                value={(watchFace.price + watchBand.price) * 0.12}
+                value={
+                  (watchFace.price + watchBand.price + warranty.price) * 0.12
+                }
               />
             </td>
           </tr>
@@ -308,7 +357,7 @@ const BuildWatch = () => {
                 decimalScale={2}
                 fixedDecimalScale={true}
                 displayType={'text'}
-                value={(watchFace.price + watchBand.price) * 1.12}
+                value={(watchFace.price + watchBand.price+warranty.price) * 1.12}
               />
             </td>
           </tr>
