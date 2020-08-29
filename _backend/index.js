@@ -6,6 +6,7 @@ import Express from 'express';
 import InvoiceRoute from './routes/invoice-route';
 import MockRoute from './routes/mock-route';
 import WatchRoute from './routes/watch-route';
+
 //数据库连接在configs/database.js文件
 import bodyParser from 'body-parser';
 
