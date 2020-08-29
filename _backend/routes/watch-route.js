@@ -5,6 +5,7 @@ import WatchBandModel from '../models/watch-band-model';
 import {Types} from 'mongoose';
 
 import PartnerModel from '../models/partner-model';
+import {parse} from 'path';
 const router = Router();
 
 /**************
@@ -26,7 +27,15 @@ router.post('/face', async (request, response) => {
 router.get('/face/all', async (request, response) => {
   console.log('***GET /api/watch/face/all');
   const faces = await WatchFaceModel.find();
-  response.status(200).json(faces);
+  const parsedFaces = [];
+  for (const face of faces) {
+    parsedFaces.push({
+      name: face.name,
+      source: face.source,
+      price: face.price,
+    });
+  }
+  response.status(200).json(parsedFaces);
 });
 
 /**************
@@ -48,7 +57,18 @@ router.post('/band', async (request, response) => {
 router.get('/band/all', async (request, response) => {
   console.log('***GET /api/watch/band/all');
   const bands = await WatchBandModel.find();
-  response.status(200).json(bands);
+  const parsedBands = [];
+  for (const band of bands) {
+    parsedBands.push({
+      //在后端做data clean up
+      name: band.name,
+      source: band.source,
+      price: band.price,
+      caseColor: band.case_color,
+      background: band.background,
+    });
+  }
+  response.status(200).json(parsedBands);
 });
 
 /***********
@@ -69,7 +89,19 @@ router.post('/partner', async (request, response) => {
 router.get('/partner/all', async (request, response) => {
   console.log('***GET /api/watch/partner/all');
   const partners = await PartnerModel.find();
-  response.status(200).json(partners);
+  const parsedPartners = [];
+  for (const partner of partners) {
+    const parsedShop = partner.shop.map((item) => {
+      return [item.country, item.count];
+    });
+    parsedShop.unshift(['Country', 'Shops']);
+    parsedPartners.push({
+      name: partner.name,
+      source: partner.source,
+      shop: parsedShop,
+    });
+  }
+  response.status(200).json(parsedPartners);
 });
 
 /*********

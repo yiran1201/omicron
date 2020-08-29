@@ -12,6 +12,7 @@ import React from 'react';
 
 import {useState} from 'react';
 import Pdf from 'react-to-pdf';
+import {useEffect} from 'react';
 
 const FACES = [
   {
@@ -184,8 +185,14 @@ const WARRANTY = [
   {option: '24 months', price: 80},
 ];
 
+const ORIGIN = 'http://localhost:7777';
+const ALL_WATCH_FACE_API = ORIGIN + '/api/watch/face/all';
+const ALL_WATCH_BAND_API = ORIGIN + '/api/watch/band/all';
 const BuildWatch = () => {
   const ref = React.createRef();
+
+  const [watchFaces, setWatchFaces] = useState([]);
+  const [watchBands, setWatchBands] = useState([]);
 
   const [watchFace, setWatchFace] = useState(FACES[2]);
   const [openFaceOption, setFaceOption] = useState(false);
@@ -195,6 +202,23 @@ const BuildWatch = () => {
 
   const [warranty, setWarranty] = useState(WARRANTY[1]);
   const [openWarrantyOption, setWarrantyOption] = useState(false);
+
+  useEffect(() => {
+    async function fetchWatchFaces() {
+      const response = await fetch(ALL_WATCH_FACE_API);
+      const watchFaces = await response.json();
+      setWatchFaces(watchFaces);
+      console.log(watchFaces);
+    }
+    fetchWatchFaces();
+    async function fetchWatchBands() {
+      const response = await fetch(ALL_WATCH_BAND_API);
+      const watchBands = await response.json();
+      setWatchBands(watchBands);
+      console.log(watchBands);
+    }
+    fetchWatchBands();
+  }, []);
 
   const OptionBar = () => {
     return (

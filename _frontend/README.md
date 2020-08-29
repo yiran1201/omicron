@@ -204,3 +204,12 @@ const Generator = (props) => {
 ## debugger
 - 是一个浏览器的命令，主要是在代码里设置停止点以便查看上文的值
 - 可以放在前段的javascript code里面
+
+## useEffect
+- 是一个生命周期function,会被react function自己call 不需要手动trigger
+- 当状态改变的时候或者render改变的时候useEffect会被trigger
+- 状态改变会导致整个component re-render
+
+## fetch
+- 是一个async call 会返回一个promise，因此要用await来等它完成
+- 要看fetch 的结果，要去call .json(),也是一个promise，因此也要加一个await来等它完成

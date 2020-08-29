@@ -1,5 +1,7 @@
 import './configs/database';
 
+import cors from 'cors'; //Cross Origin Resource Share
+
 import CatRoute from './routes/cat-route';
 import DogRoute from './routes/dog-route';
 import Express from 'express';
@@ -13,6 +15,7 @@ import bodyParser from 'body-parser';
 const port = 7777;
 const app = Express();
 
+app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 

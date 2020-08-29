@@ -3,6 +3,7 @@ import './Partnership.scss';
 import {Container, Row, Card, Col, CardBody} from 'reactstrap';
 import {Chart} from 'react-google-charts';
 import {useState} from 'react';
+import {useEffect} from 'react';
 
 const BRANDS = [
   {
@@ -127,9 +128,26 @@ const BRANDS = [
   },
 ];
 
-const Samples = () => {
+const ORIGIN = 'http://localhost:7777';
+const ALL_PARTNER_API = ORIGIN + '/api/watch/partner/all';
+
+const Partnership = () => {
   const [selectedBrand, setBrand] = useState(BRANDS[0]);
 
+  useEffect(() => {
+    async function fetchPartners() {
+      const response = await fetch(ALL_PARTNER_API);
+      const partners = await response.json();
+      console.log(partners);
+    }
+    fetchPartners();
+
+    // console.log(111);
+    // setBrand(BRANDS[2])
+    // debugger
+  }, []);
+
+  // console.log(222);
   return (
     <div className='my-4' id='samples-page'>
       <Container>
@@ -193,4 +211,4 @@ const Samples = () => {
   );
 };
 
-export default Samples;
+export default Partnership;
