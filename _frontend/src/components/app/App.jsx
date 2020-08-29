@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import BuildWatchPage from '../build-watch/BuildWatch';
 import ContractPage from '../contract/Contract';
 import PartnershipPage from '../partnership/Partnership';
+import TestPage from '../test/Test';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import {
@@ -50,6 +51,7 @@ const App = () => {
           <Route path='/' component={BuildWatchPage} exact />
           <Route path='/contract' component={ContractPage} exact />
           <Route path='/partnership' component={PartnershipPage} exact />
+          <Route path='/test' component={TestPage} exact />
         </Switch>
       </BrowserRouter>
     </div>

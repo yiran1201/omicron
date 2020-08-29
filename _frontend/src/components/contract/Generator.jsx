@@ -10,7 +10,7 @@ const Generator = (props) => {
   const logistic = props.form.logistic;
 
   return (
-    <div>
+    <>
       <div className='h2 text-center text-primary'>Purchase Agreement</div>
       <p>
         THIS PURCHASE AGREEMENT (the "Agreement") dated{' '}
@@ -191,11 +191,11 @@ const Generator = (props) => {
         }
       </p>
 
-      <div>Omicron</div>
-      <div>per:____________________</div>
-      <div>Purchaser</div>
-      <div>per:____________________</div>
-    </div>
+      <p>Omicron</p>
+      <p>per:____________________</p>
+      <p>Purchaser</p>
+      <p>per:____________________</p>
+    </>
   );
 };
 

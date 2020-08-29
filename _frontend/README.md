@@ -194,3 +194,13 @@ const Generator = (props) => {
   </Switch>
 </BrowserRouter>
 ````
+## form submit
+- <AvForm></AvForm>的底层是<form></form>
+- 会跟一个onSubmit={}的property
+- 通过<button type="submit">来trigger
+- 在form下面的所有<button>都会default成type='submit'
+- <button type='button'>不参与form的逻辑
+
+## debugger
+- 是一个浏览器的命令，主要是在代码里设置停止点以便查看上文的值
+- 可以放在前段的javascript code里面

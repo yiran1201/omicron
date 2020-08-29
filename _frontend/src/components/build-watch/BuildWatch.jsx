@@ -184,9 +184,9 @@ const WARRANTY = [
   {option: '24 months', price: 80},
 ];
 
-const ref = React.createRef();
-
 const BuildWatch = () => {
+  const ref = React.createRef();
+
   const [watchFace, setWatchFace] = useState(FACES[2]);
   const [openFaceOption, setFaceOption] = useState(false);
 
@@ -318,7 +318,7 @@ const BuildWatch = () => {
           </tr>
           <tr>
             <th scope='row'>Warranty</th>
-            <td></td>
+            <td>{warranty.option}</td>
             <td className='price-font'>
               <CurrencyFormat
                 thousandSeparator={true}
@@ -357,7 +357,9 @@ const BuildWatch = () => {
                 decimalScale={2}
                 fixedDecimalScale={true}
                 displayType={'text'}
-                value={(watchFace.price + watchBand.price+warranty.price) * 1.12}
+                value={
+                  (watchFace.price + watchBand.price + warranty.price) * 1.12
+                }
               />
             </td>
           </tr>
@@ -365,7 +367,7 @@ const BuildWatch = () => {
             <th colSpan={3}>
               <Pdf
                 targetRef={ref}
-                filename='code-example.pdf'
+                filename='omicron-invoice.pdf'
                 options={{unit: 'in'}}>
                 {({toPdf}) => (
                   <button className='btn btn-theme btn-block' onClick={toPdf}>
