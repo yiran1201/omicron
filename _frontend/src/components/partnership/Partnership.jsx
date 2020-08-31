@@ -132,12 +132,14 @@ const ORIGIN = 'http://localhost:7777';
 const ALL_PARTNER_API = ORIGIN + '/api/watch/partner/all';
 
 const Partnership = () => {
+  const [brands,setBrands]=useState([])
   const [selectedBrand, setBrand] = useState(BRANDS[0]);
 
   useEffect(() => {
     async function fetchPartners() {
       const response = await fetch(ALL_PARTNER_API);
       const partners = await response.json();
+      setBrands(partners)
       console.log(partners);
     }
     fetchPartners();
