@@ -13,35 +13,46 @@ import {useState} from 'react';
 const Test = () => {
   //watch
   const [watchFace, setWatchFace] = useState('');
+  const [watchFaceSource, setWatchFaceSource] = useState('');
   const [watchBand, setWatchBand] = useState('');
-  const [watchPrice,setWatchPrice]=useState(0);
+  const [watchBandSource, setWatchBandSource] = useState('');
+  const [watchPrice, setWatchPrice] = useState(0);
+  const [watchBandPrice, setWatchbandPrice] = useState(0);
+  const [warranty, setWarranty] = useState(0);
+  const [warrantyPrice, setWarrantyPrice] = useState(0);
 
   // const [unitPrice, setUnitPrice] = useState(100);
   // const [brands, setBrands] = useState([]);
   //address
 
-  // const [clientName, setClientName] = useState('');
-  // const [streetAddress1, setStreetAddress1] = useState('');
+  const [clientName, setClientName] = useState('');
+  const [streetAddress1, setStreetAddress1] = useState('');
   // const [streetAddress2, setStreetAddress2] = useState('');
-  // const [city, setCity] = useState('');
-  // const [state, setState] = useState('');
-  // const [zipCode, setZipCode] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipCode, setZipCode] = useState('');
   //formSubmit
   const [submitForm, setSubmitForm] = useState({});
+
+  //partnership
+  const [brands, setBrands] = useState('');
+  const [brandSource, setBrandSource] = useState('');
+  const [country, setCountry] = useState('');
+  const [shops, setShops] = useState(0);
 
   return (
     <div>
       <div className='mt-4' id='test-page'>
-      <nav aria-label='breadcrumb'>
-        <ol className='breadcrumb'>
-          <li className='breadcrumb-item active' aria-current='page'>
-            Omicron
-          </li>
-          <li className='breadcrumb-item active' aria-current='page'>
-            Test Field
-          </li>
-        </ol>
-      </nav>
+        <nav aria-label='breadcrumb'>
+          <ol className='breadcrumb'>
+            <li className='breadcrumb-item active' aria-current='page'>
+              Omicron
+            </li>
+            <li className='breadcrumb-item active' aria-current='page'>
+              Test Field
+            </li>
+          </ol>
+        </nav>
       </div>
 
       <AvForm
@@ -54,13 +65,13 @@ const Test = () => {
         }}>
         <Container>
           <Row>
-            <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+            <Col md={4} sm={12} className='watchFace-col mb-md-0'>
               <AvGroup className='input-group'>
                 <div className='input-group-prepend'>
                   <span className='input-group-text'>Watch Face</span>
                 </div>
                 <AvInput
-                  quired
+                  required
                   type='text'
                   className='form-control'
                   name='watchFace'
@@ -75,7 +86,50 @@ const Test = () => {
               </AvGroup>
             </Col>
 
-            <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+            <Col md={4} sm={12} className='watchFace-col mb-md-0'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Watch Face Source</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  className='form-control'
+                  name='watchFace'
+                  value={watchFaceSource}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setWatchFaceSource(event.target.value);
+                  }}
+                />
+
+                <AvFeedback>Enter watch face source</AvFeedback>
+              </AvGroup>
+            </Col>
+            <Col md={4} sm={12} className='watchFace-col mb-md-0'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Watch Price </span>
+                </div>
+                <AvInput
+                  required
+                  type='number'
+                  className='form-control'
+                  name='watchBand'
+                  value={watchPrice}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setWatchPrice(event.target.value);
+                  }}
+                />
+
+                <AvFeedback>Enter watch price</AvFeedback>
+              </AvGroup>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col md={4} sm={12} className='watchFace-col mb-md-0'>
               <AvGroup className='input-group'>
                 <div className='input-group-prepend'>
                   <span className='input-group-text'>Watch Band</span>
@@ -96,32 +150,291 @@ const Test = () => {
               </AvGroup>
             </Col>
 
-
-          </Row>
-
-
-          <Row>
-          <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+            <Col md={4} sm={12} className='watchFace-col mb-md-0'>
               <AvGroup className='input-group'>
                 <div className='input-group-prepend'>
-                  <span className='input-group-text'>Watch Price </span>
+                  <span className='input-group-text'>Watch Band Source</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  className='form-control'
+                  name='watchBandSource'
+                  value={watchBandSource}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setWatchBandSource(event.target.value);
+                  }}
+                />
+
+                <AvFeedback>Enter watch band link</AvFeedback>
+              </AvGroup>
+            </Col>
+
+            <Col md={4} sm={12} className='watchFace-col mb-md-0'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Watchband Price </span>
                 </div>
                 <AvInput
                   required
                   type='number'
                   className='form-control'
                   name='watchBand'
-                  value={watchPrice}
+                  value={watchBandPrice}
                   onChange={(event) => {
                     event.preventDefault();
-                    setWatchPrice(event.target.value);
+                    setWatchbandPrice(event.target.value);
                   }}
                 />
 
-                <AvFeedback>Enter watch price</AvFeedback>
+                <AvFeedback>Enter watchband price</AvFeedback>
+              </AvGroup>
+            </Col>
+          </Row>
+
+          <Row></Row>
+
+          <Row>
+            <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Warranty Month</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  className='form-control'
+                  name='watchBand'
+                  value={warranty}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setWarranty(event.target.value);
+                  }}
+                />
+
+                <AvFeedback>Enter warranty month</AvFeedback>
               </AvGroup>
             </Col>
 
+            <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Warranty Price</span>
+                </div>
+                <AvInput
+                  required
+                  type='number'
+                  className='form-control'
+                  name='watchBand'
+                  value={warrantyPrice}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setWarrantyPrice(event.target.value);
+                  }}
+                />
+
+                <AvFeedback>Enter warranty price</AvFeedback>
+              </AvGroup>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Client Name</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  className='form-control'
+                  name='watchBand'
+                  value={clientName}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setClientName(event.target.value);
+                  }}
+                />
+
+                <AvFeedback>Enter warranty price</AvFeedback>
+              </AvGroup>
+            </Col>
+
+            <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>streetAddress1</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  className='form-control'
+                  name='watchBand'
+                  value={streetAddress1}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setStreetAddress1(event.target.value);
+                  }}
+                />
+
+                <AvFeedback>Enter warranty price</AvFeedback>
+              </AvGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} md={6} className='mb-md-0 address-col'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>City</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  className='form-control'
+                  name='city'
+                  value={city}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setCity(event.target.value);
+                  }}
+                />
+                <AvFeedback>Enter City</AvFeedback>
+              </AvGroup>
+            </Col>
+
+            <Col sm={12} md={3} className='mb-md-0 address-col'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>State</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  name='state'
+                  className='form-control'
+                  value={state}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setState(event.target.value);
+                  }}
+                />
+                <AvFeedback>Enter State</AvFeedback>
+              </AvGroup>
+            </Col>
+
+            <Col sm={12} md={3}>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Zip</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  name='zipCode'
+                  className='form-control'
+                  value={zipCode}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setZipCode(event.target.value);
+                  }}
+                />
+                <AvFeedback>Enter zip code</AvFeedback>
+              </AvGroup>
+            </Col>
+          </Row>
+          <nav aria-label='breadcrumb'>
+            <ol className='breadcrumb'>
+              <li className='breadcrumb-item active' aria-current='page'>
+                Omicron
+              </li>
+              <li className='breadcrumb-item active' aria-current='page'>
+                Partnership Input
+              </li>
+            </ol>
+          </nav>
+
+          <Row>
+            <Col xs={12} md={6}>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Brands</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  name='brands'
+                  className='form-control'
+                  value={brands}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setBrands(event.target.value);
+                  }}
+                />
+                <AvFeedback>Enter brands name</AvFeedback>
+              </AvGroup>
+            </Col>
+
+            <Col xs={12} md={6}>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Country</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  name='country'
+                  className='form-control'
+                  value={country}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setCountry(event.target.value);
+                  }}
+                />
+                <AvFeedback>Enter country</AvFeedback>
+              </AvGroup>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col xs={12} md={6}>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Brand Source Link</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  name='country'
+                  className='form-control'
+                  value={brandSource}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setBrandSource(event.target.value);
+                  }}
+                />
+                <AvFeedback>Enter country</AvFeedback>
+              </AvGroup>
+            </Col>
+            <Col xs={12} md={6}>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Shops</span>
+                </div>
+                <AvInput
+                  required
+                  type='number'
+                  name='shops'
+                  className='form-control'
+                  value={shops}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setShops(event.target.value);
+                  }}
+                />
+                <AvFeedback>Enter shops number </AvFeedback>
+              </AvGroup>
+            </Col>
           </Row>
         </Container>
       </AvForm>
