@@ -13,11 +13,13 @@ import {useState} from 'react';
 const Test = () => {
   //watch
   const [watchFace, setWatchFace] = useState('');
+  const [watchCase, setWatchCase] = useState('');
   const [watchFaceSource, setWatchFaceSource] = useState('');
   const [watchBand, setWatchBand] = useState('');
   const [watchBandSource, setWatchBandSource] = useState('');
   const [watchPrice, setWatchPrice] = useState(0);
   const [watchBandPrice, setWatchbandPrice] = useState(0);
+  const [background, setBackground] = useState('');
   const [warranty, setWarranty] = useState(0);
   const [warrantyPrice, setWarrantyPrice] = useState(0);
 
@@ -102,7 +104,6 @@ const Test = () => {
                     setWatchFaceSource(event.target.value);
                   }}
                 />
-
                 <AvFeedback>Enter watch face source</AvFeedback>
               </AvGroup>
             </Col>
@@ -192,31 +193,53 @@ const Test = () => {
               </AvGroup>
             </Col>
           </Row>
-
-          <Row></Row>
-
           <Row>
-            <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+            <Col md={12} sm={12} className='watchFace-col mb-md-0'>
               <AvGroup className='input-group'>
                 <div className='input-group-prepend'>
-                  <span className='input-group-text'>Warranty Month</span>
+                  <span className='input-group-text'>Background Source</span>
                 </div>
                 <AvInput
                   required
                   type='text'
                   className='form-control'
-                  name='watchBand'
-                  value={warranty}
+                  name='background'
+                  value={background}
                   onChange={(event) => {
                     event.preventDefault();
-                    setWarranty(event.target.value);
+                    setBackground(event.target.value);
                   }}
                 />
 
                 <AvFeedback>Enter warranty month</AvFeedback>
               </AvGroup>
             </Col>
+          </Row>
 
+          <Row>
+            <Col md={12} sm={12} className='watchFace-col mb-md-0'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Watch Case Color</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  className='form-control'
+                  name='watchcase'
+                  value={watchCase}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setWatchCase(event.target.value);
+                  }}
+                />
+
+                <AvFeedback>Enter warranty month</AvFeedback>
+              </AvGroup>
+            </Col>
+          </Row>
+
+          <Row>
             <Col md={6} sm={12} className='watchFace-col mb-md-0'>
               <AvGroup className='input-group'>
                 <div className='input-group-prepend'>
@@ -237,8 +260,38 @@ const Test = () => {
                 <AvFeedback>Enter warranty price</AvFeedback>
               </AvGroup>
             </Col>
-          </Row>
 
+            <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text'>Warranty Month</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  className='form-control'
+                  name='watchBand'
+                  value={warranty}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setWarranty(event.target.value);
+                  }}
+                />
+
+                <AvFeedback>Enter warranty month</AvFeedback>
+              </AvGroup>
+            </Col>
+          </Row>
+          <nav aria-label='breadcrumb'>
+            <ol className='breadcrumb'>
+              <li className='breadcrumb-item active' aria-current='page'>
+                Omicron
+              </li>
+              <li className='breadcrumb-item active' aria-current='page'>
+                Client Info
+              </li>
+            </ol>
+          </nav>
           <Row>
             <Col md={6} sm={12} className='watchFace-col mb-md-0'>
               <AvGroup className='input-group'>
@@ -283,7 +336,7 @@ const Test = () => {
             </Col>
           </Row>
           <Row>
-            <Col xs={12} md={6} className='mb-md-0 address-col'>
+            <Col xs={6} md={12} className='mb-md-0 address-col'>
               <AvGroup className='input-group'>
                 <div className='input-group-prepend'>
                   <span className='input-group-text'>City</span>
@@ -303,7 +356,7 @@ const Test = () => {
               </AvGroup>
             </Col>
 
-            <Col sm={12} md={3} className='mb-md-0 address-col'>
+            <Col sm={4} md={12} className='mb-md-0 address-col'>
               <AvGroup className='input-group'>
                 <div className='input-group-prepend'>
                   <span className='input-group-text'>State</span>
@@ -323,7 +376,7 @@ const Test = () => {
               </AvGroup>
             </Col>
 
-            <Col sm={12} md={3}>
+            <Col sm={3} md={12}>
               <AvGroup className='input-group'>
                 <div className='input-group-prepend'>
                   <span className='input-group-text'>Zip</span>
