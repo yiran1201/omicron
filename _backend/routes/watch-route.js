@@ -94,14 +94,14 @@ router.get('/partner/all', async (request, response) => {
   const partners = await PartnerModel.find();
   const parsedPartners = [];
   for (const partner of partners) {
-    const parsedShop = partner.shop.map((item) => {
+    const parsedShops = partner.shops.map((item) => {
       return [item.country, item.count];
     });
-    parsedShop.unshift(['Country', 'Shops']);
+    parsedShops.unshift(['Country', 'Shops']);
     parsedPartners.push({
       name: partner.name,
       source: partner.source,
-      shop: parsedShop,
+      shops: parsedShops,
     });
   }
   response.status(200).json(parsedPartners);
