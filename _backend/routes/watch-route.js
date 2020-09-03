@@ -5,7 +5,6 @@ import WatchBandModel from '../models/watch-band-model';
 import {Types} from 'mongoose';
 
 import PartnerModel from '../models/partner-model';
-import {parse} from 'path';
 const router = Router();
 
 /**************
@@ -17,7 +16,7 @@ router.post('/face', async (request, response) => {
   const watchFaceDocument = new WatchFaceModel({
     name: request.body.name,
     source: request.body.source,
-    price: request.body.price,
+    price: Number(request.body.price),
   });
   console.log(watchFaceDocument);
   const data = await watchFaceDocument.save();
@@ -46,7 +45,7 @@ router.post('/band', async (request, response) => {
   const watchBandDocument = new WatchBandModel({
     name: request.body.name,
     source: request.body.source,
-    price: request.body.price,
+    price: Number(request.body.price),
     case_color: request.body.case_color,
     background: request.body.background,
   });
@@ -76,11 +75,15 @@ router.get('/band/all', async (request, response) => {
  ***********/
 router.post('/partner', async (request, response) => {
   console.log('***POST /api/watch/partner');
-  console.log(request.body.shop);
   const partnerDocument = new PartnerModel({
     name: request.body.name,
     source: request.body.source,
-    shop: request.body.shop,
+    shops: request.body.shops.map((shop) => {
+      return {
+        country: shop.country,
+        count: Number(shop.count),
+      };
+    }),
   });
   const data = await partnerDocument.save();
   response.status(200).json(data);

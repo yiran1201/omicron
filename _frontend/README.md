@@ -196,7 +196,8 @@ const Generator = (props) => {
 ````
 ## form submit
 - <AvForm></AvForm>的底层是<form></form>
-- 会跟一个onSubmit={}的property
+- 有Form的地方就会跟一个onSubmit={}的property
+- 大括号{}里面是处理submit的function逻辑
 - 通过<button type="submit">来trigger
 - 在form下面的所有<button>都会default成type='submit'
 - <button type='button'>不参与form的逻辑
@@ -213,3 +214,19 @@ const Generator = (props) => {
 ## fetch
 - 是一个async call 会返回一个promise，因此要用await来等它完成
 - 要看fetch 的结果，要去call .json(),也是一个promise，因此也要加一个await来等它完成
+
+## JSON
+- 是一种网络数据传输的格式，具体用法有两个
+- JSON.stringify(),是将数据转换成JSON格式的string
+- JSON.parse(),是将JSON格式的string还原成原数据类型
+
+## POST request
+``` js
+fetch('https://example.com/profile', {
+  method: 'POST', // or 'PUT'
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify(data),
+})
+```
+- POST里面一般会有body，它要JSON string
+- 有body就要定义headers，以及里面的Content-Type

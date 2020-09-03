@@ -1,14 +1,14 @@
 import {Schema, model} from 'mongoose';
 
 const PartnerModel = new Schema({
+  name: String,
   source: String,
-  shop: [
+  shops: [
     {
       country: String,
       count: Number,
     },
   ],
-  name: String,
 });
 
 export default model('Partner', PartnerModel, 'partners');

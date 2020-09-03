@@ -9,7 +9,7 @@ const BRANDS = [
   {
     src:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598465798/omicron/amazon-ar21_kxcdsd.svg',
-    shop: [
+    shops: [
       ['Country', 'Shops'],
       ['Germany', 13],
       ['United States', 37777],
@@ -33,7 +33,7 @@ const BRANDS = [
   {
     src:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598463221/omicron/walmart-ar21_fik31a.svg',
-    shop: [
+    shops: [
       ['Country', 'Shops'],
       ['Germany', 20],
       ['United States', 300],
@@ -57,7 +57,7 @@ const BRANDS = [
   {
     src:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598463214/omicron/target-ar21_cttsup.svg',
-    shop: [
+    shops: [
       ['Country', 'Shops'],
       ['Germany', 253],
       ['United States', 50],
@@ -81,7 +81,7 @@ const BRANDS = [
   {
     src:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598463205/omicron/TheHomeDepot_upc9qi.svg',
-    shop: [
+    shops: [
       ['Country', 'Shops'],
       ['Germany', 204],
       ['United States', 500],
@@ -105,7 +105,7 @@ const BRANDS = [
   {
     src:
       'https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598463203/omicron/Best_Buy_logo_2018_tuu4il.svg',
-    shop: [
+    shops: [
       ['Country', 'Shops'],
       ['Germany', 35367],
       ['United States', 300676],
@@ -132,16 +132,16 @@ const ORIGIN = 'http://localhost:7777';
 const ALL_PARTNER_API = ORIGIN + '/api/watch/partner/all';
 
 const Partnership = () => {
-  const [brands,setBrands]=useState([])
+  const [brands, setBrands] = useState([]);
   const [selectedBrand, setBrand] = useState(BRANDS[0]);
 
   useEffect(() => {
-    async function fetchPartners() {
+    const fetchPartners = async () => {
       const response = await fetch(ALL_PARTNER_API);
       const partners = await response.json();
-      setBrands(partners)
+      setBrands(partners);
       console.log(partners);
-    }
+    };
     fetchPartners();
 
     // console.log(111);
@@ -196,7 +196,7 @@ const Partnership = () => {
             chartType='GeoChart'
             width={'750px'}
             height={'300px'}
-            data={selectedBrand.shop}
+            data={selectedBrand.shops}
             // Note: you will need to get a mapsApiKey for your project.
             // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
             mapsApiKey='AIzaSyAgTMGcSDOCFW8FjkfY3xBIaKc1Emwd01w' // maps API key
