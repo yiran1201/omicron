@@ -8,17 +8,24 @@ import {
 import {Container, Row, Col, Button, Label} from 'reactstrap';
 import {useState} from 'react';
 
-
+const ORIGIN = 'http://localhost:7777';
 const WatchWarrantyForm = () => {
   const [warranty, setWarranty] = useState(0);
   const [warrantyPrice, setWarrantyPrice] = useState(0);
   return (
     <AvForm
-      onSubmit={(event, errors, values) => {
+      onSubmit={async (event, errors, values) => {
         event.persist();
         if (errors.length === 0) {
           //提交表格里的信息
           console.log('submit warranty');
+          const response = await fetch(ORIGIN + '/api/watch/warranty', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(values),
+          });
+          const result = await response.json();
+          console.log(result);
         }
       }}>
       <Container>
@@ -33,7 +40,7 @@ const WatchWarrantyForm = () => {
                 required
                 type='number'
                 className='form-control'
-                name='watchBand'
+                name='price'
                 value={warrantyPrice}
                 onChange={(event) => {
                   event.preventDefault();
@@ -54,7 +61,7 @@ const WatchWarrantyForm = () => {
                 required
                 type='text'
                 className='form-control'
-                name='watchBand'
+                name='name'
                 value={warranty}
                 onChange={(event) => {
                   event.preventDefault();
@@ -79,4 +86,4 @@ const WatchWarrantyForm = () => {
   );
 };
 
-export default WatchWarrantyForm
+export default WatchWarrantyForm;

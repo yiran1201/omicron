@@ -8,7 +8,7 @@ import {
 import {Container, Row, Col, Button} from 'reactstrap';
 import {useState} from 'react';
 
-
+const ORIGIN = 'http://localhost:7777';
 const ClientInfoForm = () => {
   const [clientName, setClientName] = useState('');
   const [streetAddress1, setStreetAddress1] = useState('');
@@ -23,11 +23,18 @@ const ClientInfoForm = () => {
   return (
     <AvForm
       className='mt-4'
-      onSubmit={(event, errors, values) => {
+      onSubmit={async (event, errors, values) => {
         event.persist();
         if (errors.length === 0) {
           //提交表格里的信息
           submitForm();
+          const response = await fetch(ORIGIN + '/api/watch/client', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(values),
+          });
+          const result = await response.json();
+          console.log(result);
         }
       }}>
       <Container>
@@ -51,7 +58,7 @@ const ClientInfoForm = () => {
                 required
                 type='text'
                 className='form-control'
-                name='watchBand'
+                name='name'
                 value={clientName}
                 onChange={(event) => {
                   event.preventDefault();
@@ -59,20 +66,20 @@ const ClientInfoForm = () => {
                 }}
               />
 
-              <AvFeedback>Enter warranty price</AvFeedback>
+              <AvFeedback>Enter client name</AvFeedback>
             </AvGroup>
           </Col>
 
           <Col md={6} sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
-                <span className='input-group-text'>streetAddress1</span>
+                <span className='input-group-text'>streetAddress</span>
               </div>
               <AvInput
                 required
                 type='text'
                 className='form-control'
-                name='watchBand'
+                name='address'
                 value={streetAddress1}
                 onChange={(event) => {
                   event.preventDefault();
@@ -80,7 +87,7 @@ const ClientInfoForm = () => {
                 }}
               />
 
-              <AvFeedback>Enter warranty price</AvFeedback>
+              <AvFeedback>Enter street address</AvFeedback>
             </AvGroup>
           </Col>
         </Row>
@@ -101,7 +108,7 @@ const ClientInfoForm = () => {
                   setCity(event.target.value);
                 }}
               />
-              <AvFeedback>Enter City</AvFeedback>
+              <AvFeedback>Enter city</AvFeedback>
             </AvGroup>
           </Col>
 
@@ -121,7 +128,7 @@ const ClientInfoForm = () => {
                   setState(event.target.value);
                 }}
               />
-              <AvFeedback>Enter State</AvFeedback>
+              <AvFeedback>Enter state</AvFeedback>
             </AvGroup>
           </Col>
 
@@ -133,7 +140,7 @@ const ClientInfoForm = () => {
               <AvInput
                 required
                 type='text'
-                name='zipCode'
+                name='zip'
                 className='form-control'
                 value={zipCode}
                 onChange={(event) => {
@@ -158,4 +165,4 @@ const ClientInfoForm = () => {
   );
 };
 
-export default ClientInfoForm
+export default ClientInfoForm;

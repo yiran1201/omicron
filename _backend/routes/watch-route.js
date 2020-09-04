@@ -2,6 +2,8 @@ import {Router} from 'express';
 import WatchModel from '../models/watch-model';
 import WatchFaceModel from '../models/watch-face-model';
 import WatchBandModel from '../models/watch-band-model';
+import WarrantyModel from '../models/warranty-models';
+import ClientModel from '../models/client-models';
 import {Types} from 'mongoose';
 
 import PartnerModel from '../models/partner-model';
@@ -68,6 +70,62 @@ router.get('/band/all', async (request, response) => {
     });
   }
   response.status(200).json(parsedBands);
+});
+
+/***********
+ * Warranty*
+ ***********/
+router.post('/warranty', async (request, response) => {
+  console.log('***POST/api/watch/warranty');
+  const warrantyDocument = new WarrantyModel({
+    name: request.body.name,
+    price: Number(request.body.price),
+  });
+  const data = await warrantyDocument.save();
+  response.status(200).json(data);
+});
+
+router.get('/warranty/all', async (request, response) => {
+  console.log('***GET/api/watch/warranty/all');
+  const warranties = await WarrantyModel.find();
+  const parseWarranties = [];
+  for (const warranty of warranties) {
+    parseWarranties.push({
+      name: warranty.name,
+      price: warranty.price,
+    });
+  }
+});
+
+/***********
+ * ClientInfo*
+ ***********/
+router.post('/client', async (request, response) => {
+  console.log('***POST/api/watch/client');
+  const clientDocument = new ClientModel({
+    name: request.body.name,
+    address: request.body.address,
+    city: request.body.city,
+    state: request.body.state,
+    zip: request.body.zip,
+  });
+  const data = await clientDocument.save();
+  response.status(200).json(data);
+});
+
+router.get('/client/all', async (request, response) => {
+  console.log('***GET/api/watch/client/all');
+  const clients = await ClientModel.find();
+  const parseClients = [];
+  for (const client of clients) {
+    parseClients.push({
+      name: client.name,
+      address: client.address,
+      city: client.city,
+      state: client.state,
+      zip: client.zip,
+    });
+  }
 });
 
 /***********
