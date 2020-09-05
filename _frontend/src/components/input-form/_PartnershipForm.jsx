@@ -22,8 +22,10 @@ const PartnershipForm = () => {
       );
     }
     return shops.map((shop, index) => {
-      const countryName = 'shop' + index + '.' + 'country';
-      const countName = 'shop' + index + '.' + 'count';
+      // const countryName = 'shop' + index + '.' + 'country';
+      // const countName = 'shop' + index + '.' + 'count';
+      const countryName = `shop${index}.country`; //`${}`意思是读变量
+      const countName = `shop${index}.count`;
       return (
         <Row key={`shop-${index}`}>
           <Col xs={12} md={6}>

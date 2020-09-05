@@ -1,18 +1,18 @@
-## 打开markdown file 
+## 打开markdown file
 - shift + command + v
 
-## package.json 
+## package.json
 - 开启项目的钥匙
 - 也是项目library的管理
 
-## npm 
+## npm
 - node.js package manager
-- express 是基于javascript的网络框架，library 
+- express 是基于javascript的网络框架，library
 - 不要碰node_modules 和package-lock.json
 
-## jsconfig.json 
+## jsconfig.json
 - 用来配置项目里面的javascript syntax
-- 
+-
 
 ## babel 是用来转码
 -  polyfill 是将es6 转回es5
@@ -40,7 +40,7 @@ npm run start
 - DELETE 删除
 
 ## 定义schema（用在sql) model(用在编程里)
-- schema 定义了数据长什么样，包括数据类型还有数据限制 
+- schema 定义了数据长什么样，包括数据类型还有数据限制
 
 ## collection -
 - 一个database会有很多的collection
@@ -60,7 +60,7 @@ npm run start
 
 
 ## 常见问题
-- Error: listen EADDRINUSE: address already in use :::7777  
+- Error: listen EADDRINUSE: address already in use :::7777
 - exit console control+c
 - solution：把浏览器整个关闭 command+q q可能要按两次，在console重新输入npm run start
 
@@ -107,7 +107,7 @@ const yibu = () => {
   console.log(1111)
 
 // 用来对未来做事情 这个case是隔1000毫秒
-// setTimeout 属于promise的一种 
+// setTimeout 属于promise的一种
 // promise是异步操作
 // 异步是asynchronous，简称async
   setTimeout(() => {
@@ -120,7 +120,7 @@ const yibu = () => {
 console.log(yibu())
 ```
 ## 不小心进入文本
-- 按esc 
+- 按esc
 - 按 shift+:
 - 输入q
 - enter
@@ -144,7 +144,7 @@ app.use(route_path, 随便取一个名字)
 
 - 定义模型 去models folder下写model 文件
 - get post put delete
-- postman 
+- postman
 
 ## 什么是MVC
 - M是model，定义数据结构跟数据库的数据形状
@@ -155,3 +155,8 @@ app.use(route_path, 随便取一个名字)
 - cd ../是回上一级
 - ls 是展示当前路径的所有东西
 - cd <文件夹名> 去文件夹名下面的目录
+
+
+## 数据库类型
+- SQL 关系型数据库，代表有mySQL 和PostgreSQL
+-  noSQL 非关系型数据库 代表有mongoDB dynamoDB, firebase

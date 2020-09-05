@@ -25,6 +25,7 @@ router.post('/face', async (request, response) => {
   response.status(200).json(data);
 });
 
+// data clean
 router.get('/face/all', async (request, response) => {
   console.log('***GET /api/watch/face/all');
   const faces = await WatchFaceModel.find();
@@ -92,13 +93,13 @@ router.get('/warranty/all', async (request, response) => {
   for (const warranty of warranties) {
     parseWarranties.push({
       name: warranty.name,
-      price: warranty.price,
+      price: Number(warranty.price),
     });
   }
 });
 
 /***********
- * ClientInfo*
+ * ClientInfo *
  ***********/
 router.post('/client', async (request, response) => {
   console.log('***POST/api/watch/client');

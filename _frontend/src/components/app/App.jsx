@@ -4,8 +4,7 @@ import BuildWatchPage from '../build-watch/BuildWatch';
 import ContractPage from '../contract/Contract';
 import PartnershipPage from '../partnership/Partnership';
 import InputFormPage from '../input-form/InputForm';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-
+import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -13,7 +12,6 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
 } from 'reactstrap';
 
 const App = () => {
@@ -28,16 +26,25 @@ const App = () => {
         <Collapse isOpen={openNav} navbar>
           <Nav className='ml-auto' navbar>
             <NavItem>
-              <NavLink href='/'>Build Watch</NavLink>
+              {/* <NavLink href='/'>Build Watch</NavLink> */}
+              <Link to='/' className='text-dark mx-2'>
+                Build Watch
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href='/contract'>Contract</NavLink>
+              <Link to='/contract' className='text-dark mx-2'>
+                Contract
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href='/partnership'>Partnership</NavLink>
+              <Link to='/partnership' className='text-dark mx-2'>
+                Partnership
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href='/inventory'>Inventory</NavLink>
+              <Link to='/inventory' className='text-dark mx-2'>
+                Inventory
+              </Link>
             </NavItem>
           </Nav>
         </Collapse>
@@ -47,9 +54,9 @@ const App = () => {
 
   return (
     <div className='App'>
-      <NavigationBar />
-
       <BrowserRouter>
+        <NavigationBar />
+
         <Switch>
           <Route path='/' component={BuildWatchPage} exact />
           <Route path='/contract' component={ContractPage} exact />
