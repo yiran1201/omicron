@@ -1,9 +1,6 @@
 import './configs/database';
 
 import cors from 'cors'; //Cross Origin Resource Share
-
-import CatRoute from './routes/cat-route';
-import DogRoute from './routes/dog-route';
 import Express from 'express';
 import InvoiceRoute from './routes/invoice-route';
 import MockRoute from './routes/mock-route';
@@ -30,8 +27,6 @@ app.use('/invoice', (request, response) => {
 // app.use(route_path, function 或者是 file input)
 app.use('/api/watch', WatchRoute);
 app.use('/api/invoice', InvoiceRoute);
-app.use('/cat', CatRoute);
-app.use('/api/dog', DogRoute); //
 app.use('/api/mock', MockRoute);
 
 // "/" match所有的path

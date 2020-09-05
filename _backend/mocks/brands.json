@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Walmart",
+    "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598463221/omicron/walmart-ar21_fik31a.svg"
+  },
+  {
+    "name": "Amazon",
+    "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598465798/omicron/amazon-ar21_kxcdsd.svg"
+  },
+  {
+    "name": "Target",
+    "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598463214/omicron/target-ar21_cttsup.svg"
+  },
+  {
+    "name": "HomeDepot",
+    "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598463205/omicron/TheHomeDepot_upc9qi.svg"
+  },
+  {
+    "name": "BestBuy",
+    "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/c_scale,h_100/v1598463203/omicron/Best_Buy_logo_2018_tuu4il.svg"
+  }
+]

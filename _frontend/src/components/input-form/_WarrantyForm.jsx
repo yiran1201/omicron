@@ -14,8 +14,8 @@ const ORIGIN = 'http://localhost:7777';
 const WARRANTY_OPTIONS = ['12 months', '24 months'];
 
 const WatchWarrantyForm = () => {
-  const [warranty, setWarranty] = useState('');
-  const [warrantyPrice, setWarrantyPrice] = useState(0);
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState(0);
   return (
     <AvForm
       onSubmit={async (event, errors, values) => {
@@ -44,10 +44,10 @@ const WatchWarrantyForm = () => {
                 type='number'
                 className='form-control'
                 name='price'
-                value={warrantyPrice}
+                value={price}
                 onChange={(event) => {
                   event.preventDefault();
-                  setWarrantyPrice(event.target.value);
+                  setPrice(event.target.value);
                 }}
               />
 
@@ -61,13 +61,12 @@ const WatchWarrantyForm = () => {
           <Col md={6} sm={12} className='watchFace-col mb-md-0'>
             <AvRadioGroup
               inline
-              name='warranty'
-              value={warranty}
+              name='name'
+              value={name}
               required
               onChange={(event) => {
                 event.persist();
-                console.log(event.target.value);
-                setWarranty(event.target.value);
+                setName(event.target.value);
               }}>
               {WARRANTY_OPTIONS.map((warranty) => {
                 return (
@@ -85,32 +84,6 @@ const WatchWarrantyForm = () => {
             </Button>
           </Col>
         </Row>
-
-        {/* <AvGroup className='input-group'>
-              <div className='input-group-prepend'>
-                <span className='input-group-text'>Warranty Month</span>
-              </div>
-              <AvInput
-                required
-                type='text'
-                className='form-control'
-                name='name'
-                value={warranty}
-                onChange={(event) => {
-                  event.preventDefault();
-                  setWarranty(event.target.value);
-                }}
-              />
-
-              <AvFeedback>Enter warranty month</AvFeedback>
-            </AvGroup>
-          </Col>
-        //  </Row>
-
-        //   <Col xs={12} sm={3} className='ml-auto align-self-end'>
-        //     <Button className='btn-block' color='primary' type='submit'>
-        //       Submit Warranty
-        //     </Button> */}
       </Container>
     </AvForm>
   );

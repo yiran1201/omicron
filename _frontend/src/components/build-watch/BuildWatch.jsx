@@ -14,62 +14,52 @@ import {useState} from 'react';
 import Pdf from 'react-to-pdf';
 import {useEffect} from 'react';
 
-const DEFAULT_FACE = {
-  name: '绽放',
-  source:
-    'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597287737/omicron/%E7%BB%BD%E6%94%BE_mqi8cz.png',
-  price: 600,
-};
-
-const DEFAULT_BAND = {
-  name: '深棕',
-  source:
-    'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529680/omicron/%E6%B7%B1%E6%A3%95_z20qes.png',
-  price: 200,
-  caseColor: '#795548',
-  background:
-    'https://res.cloudinary.com/dgiji0wxc/image/upload/v1597813186/omicron/%E6%B7%B1%E6%A3%95_op8udc.png',
-};
-
-const WARRANTY = [
-  {option: '12 months', price: 40},
-  {option: '24 months', price: 80},
-];
-
 const ORIGIN = 'http://localhost:7777';
 const ALL_WATCH_FACE_API = ORIGIN + '/api/watch/face/all';
 const ALL_WATCH_BAND_API = ORIGIN + '/api/watch/band/all';
+const ALL_WARRANTIES_API = ORIGIN + '/api/watch/warranty/all';
 const BuildWatch = () => {
   const ref = React.createRef();
 
   const [watchFaces, setWatchFaces] = useState([]);
   const [watchBands, setWatchBands] = useState([]);
 
-  const [watchFace, setWatchFace] = useState(DEFAULT_FACE);
+  const [watchFace, setWatchFace] = useState(null);
   const [openFaceOption, setFaceOption] = useState(false);
 
-  const [watchBand, setWatchBand] = useState(DEFAULT_BAND);
+  const [watchBand, setWatchBand] = useState(null);
   const [openBandOption, setBandOption] = useState(false);
 
-  const [warranty, setWarranty] = useState(WARRANTY[1]);
+  const [warranty, setWarranty] = useState(null);
+  const [warranties, setWarranties] = useState([]);
   const [openWarrantyOption, setWarrantyOption] = useState(false);
 
   useEffect(() => {
-    async function fetchWatchFaces() {
+    const fetchWatchFaces = async () => {
       const response = await fetch(ALL_WATCH_FACE_API);
       const watchFaces = await response.json();
       setWatchFaces(watchFaces);
-      console.log(watchFaces);
-    }
+      setWatchFace(watchFaces[0]);
+    };
     fetchWatchFaces();
-    async function fetchWatchBands() {
+
+    const fetchWarranties = async () => {
+      const response = await fetch(ALL_WARRANTIES_API);
+      const warranties = await response.json();
+      setWarranties(warranties);
+      setWarranty(warranties[0]);
+    };
+    fetchWarranties();
+
+    const fetchWatchBands = async () => {
       const response = await fetch(ALL_WATCH_BAND_API);
       const watchBands = await response.json();
       setWatchBands(watchBands);
-      console.log(watchBands);
-    }
+      setWatchBand(watchBands[0]);
+    };
     fetchWatchBands();
   }, []);
+  console.log('hi');
 
   const OptionBar = () => {
     return (
@@ -107,16 +97,16 @@ const BuildWatch = () => {
             caret
             tag='button'
             className='btn btn-circle btn-theme'>
-            {warranty.option}
+            {warranty.name}
           </DropdownToggle>
           <DropdownMenu className='watch-dropdown'>
-            {WARRANTY.map((warrantyItem) => {
+            {warranties.map((warrantyItem) => {
               return (
                 <DropdownItem
-                  key={warrantyItem.option}
-                  disabled={warrantyItem.option === warranty.option}
+                  key={warrantyItem.name}
+                  disabled={warrantyItem.name === warranty.name}
                   onClick={() => setWarranty(warrantyItem)}>
-                  {warrantyItem.option}
+                  {warrantyItem.name}
                 </DropdownItem>
               );
             })}
@@ -256,6 +246,7 @@ const BuildWatch = () => {
       </Table>
     );
   };
+  if (watchBand === null || watchFace === null || warranty === null) return '';
 
   return (
     <div ref={ref} className='mt-4' id='build-watch-page'>

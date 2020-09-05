@@ -230,3 +230,7 @@ fetch('https://example.com/profile', {
 ```
 - POST里面一般会有body，它要JSON string
 - 有body就要定义headers，以及里面的Content-Type
+
+## setState function
+- 所有的setState不一定inline执行的，有快有慢，概念类似于PROMISE async function
+- 每一次跑setState都会重新render一次component，不会重复进入useEffect

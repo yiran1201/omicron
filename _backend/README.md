@@ -41,6 +41,23 @@ npm run start
 
 ## 定义schema（用在sql) model(用在编程里)
 - schema 定义了数据长什么样，包括数据类型还有数据限制
+``` jsx import { Schema, model } from "mongoose";
+
+ define model
+const Dog = new Schema({
+  breed: String,
+  color: String,
+  age: Number,
+})
+export default model('Dog', Dog, 'dogs')
+```
+
+- model(ModelName, Model, CollectionName)
+- CollectionName 要小写 任意在data config
+- 所有的collectionName, databaseName, fieldName都是小写(snake_case),
+- database里面实际数据可以大写
+- camelCase
+
 
 ## collection -
 - 一个database会有很多的collection
@@ -57,6 +74,41 @@ npm run start
 
 ##  创造路径
 - 写好的路径要放在index.js
+``` jsx import { Router } from "express";
+import DogModel from "../models/dog-model";
+import { Types } from "mongoose";
+const router = Router()
+
+router.delete("/", async (request, response) => {
+  console.log('***DELETE /api/dog')
+  // const dogs = await DogModel.find()
+  // response.status(200).json(dogs)
+  await DogModel.deleteMany() // Promise / async
+  response.status(200).json('Successfully deleted all dogs data')
+})
+
+//不要有两个相同API: 1.有同样的method 2.有同样的path
+// router.get("/", (request, response) => {
+//   console.log('***GET /api/dog')
+//   response.status(200).json("dog1234")
+// })
+
+router.post('/', async (request, response) => {
+  console.log('***POST/api/dog')
+  const dogDocument = new DogModel({
+    breed: request.body.breed,
+    color: request.body.color,
+    age: request.body.age,
+  })
+  console.log(dogDocument)
+  await dogDocument.save()
+  response.status(200).json('Saved a dog data')
+})
+
+export default route
+```
+
+
 
 
 ## 常见问题

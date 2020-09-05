@@ -4,9 +4,9 @@ import WatchFaceModel from '../models/watch-face-model';
 import WatchBandModel from '../models/watch-band-model';
 import WarrantyModel from '../models/warranty-models';
 import ClientModel from '../models/client-models';
+import PartnerModel from '../models/partner-model';
 import {Types} from 'mongoose';
 
-import PartnerModel from '../models/partner-model';
 const router = Router();
 
 /**************
@@ -87,15 +87,16 @@ router.post('/warranty', async (request, response) => {
 });
 
 router.get('/warranty/all', async (request, response) => {
-  console.log('***GET/api/watch/warranty/all');
+  console.log('***GET /api/watch/warranty/all');
   const warranties = await WarrantyModel.find();
-  const parseWarranties = [];
+  const parsedWarranties = [];
   for (const warranty of warranties) {
-    parseWarranties.push({
+    parsedWarranties.push({
       name: warranty.name,
       price: Number(warranty.price),
     });
   }
+  response.status(200).json(parsedWarranties)
 });
 
 /***********
