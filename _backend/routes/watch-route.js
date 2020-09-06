@@ -1,20 +1,23 @@
 import {Router} from 'express';
-import WatchModel from '../models/watch-model';
 import WatchFaceModel from '../models/watch-face-model';
 import WatchBandModel from '../models/watch-band-model';
 import WarrantyModel from '../models/warranty-models';
 import ClientModel from '../models/client-models';
 import PartnerModel from '../models/partner-model';
-import {Types} from 'mongoose';
 
 const router = Router();
+
+const print = (type, route) => {
+  const time = new Date().toLocaleString();
+  console.log(`${type} ${'*'.repeat(6)} ${route} ${'*'.repeat(6)} ${time}`);
+};
 
 /**************
  * Watch Face *
  **************/
 
 router.post('/face', async (request, response) => {
-  console.log('***POST /api/watch/face');
+  print('POST', '/api/watch/face');
   const watchFaceDocument = new WatchFaceModel({
     name: request.body.name,
     source: request.body.source,
@@ -27,7 +30,7 @@ router.post('/face', async (request, response) => {
 
 // data clean
 router.get('/face/all', async (request, response) => {
-  console.log('***GET /api/watch/face/all');
+  print('GET', '/api/watch/face/all');
   const faces = await WatchFaceModel.find();
   const parsedFaces = [];
   for (const face of faces) {
@@ -44,7 +47,7 @@ router.get('/face/all', async (request, response) => {
  * Watch Band *
  **************/
 router.post('/band', async (request, response) => {
-  console.log('***POST /api/watch/band');
+  print('POST', '/api/watch/band');
   const watchBandDocument = new WatchBandModel({
     name: request.body.name,
     source: request.body.source,
@@ -57,7 +60,7 @@ router.post('/band', async (request, response) => {
 });
 
 router.get('/band/all', async (request, response) => {
-  console.log('***GET /api/watch/band/all');
+  print('GET', '/api/watch/band/all');
   const bands = await WatchBandModel.find();
   const parsedBands = [];
   for (const band of bands) {
@@ -77,7 +80,7 @@ router.get('/band/all', async (request, response) => {
  * Warranty*
  ***********/
 router.post('/warranty', async (request, response) => {
-  console.log('***POST/api/watch/warranty');
+  print('POST', '/api/watch/warranty');
   const warrantyDocument = new WarrantyModel({
     name: request.body.name,
     price: Number(request.body.price),
@@ -87,7 +90,7 @@ router.post('/warranty', async (request, response) => {
 });
 
 router.get('/warranty/all', async (request, response) => {
-  console.log('***GET /api/watch/warranty/all');
+  print('GET', '/api/watch/warranty/all');
   const warranties = await WarrantyModel.find();
   const parsedWarranties = [];
   for (const warranty of warranties) {
@@ -96,14 +99,14 @@ router.get('/warranty/all', async (request, response) => {
       price: Number(warranty.price),
     });
   }
-  response.status(200).json(parsedWarranties)
+  response.status(200).json(parsedWarranties);
 });
 
 /***********
  * ClientInfo *
  ***********/
 router.post('/client', async (request, response) => {
-  console.log('***POST/api/watch/client');
+  print('POST', '/api/watch/client');
   const clientDocument = new ClientModel({
     name: request.body.name,
     address: request.body.address,
@@ -116,7 +119,7 @@ router.post('/client', async (request, response) => {
 });
 
 router.get('/client/all', async (request, response) => {
-  console.log('***GET/api/watch/client/all');
+  print('GET', '/api/watch/client/all');
   const clients = await ClientModel.find();
   const parseClients = [];
   for (const client of clients) {
@@ -128,13 +131,14 @@ router.get('/client/all', async (request, response) => {
       zip: client.zip,
     });
   }
+  response.status(200).json(parseClients);
 });
 
 /***********
  * Partner *
  ***********/
 router.post('/partner', async (request, response) => {
-  console.log('***POST /api/watch/partner');
+  print('POST', '/api/watch/partner');
   const partnerDocument = new PartnerModel({
     name: request.body.name,
     source: request.body.source,
@@ -150,7 +154,7 @@ router.post('/partner', async (request, response) => {
 });
 
 router.get('/partner/all', async (request, response) => {
-  console.log('***GET /api/watch/partner/all');
+  print('GET', '/api/watch/partner/all');
   const partners = await PartnerModel.find();
   const parsedPartners = [];
   for (const partner of partners) {
@@ -165,51 +169,6 @@ router.get('/partner/all', async (request, response) => {
     });
   }
   response.status(200).json(parsedPartners);
-});
-
-/*********
- * Watch *
- *********/
-router.get('/all', async (request, response) => {
-  console.log('***GET /api/watch/all');
-  //所有的database都是异步的
-  const watches = await WatchModel.find(); // Promise / async
-  response.status(200).json(watches);
-});
-
-router.delete('/all', async (request, response) => {
-  console.log('***DELETE /api/watch/all');
-  //所有的database都是异步的
-  await WatchModel.deleteMany(); // Promise / async
-  response.status(200).json('Successfully deleted all watches');
-});
-
-router.delete('/:id', async (request, response) => {
-  console.log('***DELETE /api/watch/:id'); //id是变量
-  const watchId = request.params.id;
-  //所有的database都是异步的
-  await WatchModel.deleteOne({_id: Types.ObjectId(watchId)}); // Promise / async
-  response.status(200).json(`Successfully deleted watch: ${watchId}`);
-});
-
-router.get('/:id', async (request, response) => {
-  console.log('***GET /api/watch/:id'); //id是变量
-  const watchId = request.params.id;
-  //所有的database都是异步的
-  const watch = await WatchModel.findOne({_id: Types.ObjectId(watchId)}); // Promise / async
-  response.status(200).json(watch);
-});
-
-router.post('/', async (request, response) => {
-  console.log('***POST /api/watch');
-  const watchDocument = new WatchModel({
-    color: request.body.color,
-    name: request.body.name,
-    price: request.body.price,
-  });
-  console.log(watchDocument);
-  await watchDocument.save();
-  response.status(200).json('Saved a watch!');
 });
 
 export default router;

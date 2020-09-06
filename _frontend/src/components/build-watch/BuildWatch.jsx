@@ -13,12 +13,15 @@ import React from 'react';
 import {useState} from 'react';
 import Pdf from 'react-to-pdf';
 import {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {updateWatchFacesRedux} from '../../store/watch-store/watch-dispatcher';
 
 const ORIGIN = 'http://localhost:7777';
 const ALL_WATCH_FACE_API = ORIGIN + '/api/watch/face/all';
 const ALL_WATCH_BAND_API = ORIGIN + '/api/watch/band/all';
 const ALL_WARRANTIES_API = ORIGIN + '/api/watch/warranty/all';
-const BuildWatch = () => {
+// props 是用来接受外界给BuildWatch这个component的property
+const BuildWatch = (props) => {
   const ref = React.createRef();
 
   const [watchFaces, setWatchFaces] = useState([]);
@@ -34,14 +37,25 @@ const BuildWatch = () => {
   const [warranties, setWarranties] = useState([]);
   const [openWarrantyOption, setWarrantyOption] = useState(false);
 
+  console.log(props.storeFaces);
+  const storeFaces = props.storeFaces;
+  const updateFacesToStore = props.updateFacesToStore;
   useEffect(() => {
-    const fetchWatchFaces = async () => {
-      const response = await fetch(ALL_WATCH_FACE_API);
-      const watchFaces = await response.json();
+    if (storeFaces.length > 0) {
+      // fetch from redux store/cache
+      const watchFaces = storeFaces;
       setWatchFaces(watchFaces);
       setWatchFace(watchFaces[0]);
-    };
-    fetchWatchFaces();
+    } else {
+      const fetchWatchFaces = async () => {
+        const response = await fetch(ALL_WATCH_FACE_API);
+        const watchFaces = await response.json();
+        updateFacesToStore(watchFaces);
+        setWatchFaces(watchFaces);
+        setWatchFace(watchFaces[0]);
+      };
+      fetchWatchFaces();
+    }
 
     const fetchWarranties = async () => {
       const response = await fetch(ALL_WARRANTIES_API);
@@ -58,8 +72,7 @@ const BuildWatch = () => {
       setWatchBand(watchBands[0]);
     };
     fetchWatchBands();
-  }, []);
-  console.log('hi');
+  }, [storeFaces, updateFacesToStore]);
 
   const OptionBar = () => {
     return (
@@ -288,4 +301,22 @@ const BuildWatch = () => {
   );
 };
 
-export default BuildWatch;
+// store的接收器
+const mapStateToProps = (store) => {
+  return {
+    storeFaces: store.watchReducer.faces,
+    bands: store.watchReducer.bands,
+    warranties: store.watchReducer.warranties,
+  };
+};
+
+// store的发射器/也是action function
+const mapDispatchToProps = (dispatch) => {
+  // dispatch function 是根据dispatcher function里面的return object的type来找到reducer对应的位置，从而更新reducer乃至整个store
+  return {
+    updateFacesToStore: (faces) => dispatch(updateWatchFacesRedux(faces)),
+  };
+};
+
+// connect能把接受回来的store data通过properties打进去BuildWatch component
+export default connect(mapStateToProps, mapDispatchToProps)(BuildWatch);

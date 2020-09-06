@@ -18,7 +18,6 @@ const ClientInfoForm = () => {
   const [zipCode, setZipCode] = useState('');
 
   const submitForm = () => {
-    console.log('pass2');
   };
   return (
     <AvForm
@@ -28,13 +27,11 @@ const ClientInfoForm = () => {
         if (errors.length === 0) {
           //提交表格里的信息
           submitForm();
-          const response = await fetch(ORIGIN + '/api/watch/client', {
+          await fetch(ORIGIN + '/api/watch/client', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(values),
           });
-          const result = await response.json();
-          console.log(result);
         }
       }}>
       <Container>

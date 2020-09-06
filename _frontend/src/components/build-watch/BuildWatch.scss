@@ -60,6 +60,12 @@
       height: 120px;
       border-radius: 50%;
       text-align: center;
+
+      @media screen and (max-width: 576px) {
+        width: 100px;
+        height: 100px;
+        margin: 0 6px;
+      }
     }
   }
 

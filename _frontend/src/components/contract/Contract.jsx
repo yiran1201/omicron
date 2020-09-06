@@ -142,7 +142,6 @@ const Contract = () => {
               heightRemain -= pageHeight;
 
               while (heightRemain >= 0) {
-                console.log('pass');
                 position = heightRemain - imgHeight + 12;
                 doc.addPage();
                 doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
@@ -174,8 +173,7 @@ const Contract = () => {
       <AvForm
         onSubmit={(event, errors, values) => {
           event.persist();
-          // console.log(errors);
-          // console.log(values);
+
           // errors告诉name对应的地方是否有错误
           // value给出name对应的值
           if (errors.length === 0) {

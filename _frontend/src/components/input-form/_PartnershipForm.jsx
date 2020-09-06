@@ -89,13 +89,11 @@ const PartnershipForm = () => {
             source: values.source,
             shops: shops,
           };
-          const response = await fetch(ORIGIN + '/api/watch/partner', {
+          await fetch(ORIGIN + '/api/watch/partner', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(form),
           });
-          const result = await response.json();
-          console.log(result);
         }
       }}>
       <Container>

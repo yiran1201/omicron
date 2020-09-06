@@ -1,9 +1,15 @@
-import {Router} from 'express';
+import _ from 'lodash';
+import {Router, response, request} from 'express';
 
 import PartnerModel from '../models/partner-model';
-import _ from 'lodash';
+import WatchBandModel from '../models/watch-band-model';
+import watchFaceModel from '../models/watch-face-model';
+
 import BRANDS from '../mocks/brands.json';
 import COUNTRIES from '../mocks/countries.json';
+import FACES from '../mocks/faces.json';
+import WATCHBANDS from '../mocks/bands.json';
+
 // choice 是用来拿arr里面随机的元素
 const choice = (arr) => {
   // Math.random() 这是return 0到1之间的任意小数
@@ -49,5 +55,35 @@ router.get('/partners', async (request, response) => {
 router.get('/', async (request, response) => {
   console.log('***GET /api/mock');
   response.status(200).json('Mock');
+});
+
+// band
+router.get('/bands', async (request, response) => {
+  console.log('***GET /api/mock/bands');
+  for (const band of WATCHBANDS) {
+    const watchBandDocument = new WatchBandModel({
+      name: band.name,
+      source: band.source,
+      price: Number(band.price),
+      case_color: band.case_color,
+      background: band.background,
+    });
+    await watchBandDocument.save();
+  }
+  response.status(200).json('sync bands metadata');
+});
+
+//faces
+router.get('/faces', async (request, response) => {
+  console.log('***GET /api/mock/faces');
+  for (const face of FACES) {
+    const watchFaceDocument = new watchFaceModel({
+      name: face.name,
+      source: face.source,
+      price: Number(face.price),
+    });
+    await watchFaceDocument.save();
+  }
+  response.status(200).json('sync faces metadata');
 });
 export default router;

@@ -20,13 +20,11 @@ const WatchFaceForm = () => {
         event.persist(); //防止影响其他form的submit
         if (errors.length === 0) {
           //提交表格里的信息
-          const response = await fetch(ORIGIN + '/api/watch/face', {
+           await fetch(ORIGIN + '/api/watch/face', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(values),
           });
-          const result = await response.json();
-          console.log(result);
         }
       }}>
       <Container>

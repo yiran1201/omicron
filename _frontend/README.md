@@ -234,3 +234,11 @@ fetch('https://example.com/profile', {
 ## setState function
 - 所有的setState不一定inline执行的，有快有慢，概念类似于PROMISE async function
 - 每一次跑setState都会重新render一次component，不会重复进入useEffect
+
+## cache 是一个缓存策略
+- 它的作用是不Load重复的信息，就是如果发现你的数据是Load过就不需要再从数据库Load
+- react下面是有一页，它的分页效果是通过component切换做成的
+- component切换会被需要re-render，以及trigger useEffect,其中可能造成多余的API call
+
+## Redux 的概念
+- 在app的scope做一个全局范围的store，储存的信息能被所有component共享

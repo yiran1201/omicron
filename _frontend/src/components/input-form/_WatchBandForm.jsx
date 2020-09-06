@@ -22,14 +22,11 @@ const WatchBandForm = () => {
         event.persist();
         if (errors.length === 0) {
           //提交表格里的信息
-          console.log(values);
-          const response = await fetch(ORIGIN + '/api/watch/band', {
+          await fetch(ORIGIN + '/api/watch/band', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(values),
           });
-          const result = await response.json();
-          console.log(result);
         }
       }}>
       <Container>
