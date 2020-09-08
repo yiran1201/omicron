@@ -15,12 +15,15 @@ import Pdf from 'react-to-pdf';
 import {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {updateWatchFacesRedux} from '../../store/watch-store/watch-dispatcher';
+import {updateWatchWarrantiesRedux} from '../../store/watch-store/watch-dispatcher';
+import {updateWatchBandsRedux} from '../../store/watch-store/watch-dispatcher';
 
 const ORIGIN = 'http://localhost:7777';
 const ALL_WATCH_FACE_API = ORIGIN + '/api/watch/face/all';
 const ALL_WATCH_BAND_API = ORIGIN + '/api/watch/band/all';
 const ALL_WARRANTIES_API = ORIGIN + '/api/watch/warranty/all';
 // props 是用来接受外界给BuildWatch这个component的property
+
 const BuildWatch = (props) => {
   const ref = React.createRef();
 
@@ -37,12 +40,17 @@ const BuildWatch = (props) => {
   const [warranties, setWarranties] = useState([]);
   const [openWarrantyOption, setWarrantyOption] = useState(false);
 
+  // fetch from redux store/cache
   console.log(props.storeFaces);
+  // useEffect 里面尽可能不要出现props
   const storeFaces = props.storeFaces;
   const updateFacesToStore = props.updateFacesToStore;
+  const storeBands = props.storeBands;
+  const updateBandsToStore = props.updateBandsToStore;
+  const storeWarranties = props.storeWarranties;
+  const updateWarrantiesToStore = props.updateWarrantiesToStore;
   useEffect(() => {
     if (storeFaces.length > 0) {
-      // fetch from redux store/cache
       const watchFaces = storeFaces;
       setWatchFaces(watchFaces);
       setWatchFace(watchFaces[0]);
@@ -72,7 +80,15 @@ const BuildWatch = (props) => {
       setWatchBand(watchBands[0]);
     };
     fetchWatchBands();
-  }, [storeFaces, updateFacesToStore]);
+  }, [
+    storeFaces,
+    updateFacesToStore,
+    storeBands,
+    updateBandsToStore,
+    storeWarranties,
+    updateWarrantiesToStore,
+  ]); //定义了useEffect要对“哪些跟新的property” 负责
+  console.log('11122')
 
   const OptionBar = () => {
     return (
@@ -301,8 +317,11 @@ const BuildWatch = (props) => {
   );
 };
 
-// store的接收器
+// reader
+// store的接收器，往BuildWatch component去装 storeFaces bands warranties 这些Properties，它们的值都是从中央的store里来的
+// component能随时监听的到store的最新变化，enable component能听到store的变化
 const mapStateToProps = (store) => {
+  //这里的state是全局状态，是从中央reducer拿到的
   return {
     storeFaces: store.watchReducer.faces,
     bands: store.watchReducer.bands,
@@ -310,11 +329,16 @@ const mapStateToProps = (store) => {
   };
 };
 
+// writer => dispatcher function
 // store的发射器/也是action function
 const mapDispatchToProps = (dispatch) => {
   // dispatch function 是根据dispatcher function里面的return object的type来找到reducer对应的位置，从而更新reducer乃至整个store
   return {
     updateFacesToStore: (faces) => dispatch(updateWatchFacesRedux(faces)),
+    updateBandsToStore: (bands) => dispatch(updateWatchBandsRedux(bands)),
+    updateWarrantiesToStore: (warranties) =>
+      updateWatchWarrantiesRedux(warranties),
+    // object key 对应的是function用于改store的指
   };
 };
 

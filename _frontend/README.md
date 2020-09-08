@@ -242,3 +242,7 @@ fetch('https://example.com/profile', {
 
 ## Redux 的概念
 - 在app的scope做一个全局范围的store，储存的信息能被所有component共享
+
+## useEffect 被trigger的两种情况
+- 1第一次pass 完component render
+- 2是发现如果有定义的property有更新
