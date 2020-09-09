@@ -14,9 +14,11 @@ import {useState} from 'react';
 import Pdf from 'react-to-pdf';
 import {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {updateWatchFacesRedux} from '../../store/watch-store/watch-dispatcher';
-import {updateWatchWarrantiesRedux} from '../../store/watch-store/watch-dispatcher';
-import {updateWatchBandsRedux} from '../../store/watch-store/watch-dispatcher';
+import {
+  updateWatchFacesRedux,
+  updateWatchBandsRedux,
+  updateWatchWarrantiesRedux,
+} from '../../store/watch-store/watch-dispatcher';
 
 const ORIGIN = 'http://localhost:7777';
 const ALL_WATCH_FACE_API = ORIGIN + '/api/watch/face/all';
@@ -41,54 +43,72 @@ const BuildWatch = (props) => {
   const [openWarrantyOption, setWarrantyOption] = useState(false);
 
   // fetch from redux store/cache
-  console.log(props.storeFaces);
+  // console.log(props.storeFaces);
   // useEffect 里面尽可能不要出现props
   const storeFaces = props.storeFaces;
   const updateFacesToStore = props.updateFacesToStore;
+
   const storeBands = props.storeBands;
   const updateBandsToStore = props.updateBandsToStore;
+
   const storeWarranties = props.storeWarranties;
   const updateWarrantiesToStore = props.updateWarrantiesToStore;
+  // useEffect(callback function, [trigger condition])
   useEffect(() => {
+    console.log('');
+    console.log('pass useEffect');
     if (storeFaces.length > 0) {
-      const watchFaces = storeFaces;
-      setWatchFaces(watchFaces);
-      setWatchFace(watchFaces[0]);
+      setWatchFaces(storeFaces);
+      setWatchFace(storeFaces[0]);
     } else {
       const fetchWatchFaces = async () => {
+        console.log('face API call')
         const response = await fetch(ALL_WATCH_FACE_API);
         const watchFaces = await response.json();
-        updateFacesToStore(watchFaces);
+        await updateFacesToStore(watchFaces);
         setWatchFaces(watchFaces);
         setWatchFace(watchFaces[0]);
       };
       fetchWatchFaces();
     }
 
-    const fetchWarranties = async () => {
-      const response = await fetch(ALL_WARRANTIES_API);
-      const warranties = await response.json();
-      setWarranties(warranties);
-      setWarranty(warranties[0]);
-    };
-    fetchWarranties();
+    if (storeWarranties.length > 0) {
+      setWarranties(storeWarranties);
+      setWarranty(storeWarranties[0]);
+    } else {
+      const fetchWarranties = async () => {
+        console.log('warrant API call')
+        const response = await fetch(ALL_WARRANTIES_API);
+        const warranties = await response.json();
+        await updateWarrantiesToStore(warranties);
+        setWarranties(warranties);
+        setWarranty(warranties[0]);
+      };
+      fetchWarranties();
+    }
 
-    const fetchWatchBands = async () => {
-      const response = await fetch(ALL_WATCH_BAND_API);
-      const watchBands = await response.json();
-      setWatchBands(watchBands);
-      setWatchBand(watchBands[0]);
-    };
-    fetchWatchBands();
+    if (storeBands.length > 0) {
+      setWatchBands(storeBands);
+      setWatchBand(storeBands[0]);
+    } else {
+      const fetchWatchBands = async () => {
+        console.log('band API call')
+        const response = await fetch(ALL_WATCH_BAND_API);
+        const watchBands = await response.json();
+        await updateBandsToStore(watchBands);
+        setWatchBands(watchBands);
+        setWatchBand(watchBands[0]);
+      };
+      fetchWatchBands();
+    }
   }, [
-    storeFaces,
-    updateFacesToStore,
-    storeBands,
-    updateBandsToStore,
-    storeWarranties,
-    updateWarrantiesToStore,
+    // storeFaces,
+    // updateFacesToStore,
+    // storeBands,
+    // updateBandsToStore,
+    // storeWarranties,
+    // updateWarrantiesToStore,
   ]); //定义了useEffect要对“哪些跟新的property” 负责
-  console.log('11122')
 
   const OptionBar = () => {
     return (
@@ -212,7 +232,7 @@ const BuildWatch = (props) => {
           </tr>
           <tr>
             <th scope='row'>Warranty</th>
-            <td>{warranty.option}</td>
+            <td>{warranty.name}</td>
             <td className='price-font'>
               <CurrencyFormat
                 thousandSeparator={true}
@@ -275,8 +295,13 @@ const BuildWatch = (props) => {
       </Table>
     );
   };
-  if (watchBand === null || watchFace === null || warranty === null) return '';
 
+  if (watchBand === null || watchFace === null || warranty === null) {
+    // console.log('return empty');
+    return '';
+  }
+
+  // console.log('return HTML');
   return (
     <div ref={ref} className='mt-4' id='build-watch-page'>
       {/* <div className='text-center h2'>Customization</div> */}
@@ -323,9 +348,9 @@ const BuildWatch = (props) => {
 const mapStateToProps = (store) => {
   //这里的state是全局状态，是从中央reducer拿到的
   return {
-    storeFaces: store.watchReducer.faces,
-    bands: store.watchReducer.bands,
-    warranties: store.watchReducer.warranties,
+    storeFaces: store.watchReducer.faces, //这里的key名字要和Props对应上，自己随便起的
+    storeBands: store.watchReducer.bands,
+    storeWarranties: store.watchReducer.warranties,
   };
 };
 
@@ -337,7 +362,7 @@ const mapDispatchToProps = (dispatch) => {
     updateFacesToStore: (faces) => dispatch(updateWatchFacesRedux(faces)),
     updateBandsToStore: (bands) => dispatch(updateWatchBandsRedux(bands)),
     updateWarrantiesToStore: (warranties) =>
-      updateWatchWarrantiesRedux(warranties),
+      dispatch(updateWatchWarrantiesRedux(warranties)),
     // object key 对应的是function用于改store的指
   };
 };

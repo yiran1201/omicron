@@ -246,3 +246,8 @@ fetch('https://example.com/profile', {
 ## useEffect 被trigger的两种情况
 - 1第一次pass 完component render
 - 2是发现如果有定义的property有更新
+
+## setState function
+
+- setState function会trigger component re-render
+- component props 的改动(Redux)会trigger useEffect()

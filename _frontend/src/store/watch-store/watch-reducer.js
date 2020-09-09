@@ -15,13 +15,15 @@ export default (state = defaultState, action) => {
   // 定义每个指令不同的执行方法
   switch (action.type) {
     case UPDATE_WATCH_WARRANTIES:
+      // console.log('pass watch-reducer: UPDATE_WATCH_WARRANTIES')
       return Object.assign({}, state, {warranties: action.data});
 
     case UPDATE_WATCH_FACES:
-      console.log('pass watch-reducer: UPDATE_WATCH_FACES')
+      // console.log('pass watch-reducer: UPDATE_WATCH_FACES')
       return Object.assign({}, state, {faces: action.data});
 
     case UPDATE_WATCH_BANDS:
+      // console.log('pass watch-reducer: UPDATE_WATCH_BANDS')
       return Object.assign({}, state, {bands: action.data});
 
     default:
