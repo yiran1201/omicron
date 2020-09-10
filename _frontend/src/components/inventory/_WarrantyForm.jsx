@@ -78,7 +78,7 @@ const WatchWarrantyForm = () => {
         <Row>
           <Col xs={12} sm={3} className='ml-auto align-self-end'>
             <Button className='btn-block ' color='primary' type='submit'>
-              Submit Warranty
+              Add Warranty
             </Button>
           </Col>
         </Row>

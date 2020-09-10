@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import BuildWatchPage from '../build-watch/BuildWatch';
 import ContractPage from '../contract/Contract';
 import PartnershipPage from '../partnership/Partnership';
-import InputFormPage from '../input-form/InputForm';
+import InventoryPage from '../inventory/Inventory';
 import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import {
   Collapse,
@@ -13,6 +13,11 @@ import {
   Nav,
   NavItem,
 } from 'reactstrap';
+
+const ORIGIN = 'http://localhost:7777';
+const RESET_FACES_API = ORIGIN + '/api/mock/faces';
+const RESET_BANDS_API = ORIGIN + '/api/mock/bands';
+const RESET_PARTNERS_API = ORIGIN + '/api/mock/partners';
 
 const App = () => {
   const [openNav, setNavOpen] = useState(false);
@@ -61,9 +66,18 @@ const App = () => {
           <Route path='/' component={BuildWatchPage} exact />
           <Route path='/contract' component={ContractPage} exact />
           <Route path='/partnership' component={PartnershipPage} exact />
-          <Route path='/inventory' component={InputFormPage} exact />
+          <Route path='/inventory' component={InventoryPage} exact />
         </Switch>
       </BrowserRouter>
+      <button
+        className='btn btn-outline-primary btn-reset'
+        onClick={async () => {
+          await fetch(RESET_BANDS_API, {method: 'POST'});
+          await fetch(RESET_FACES_API, {method: 'POST'});
+          await fetch(RESET_PARTNERS_API, {method: 'POST'});
+        }}>
+        <span className='fa fa-sync'></span>
+      </button>
     </div>
   );
 };

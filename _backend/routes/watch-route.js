@@ -108,11 +108,18 @@ router.get('/warranty/all', async (request, response) => {
 router.post('/client', async (request, response) => {
   print('POST', '/api/watch/client');
   const clientDocument = new ClientModel({
-    name: request.body.name,
-    address: request.body.address,
-    city: request.body.city,
-    state: request.body.state,
-    zip: request.body.zip,
+    unit_price: Number(request.body.unitPrice),
+    quantity: Number(request.body.quantity),
+    payment_term: request.body.paymentTerm,
+    logistic: request.body.logistic,
+    client_name: request.body.clientName,
+    address: {
+      street_address_1: request.body.address.streetAddress1,
+      street_address_2: request.body.address.streetAddress2,
+      city: request.body.address.city,
+      state: request.body.address.state,
+      zip_code: request.body.address.zipCode,
+    },
   });
   const data = await clientDocument.save();
   response.status(200).json(data);

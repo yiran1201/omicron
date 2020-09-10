@@ -94,7 +94,7 @@ const WatchFaceForm = () => {
         <Row>
           <Col xs={12} sm={3} className='ml-auto align-self-end'>
             <Button className='btn-block' color='primary' type='submit'>
-              Submit Watch Face
+             Add Face
             </Button>
           </Col>
         </Row>

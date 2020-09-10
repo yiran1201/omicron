@@ -54,61 +54,60 @@ const BuildWatch = (props) => {
   const storeWarranties = props.storeWarranties;
   const updateWarrantiesToStore = props.updateWarrantiesToStore;
   // useEffect(callback function, [trigger condition])
-  useEffect(() => {
-    console.log('');
-    console.log('pass useEffect');
-    if (storeFaces.length > 0) {
-      setWatchFaces(storeFaces);
-      setWatchFace(storeFaces[0]);
-    } else {
-      const fetchWatchFaces = async () => {
-        console.log('face API call')
-        const response = await fetch(ALL_WATCH_FACE_API);
-        const watchFaces = await response.json();
-        await updateFacesToStore(watchFaces);
-        setWatchFaces(watchFaces);
-        setWatchFace(watchFaces[0]);
-      };
-      fetchWatchFaces();
-    }
+  useEffect(
+    () => {
+      if (storeFaces.length > 0) {
+        setWatchFaces(storeFaces);
+        setWatchFace(storeFaces[0]);
+      } else {
+        const fetchWatchFaces = async () => {
+          const response = await fetch(ALL_WATCH_FACE_API);
+          const watchFaces = await response.json();
+          await updateFacesToStore(watchFaces);
+          setWatchFaces(watchFaces);
+          setWatchFace(watchFaces[0]);
+        };
+        fetchWatchFaces();
+      }
 
-    if (storeWarranties.length > 0) {
-      setWarranties(storeWarranties);
-      setWarranty(storeWarranties[0]);
-    } else {
-      const fetchWarranties = async () => {
-        console.log('warrant API call')
-        const response = await fetch(ALL_WARRANTIES_API);
-        const warranties = await response.json();
-        await updateWarrantiesToStore(warranties);
-        setWarranties(warranties);
-        setWarranty(warranties[0]);
-      };
-      fetchWarranties();
-    }
+      if (storeWarranties.length > 0) {
+        setWarranties(storeWarranties);
+        setWarranty(storeWarranties[0]);
+      } else {
+        const fetchWarranties = async () => {
+          const response = await fetch(ALL_WARRANTIES_API);
+          const warranties = await response.json();
+          await updateWarrantiesToStore(warranties);
+          setWarranties(warranties);
+          setWarranty(warranties[0]);
+        };
+        fetchWarranties();
+      }
 
-    if (storeBands.length > 0) {
-      setWatchBands(storeBands);
-      setWatchBand(storeBands[0]);
-    } else {
-      const fetchWatchBands = async () => {
-        console.log('band API call')
-        const response = await fetch(ALL_WATCH_BAND_API);
-        const watchBands = await response.json();
-        await updateBandsToStore(watchBands);
-        setWatchBands(watchBands);
-        setWatchBand(watchBands[0]);
-      };
-      fetchWatchBands();
-    }
-  }, [
-    // storeFaces,
-    // updateFacesToStore,
-    // storeBands,
-    // updateBandsToStore,
-    // storeWarranties,
-    // updateWarrantiesToStore,
-  ]); //定义了useEffect要对“哪些跟新的property” 负责
+      if (storeBands.length > 0) {
+        setWatchBands(storeBands);
+        setWatchBand(storeBands[0]);
+      } else {
+        const fetchWatchBands = async () => {
+          const response = await fetch(ALL_WATCH_BAND_API);
+          const watchBands = await response.json();
+          await updateBandsToStore(watchBands);
+          setWatchBands(watchBands);
+          setWatchBand(watchBands[0]);
+        };
+        fetchWatchBands();
+      }
+    },
+    // eslint-disable-next-line
+    [
+      // storeFaces,
+      // updateFacesToStore,
+      // storeBands,
+      // updateBandsToStore,
+      // storeWarranties,
+      // updateWarrantiesToStore,
+    ]
+  ); //定义了useEffect要对“哪些跟新的property” 负责
 
   const OptionBar = () => {
     return (

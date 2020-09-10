@@ -3,7 +3,6 @@ import {Container} from 'reactstrap';
 import WatchFaceForm from './_WatchFaceForm';
 import WatchBandForm from './_WatchBandForm';
 import WatchWarrantyForm from './_WarrantyForm';
-import ClientInfoForm from './_ClientInfoForm';
 import PartnershipForm from './_PartnershipForm';
 
 const InputForm = () => {
@@ -24,7 +23,6 @@ const InputForm = () => {
       <WatchFaceForm />
       <WatchBandForm />
       <WatchWarrantyForm />
-      <ClientInfoForm />
       <PartnershipForm />
       <Container className='mb-4' />
     </>

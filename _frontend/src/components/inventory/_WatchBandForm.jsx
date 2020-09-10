@@ -5,29 +5,24 @@ import {
   AvInput,
   AvFeedback,
 } from 'availity-reactstrap-validation';
-import {Container, Row, Col, Button} from 'reactstrap';
+import {Container, Row, Col, Button, Label} from 'reactstrap';
 import {useState} from 'react';
 
 const ORIGIN = 'http://localhost:7777';
-const ClientInfoForm = () => {
-  const [clientName, setClientName] = useState('');
-  const [streetAddress1, setStreetAddress1] = useState('');
-  // const [streetAddress2, setStreetAddress2] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipCode, setZipCode] = useState('');
+const WatchBandForm = () => {
+  const [watchBand, setWatchBand] = useState('');
+  const [watchBandSource, setWatchBandSource] = useState('');
+  const [watchCase, setWatchCase] = useState('');
+  const [watchBandPrice, setWatchbandPrice] = useState(0);
+  const [background, setBackground] = useState('');
 
-  const submitForm = () => {
-  };
   return (
     <AvForm
-      className='mt-4'
       onSubmit={async (event, errors, values) => {
         event.persist();
         if (errors.length === 0) {
           //提交表格里的信息
-          submitForm();
-          await fetch(ORIGIN + '/api/watch/client', {
+          await fetch(ORIGIN + '/api/watch/band', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(values),
@@ -35,125 +30,117 @@ const ClientInfoForm = () => {
         }
       }}>
       <Container>
-        <nav aria-label='breadcrumb'>
-          <ol className='breadcrumb'>
-            <li className='breadcrumb-item active' aria-current='page'>
-              Omicron
-            </li>
-            <li className='breadcrumb-item active' aria-current='page'>
-              Client Info
-            </li>
-          </ol>
-        </nav>
+        <Label for='watch-band'>Watch Band</Label>
         <Row>
-          <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+          <Col md={4} sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
-                <span className='input-group-text'>Client Name</span>
+                <span className='input-group-text'>Watch Band</span>
               </div>
               <AvInput
                 required
                 type='text'
                 className='form-control'
                 name='name'
-                value={clientName}
+                value={watchBand}
                 onChange={(event) => {
                   event.preventDefault();
-                  setClientName(event.target.value);
+                  setWatchBand(event.target.value);
                 }}
               />
-
-              <AvFeedback>Enter client name</AvFeedback>
+              <AvFeedback>Enter watch band</AvFeedback>
             </AvGroup>
           </Col>
 
-          <Col md={6} sm={12} className='watchFace-col mb-md-0'>
+          <Col md={4} sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
-                <span className='input-group-text'>streetAddress</span>
+                <span className='input-group-text'>Watch Band Source</span>
               </div>
               <AvInput
                 required
                 type='text'
                 className='form-control'
-                name='address'
-                value={streetAddress1}
+                name='source'
+                value={watchBandSource}
                 onChange={(event) => {
                   event.preventDefault();
-                  setStreetAddress1(event.target.value);
+                  setWatchBandSource(event.target.value);
                 }}
               />
-
-              <AvFeedback>Enter street address</AvFeedback>
-            </AvGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={6} md={12} className='mb-md-0 address-col'>
-            <AvGroup className='input-group'>
-              <div className='input-group-prepend'>
-                <span className='input-group-text'>City</span>
-              </div>
-              <AvInput
-                required
-                type='text'
-                className='form-control'
-                name='city'
-                value={city}
-                onChange={(event) => {
-                  event.preventDefault();
-                  setCity(event.target.value);
-                }}
-              />
-              <AvFeedback>Enter city</AvFeedback>
+              <AvFeedback>Enter watch band link</AvFeedback>
             </AvGroup>
           </Col>
 
-          <Col sm={4} md={12} className='mb-md-0 address-col'>
+          <Col md={4} sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
-                <span className='input-group-text'>State</span>
+                <span className='input-group-text'>Watchband Price </span>
               </div>
               <AvInput
                 required
-                type='text'
-                name='state'
+                type='number'
                 className='form-control'
-                value={state}
+                name='price'
+                value={watchBandPrice}
                 onChange={(event) => {
                   event.preventDefault();
-                  setState(event.target.value);
+                  setWatchbandPrice(event.target.value);
                 }}
               />
-              <AvFeedback>Enter state</AvFeedback>
-            </AvGroup>
-          </Col>
-
-          <Col sm={3} md={12}>
-            <AvGroup className='input-group'>
-              <div className='input-group-prepend'>
-                <span className='input-group-text'>Zip</span>
-              </div>
-              <AvInput
-                required
-                type='text'
-                name='zip'
-                className='form-control'
-                value={zipCode}
-                onChange={(event) => {
-                  event.preventDefault();
-                  setZipCode(event.target.value);
-                }}
-              />
-              <AvFeedback>Enter zip code</AvFeedback>
+              <AvFeedback>Enter watchband price</AvFeedback>
             </AvGroup>
           </Col>
         </Row>
 
         <Row>
-          <Col xs={12} sm={3} className='ml-auto align-self-end'>
+          <Col md={12} sm={12} className='watchFace-col mb-md-0'>
+            <AvGroup className='input-group'>
+              <div className='input-group-prepend'>
+                <span className='input-group-text'>Background Source</span>
+              </div>
+              <AvInput
+                required
+                type='text'
+                className='form-control'
+                name='background'
+                value={background}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setBackground(event.target.value);
+                }}
+              />
+              <AvFeedback>Enter background source</AvFeedback>
+            </AvGroup>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={12} className='watchFace-col mb-md-0'>
+            <AvGroup className='input-group'>
+              <div className='input-group-prepend'>
+                <span className='input-group-text'>Watch Case Color</span>
+              </div>
+              <AvInput
+                required
+                type='text'
+                className='form-control'
+                name='case_color'
+                value={watchCase}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setWatchCase(event.target.value);
+                }}
+              />
+              <AvFeedback>Enter watch case color</AvFeedback>
+            </AvGroup>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={12} sm={3}  className='ml-auto align-self-end'>
             <Button className='btn-block' color='primary' type='submit'>
-              Submit Client Info
+              Add Band
             </Button>
           </Col>
         </Row>
@@ -162,4 +149,4 @@ const ClientInfoForm = () => {
   );
 };
 
-export default ClientInfoForm;
+export default WatchBandForm;

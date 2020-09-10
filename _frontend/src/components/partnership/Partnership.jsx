@@ -4,22 +4,32 @@ import {Container, Row, Card, Col, CardBody} from 'reactstrap';
 import {Chart} from 'react-google-charts';
 import {useState} from 'react';
 import {useEffect} from 'react';
+import {updatePartnersRedux} from '../../store/brand-store/brand-dispatcher';
+import {connect} from 'react-redux';
 
 const ORIGIN = 'http://localhost:7777';
 const ALL_PARTNER_API = ORIGIN + '/api/watch/partner/all';
 
-const Partnership = () => {
+const Partnership = (props) => {
   const [brands, setBrands] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(null);
-
+  const storePartners = props.storePartners;
+  const updatePartnersToStore = props.updatePartnersToStore;
   useEffect(() => {
-    const fetchPartners = async () => {
-      const response = await fetch(ALL_PARTNER_API);
-      const partners = await response.json();
-      setBrands(partners);
-      setSelectedBrand(partners[0]); // 改变selectedBrand的值
-    };
-    fetchPartners();
+    if (storePartners.length > 0) {
+      setBrands(storePartners);
+      setSelectedBrand(storePartners[0]);
+    } else {
+      const fetchPartners = async () => {
+        const response = await fetch(ALL_PARTNER_API);
+        const partners = await response.json();
+        await updatePartnersToStore(partners);
+        setBrands(partners);
+        setSelectedBrand(partners[0]); // 改变selectedBrand的值
+      };
+      fetchPartners();
+    }
+    // eslint-disable-next-line
   }, []);
 
   if (selectedBrand === null) {
@@ -89,4 +99,16 @@ const Partnership = () => {
   );
 };
 
-export default Partnership;
+const mapStateToProps = (store) => {
+  return {
+    storePartners: store.brandReducer.partners,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updatePartnersToStore: (partners) =>
+      dispatch(updatePartnersRedux(partners)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Partnership);

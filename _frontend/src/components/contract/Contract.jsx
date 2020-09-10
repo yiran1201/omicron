@@ -7,7 +7,6 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 import Logo from './logo.png';
-// import Pdf from 'react-to-pdf';
 import {
   Container,
   Row,
@@ -23,8 +22,6 @@ import {
   ModalFooter,
 } from 'reactstrap';
 import Generator from './Generator';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 const QUANTITY_OPTIONS = [300, 500, 1000, 1500];
 
@@ -33,6 +30,8 @@ const LOGISTIC_OPTIONS = [
   'Deliver to customer address',
   'Pick up at Omicron warehouse',
 ];
+const ORIGIN = 'http://localhost:7777';
+const APP_CLIENT_API = ORIGIN + '/api/watch/client';
 
 const Contract = () => {
   const ref = React.createRef();
@@ -57,6 +56,9 @@ const Contract = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipCode, setZipCode] = useState('');
+
+  //Tracking
+  const [trackingId, setTrackingId] = useState('');
 
   const generateInvoice = () => {
     setSubmitForm({
@@ -116,45 +118,19 @@ const Contract = () => {
           <Button color='secondary' onClick={() => setModal(false)}>
             Cancel
           </Button>
-          {/* <Pdf targetRef={ref} filename='term-agreement.pdf'>
-            {({toPdf}) => (
-              <button className='btn btn-primary' onClick={toPdf}>
-                Print Agreement
-              </button>
-            )}
-          </Pdf> */}
 
           <button
             className='btn btn-primary'
             onClick={async () => {
-              const input = document.getElementById('agreement');
-              const canvas = await html2canvas(input);
-              const imgData = canvas.toDataURL('image/png');
-
-              const imgWidth = 210;
-              const pageHeight = 294;
-              const imgHeight = (canvas.height * imgWidth) / canvas.width;
-              let heightRemain = imgHeight;
-              let position = 0;
-
-              const doc = new jsPDF('p', 'mm');
-              doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-              heightRemain -= pageHeight;
-
-              while (heightRemain >= 0) {
-                position = heightRemain - imgHeight + 12;
-                doc.addPage();
-                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightRemain -= pageHeight;
-                heightRemain -= 12;
-              }
-              doc.save('Purchase Agreement.pdf');
+              await fetch(APP_CLIENT_API, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(submitForm),
+              });
+              setModal(false);
             }}>
             Print Agreement
           </button>
-          {/* <Button color='primary' onClick={() => setModal(false)}>
-            Accept
-          </Button> */}
         </ModalFooter>
       </Modal>
     );
@@ -169,6 +145,43 @@ const Contract = () => {
         <img src={Logo} alt='logo' />
       </div>
       <div className='text-center h2'>Omicron</div>
+
+      <Row>
+        <Col xs={12}>
+          <AvForm
+            onSubmit={async (event, errors, values) => {
+              event.persist();
+              console.log(errors);
+              console.log(values);
+              console.log('pass');
+            }}>
+            <Container>
+              <AvGroup className='input-group'>
+                <div className='input-group-prepend'>
+                  <span className='input-group-text text-success'>Tracking ID</span>
+                </div>
+                <AvInput
+                  required
+                  type='text'
+                  name='tracking_id'
+                  className='form-control'
+                  value={trackingId}
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setTrackingId(event.target.value);
+                  }}
+                />
+                <div class='input-group-append'>
+                  <Button className='btn-block rounded-right' color='primary' type='submit'>
+                    Track
+                  </Button>
+                </div>
+                <AvFeedback>Invalid Tracking ID</AvFeedback>
+              </AvGroup>
+            </Container>
+          </AvForm>
+        </Col>
+      </Row>
 
       <AvForm
         onSubmit={(event, errors, values) => {

@@ -24,10 +24,15 @@ const randomShopCount = () => {
   return Math.floor(Math.random() * (high - low) + low);
 };
 
+const print = (type, route) => {
+  const time = new Date().toLocaleString();
+  console.log(`${type} ${'*'.repeat(6)} ${route} ${'*'.repeat(6)} ${time}`);
+};
 const router = Router();
 
-router.get('/partners', async (request, response) => {
-  console.log('***GET /api/mock/partners');
+router.post('/partners', async (request, response) => {
+  print('POST', '/api/mock/partners');
+  await PartnerModel.deleteMany();
   for (const brand of BRANDS) {
     //config shops data for a brand
     let sampleCountries = COUNTRIES.slice();
@@ -52,14 +57,9 @@ router.get('/partners', async (request, response) => {
   response.status(200).json('sync partners metadata');
 });
 
-router.get('/', async (request, response) => {
-  console.log('***GET /api/mock');
-  response.status(200).json('Mock');
-});
-
-// band
-router.get('/bands', async (request, response) => {
-  console.log('***GET /api/mock/bands');
+router.post('/bands', async (request, response) => {
+  print('POST', '/api/mock/bands');
+  await WatchBandModel.deleteMany();//先删除数据，再添加
   for (const band of WATCHBANDS) {
     const watchBandDocument = new WatchBandModel({
       name: band.name,
@@ -68,14 +68,14 @@ router.get('/bands', async (request, response) => {
       case_color: band.case_color,
       background: band.background,
     });
-    await watchBandDocument.save();
+    await watchBandDocument.save();//添加数据
   }
   response.status(200).json('sync bands metadata');
 });
 
-//faces
-router.get('/faces', async (request, response) => {
-  console.log('***GET /api/mock/faces');
+router.post('/faces', async (request, response) => {
+  print('POST', '/api/mock/faces');
+  await watchFaceModel.deleteMany();
   for (const face of FACES) {
     const watchFaceDocument = new watchFaceModel({
       name: face.name,
@@ -86,4 +86,5 @@ router.get('/faces', async (request, response) => {
   }
   response.status(200).json('sync faces metadata');
 });
+
 export default router;

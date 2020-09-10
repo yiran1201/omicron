@@ -171,7 +171,7 @@ const PartnershipForm = () => {
         <Row>
           <Col xs={12} sm={3} className='ml-auto mt-2 align-self-end'>
             <Button className='btn-block' color='primary' type='submit'>
-              Submit Partnership
+              Add Partner
             </Button>
           </Col>
         </Row>
