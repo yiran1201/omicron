@@ -20,7 +20,7 @@ const WatchFaceForm = () => {
         event.persist(); //防止影响其他form的submit
         if (errors.length === 0) {
           //提交表格里的信息
-           await fetch(ORIGIN + '/api/watch/face', {
+          await fetch(ORIGIN + '/api/watch/face', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(values),
@@ -30,7 +30,7 @@ const WatchFaceForm = () => {
       <Container>
         <Label for='watch-face'>Watch Face</Label>
         <Row>
-          <Col md={4} sm={12} className='watchFace-col mb-md-0'>
+          <Col sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Watch Face</span>
@@ -51,7 +51,7 @@ const WatchFaceForm = () => {
             </AvGroup>
           </Col>
 
-          <Col md={4} sm={12} className='watchFace-col mb-md-0'>
+          <Col sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Watch Face Source</span>
@@ -70,7 +70,7 @@ const WatchFaceForm = () => {
               <AvFeedback>Enter watch face source</AvFeedback>
             </AvGroup>
           </Col>
-          <Col md={4} sm={12} className='watchFace-col mb-md-0'>
+          <Col sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Watch Face Price</span>
@@ -94,7 +94,7 @@ const WatchFaceForm = () => {
         <Row>
           <Col xs={12} sm={3} className='ml-auto align-self-end'>
             <Button className='btn-block' color='primary' type='submit'>
-             Add Face
+              Add Face
             </Button>
           </Col>
         </Row>

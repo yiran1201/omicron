@@ -32,7 +32,7 @@ const WatchBandForm = () => {
       <Container>
         <Label for='watch-band'>Watch Band</Label>
         <Row>
-          <Col md={4} sm={12} className='watchFace-col mb-md-0'>
+          <Col  sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Watch Band</span>
@@ -52,7 +52,7 @@ const WatchBandForm = () => {
             </AvGroup>
           </Col>
 
-          <Col md={4} sm={12} className='watchFace-col mb-md-0'>
+          <Col  sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Watch Band Source</span>
@@ -72,7 +72,7 @@ const WatchBandForm = () => {
             </AvGroup>
           </Col>
 
-          <Col md={4} sm={12} className='watchFace-col mb-md-0'>
+          <Col  sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Watchband Price </span>

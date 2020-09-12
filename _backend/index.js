@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 // 一级
 app.use('/invoice', (request, response) => {
-  response.status(200).json('invoicepage');
+  response.status(200).json('piaji');
 });
 
 // 连接自己定义的route

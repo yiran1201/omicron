@@ -4,6 +4,7 @@ import WatchBandModel from '../models/watch-band-model';
 import WarrantyModel from '../models/warranty-models';
 import ClientModel from '../models/client-models';
 import PartnerModel from '../models/partner-model';
+import {Types} from 'mongoose';
 
 const router = Router();
 
@@ -102,9 +103,9 @@ router.get('/warranty/all', async (request, response) => {
   response.status(200).json(parsedWarranties);
 });
 
-/***********
+/**************
  * ClientInfo *
- ***********/
+ **************/
 router.post('/client', async (request, response) => {
   print('POST', '/api/watch/client');
   const clientDocument = new ClientModel({
@@ -122,7 +123,37 @@ router.post('/client', async (request, response) => {
     },
   });
   const data = await clientDocument.save();
-  response.status(200).json(data);
+  response.status(200).json(data._id); // 我们只需要ID
+});
+
+router.get('/client/:id', async (request, response) => {
+  const clientId = request.params.id;
+  print('GET', `/api/watch/client/${clientId}`);
+  try {
+    const client = await ClientModel.findOne({_id: Types.ObjectId(clientId)});
+
+    if (client) {
+      const parsedClient = { //把数据格式转成前端可读
+        unitPrice: Number(client.unit_price),
+        quantity: Number(client.quantity),
+        paymentTerm: client.payment_term,
+        logistic: client.logistic,
+        clientName: client.client_name,
+        address: {
+          streetAddress1: client.address.street_address_1,
+          streetAddress2: client.address.street_address_2,
+          city: client.address.city,
+          state: client.address.state,
+          zipCode: client.address.zip_code,
+        },
+      };
+      response.status(200).json(parsedClient);
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+    response.status(404).json({error: 'client not found'});
+  }
 });
 
 router.get('/client/all', async (request, response) => {
