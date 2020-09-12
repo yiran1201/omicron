@@ -6,7 +6,15 @@ import {
   DropdownMenu,
   DropdownItem,
   Table,
+  Button,
 } from 'reactstrap';
+
+import {
+  AvForm,
+  AvGroup,
+  AvInput,
+  AvFeedback,
+} from 'availity-reactstrap-validation';
 
 import React from 'react';
 
@@ -42,6 +50,9 @@ const BuildWatch = (props) => {
   const [warranties, setWarranties] = useState([]);
   const [openWarrantyOption, setWarrantyOption] = useState(false);
 
+  const ORIGIN = 'http://localhost:7777';
+  const ADD_INVOICE_API = ORIGIN + '/api/invoice';
+
   // fetch from redux store/cache
   // console.log(props.storeFaces);
   // useEffect 里面尽可能不要出现props
@@ -53,6 +64,50 @@ const BuildWatch = (props) => {
 
   const storeWarranties = props.storeWarranties;
   const updateWarrantiesToStore = props.updateWarrantiesToStore;
+
+  const [watchId, setWatchId] = useState('');
+  const [watchTrackingError, setWatchTrackingError] = useState('');
+
+  const TrackingWatchForm = () => {
+    return (
+      <AvForm
+        onSubmit={async (event, errors, values) => {
+          event.persist();
+          if (errors.length !== 0) return;
+        }}>
+        <AvGroup className='input-group'>
+          <div className='input-group-prepend'>
+            <span className='input-group-text text-success'>
+              Tracking Watch ID
+            </span>
+          </div>
+          <AvInput
+            required
+            type='text'
+            name='watchId'
+            className='form-control'
+            value={watchId}
+            onChange={(event) => {
+              setWatchId(event.target.value);
+              if (watchTrackingError !== '') {
+                setWatchTrackingError(''); //当user输入ID信息的时候重新reset
+              }
+            }}
+          />
+          <div className='input-group-append'>
+            <Button
+              className='btn-block rounded-right'
+              color='primary'
+              type='submit'>
+              Track
+            </Button>
+          </div>
+          <AvFeedback>Field cannot be empty</AvFeedback>
+        </AvGroup>
+      </AvForm>
+    );
+  };
+
   // useEffect(callback function, [trigger condition])
   useEffect(
     () => {
@@ -64,8 +119,8 @@ const BuildWatch = (props) => {
           const response = await fetch(ALL_WATCH_FACE_API);
           const watchFaces = await response.json();
           await updateFacesToStore(watchFaces);
-          setWatchFaces(watchFaces);
-          setWatchFace(watchFaces[0]);
+          setWatchFaces(watchFaces); //是用来做备选项的，是dropdown menu里面的选项
+          setWatchFace(watchFaces[0]); //初始，如果没有页面Render不出来
         };
         fetchWatchFaces();
       }
@@ -283,7 +338,21 @@ const BuildWatch = (props) => {
                 filename='omicron-invoice.pdf'
                 options={{unit: 'in'}}>
                 {({toPdf}) => (
-                  <button className='btn btn-theme btn-block' onClick={toPdf}>
+                  <button
+                    className='btn btn-theme btn-block'
+                    onClick={async () => {
+                      const form = {
+                        face: watchFace,
+                        band: watchBand,
+                        warranty: warranty,
+                      };
+                      const response = await fetch(ADD_INVOICE_API, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(form),
+                      });
+                      console.log(response);
+                    }}>
                     Print Invoice
                   </button>
                 )}
@@ -314,6 +383,8 @@ const BuildWatch = (props) => {
           </li>
         </ol>
       </nav>
+
+      <TrackingWatchForm />
 
       <div className='model-wrapper'>
         <div

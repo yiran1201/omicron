@@ -1,8 +1,8 @@
 import {Router} from 'express';
 import WatchFaceModel from '../models/watch-face-model';
 import WatchBandModel from '../models/watch-band-model';
-import WarrantyModel from '../models/warranty-models';
-import ClientModel from '../models/client-models';
+import WarrantyModel from '../models/warranty-model';
+import ClientModel from '../models/client-model';
 import PartnerModel from '../models/partner-model';
 import {Types} from 'mongoose';
 
@@ -130,10 +130,11 @@ router.get('/client/:id', async (request, response) => {
   const clientId = request.params.id;
   print('GET', `/api/watch/client/${clientId}`);
   try {
-    const client = await ClientModel.findOne({_id: Types.ObjectId(clientId)});
+    const client = await ClientModel.findOne({_id: Types.ObjectId(clientId)});//Types.ObjectId 是casting成了object id
 
     if (client) {
-      const parsedClient = { //把数据格式转成前端可读
+      const parsedClient = {
+        //把数据格式转成前端可读
         unitPrice: Number(client.unit_price),
         quantity: Number(client.quantity),
         paymentTerm: client.payment_term,
@@ -148,7 +149,6 @@ router.get('/client/:id', async (request, response) => {
         },
       };
       response.status(200).json(parsedClient);
-      return;
     }
   } catch (error) {
     console.log(error);
@@ -156,21 +156,7 @@ router.get('/client/:id', async (request, response) => {
   }
 });
 
-router.get('/client/all', async (request, response) => {
-  print('GET', '/api/watch/client/all');
-  const clients = await ClientModel.find();
-  const parseClients = [];
-  for (const client of clients) {
-    parseClients.push({
-      name: client.name,
-      address: client.address,
-      city: client.city,
-      state: client.state,
-      zip: client.zip,
-    });
-  }
-  response.status(200).json(parseClients);
-});
+
 
 /***********
  * Partner *

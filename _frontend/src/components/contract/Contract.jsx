@@ -31,7 +31,7 @@ const LOGISTIC_OPTIONS = [
   'Pick up at Omicron warehouse',
 ];
 const ORIGIN = 'http://localhost:7777';
-const APP_CLIENT_API = ORIGIN + '/api/watch/client';
+const ADD_CLIENT_API = ORIGIN + '/api/watch/client';
 
 const Contract = () => {
   const [quantity, setQuantity] = useState(QUANTITY_OPTIONS[0]);
@@ -61,6 +61,7 @@ const Contract = () => {
 
   //client ID
   const [clientId, setClientId] = useState('');
+
 
   const generateInvoice = () => {
     setSubmitForm({
@@ -125,7 +126,7 @@ const Contract = () => {
           <button
             className='btn btn-primary'
             onClick={async () => {
-              const response = await fetch(APP_CLIENT_API, {
+              const response = await fetch(ADD_CLIENT_API, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(submitForm),
@@ -171,7 +172,7 @@ const Contract = () => {
           console.log(errors);
           if (errors.length !== 0) return;
 
-          const response = await fetch(`${APP_CLIENT_API}/${trackingId}`);
+          const response = await fetch(`${ADD_CLIENT_API}/${trackingId}`);
           if (response.status === 200) {
             const data = await response.json();
             setQuantity(data.quantity);

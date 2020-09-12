@@ -1,9 +1,9 @@
 import {Schema, model} from 'mongoose';
 
-const WatchFace = new Schema({
+const WatchFaceModel = new Schema({
   name: String,
   source: String,
   price: Number,
 });
 
-export default model('WatchFace', WatchFace, 'faces');
+export default model('WatchFace', WatchFaceModel, 'faces');
