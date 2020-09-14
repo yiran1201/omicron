@@ -34,12 +34,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "homepage": "./build",
   "browserslist": {
     "production": [
       ">0.2%",

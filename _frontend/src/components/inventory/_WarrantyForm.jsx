@@ -32,7 +32,7 @@ const WatchWarrantyForm = () => {
       <Container>
         <Label for='watch-warranty'>Watch Warranty </Label>
         <Row>
-          <Col xs={6} md={12} className='watchFace-col mb-md-0'>
+          <Col xs={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Warranty Price</span>
