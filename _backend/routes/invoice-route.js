@@ -10,7 +10,7 @@ const print = (type, route) => {
   console.log(`${type} ${'*'.repeat(6)} ${route} ${'*'.repeat(6)} ${time}`);
 };
 
-router.post('/invoice', async(request, response) => {
+router.post('/', async(request, response) => {
   print('POST', '/api/invoice/');
   const invoiceDocument = new invoiceModel({
     face: {
