@@ -1,5 +1,7 @@
-import './Contract.scss';
 import React, {useState} from 'react';
+
+import './Contract.scss';
+
 import {
   AvForm,
   AvGroup,
@@ -22,6 +24,7 @@ import {
   ModalFooter,
 } from 'reactstrap';
 import Generator from './_Generator';
+import {ORIGIN} from '../../constants/http-constant';
 
 const QUANTITY_OPTIONS = [300, 500, 1000, 1500];
 
@@ -30,8 +33,6 @@ const LOGISTIC_OPTIONS = [
   'Deliver to customer address',
   'Pick up at Omicron warehouse',
 ];
-const ORIGIN = 'http://localhost:7777';
-const ADD_CLIENT_API = ORIGIN + '/api/watch/client';
 
 const Contract = () => {
   const [quantity, setQuantity] = useState(QUANTITY_OPTIONS[0]);
@@ -125,7 +126,7 @@ const Contract = () => {
           <button
             className='btn btn-primary'
             onClick={async () => {
-              const response = await fetch(ADD_CLIENT_API, {
+              const response = await fetch(ORIGIN + '/api/watch/client', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(submitForm),
@@ -170,7 +171,9 @@ const Contract = () => {
           event.persist();
           if (errors.length !== 0) return;
 
-          const response = await fetch(`${ADD_CLIENT_API}/${trackingId}`);
+          const response = await fetch(
+            `${ORIGIN}/api/watch/client/${trackingId}`
+          );
           if (response.status === 200) {
             const data = await response.json();
             console.log(data);

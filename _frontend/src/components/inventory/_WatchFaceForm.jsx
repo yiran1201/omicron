@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   AvForm,
   AvGroup,
@@ -7,8 +8,8 @@ import {
 } from 'availity-reactstrap-validation';
 import {Container, Row, Col, Button, Label} from 'reactstrap';
 import {useState} from 'react';
+import {ORIGIN} from '../../constants/http-constant';
 
-const ORIGIN = 'http://localhost:7777';
 const WatchFaceForm = () => {
   const [watchFace, setWatchFace] = useState('');
   const [watchPrice, setWatchPrice] = useState(0);
@@ -16,15 +17,16 @@ const WatchFaceForm = () => {
 
   return (
     <AvForm
-      onSubmit={async (event, errors, values) => {//values是拿AvInput里面的name，实际是一个Object里面的Key
+      onSubmit={async (event, errors, values) => {
+        //values是拿AvInput里面的name，实际是一个Object里面的Key
         //这个Key会有对应的值，{name='name':value={watchFace}}
         event.persist(); //防止影响其他form的submit
         if (errors.length === 0) {
           const form = {
             name: values.name,
             price: values.price,
-            source: values.source
-          }
+            source: values.source,
+          };
           //提交表格里的信息
           await fetch(ORIGIN + '/api/watch/face', {
             method: 'POST',

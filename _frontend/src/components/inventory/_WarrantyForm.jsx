@@ -9,8 +9,8 @@ import {
 } from 'availity-reactstrap-validation';
 import {Container, Row, Col, Button, Label} from 'reactstrap';
 import {useState} from 'react';
+import {ORIGIN} from '../../constants/http-constant';
 
-const ORIGIN = 'http://localhost:7777';
 const WARRANTY_OPTIONS = ['12 months', '24 months'];
 
 const WatchWarrantyForm = () => {

@@ -10,7 +10,7 @@ import WatchRoute from './routes/watch-route';
 //数据库连接在configs/database.js文件
 import bodyParser from 'body-parser';
 
-const port = 7777;
+const port = process.env.PORT || 7777; // 在发布之后，GCP会给一个默认的PORT值，发布之后从process.env.PORT去拿PORT
 const app = Express();
 
 app.use(cors());

@@ -1,5 +1,7 @@
-import './BuildWatch.scss';
 import CurrencyFormat from 'react-currency-format';
+
+import './BuildWatch.scss';
+
 import {
   Dropdown,
   DropdownToggle,
@@ -27,11 +29,8 @@ import {
   updateWatchBandsRedux,
   updateWatchWarrantiesRedux,
 } from '../../store/watch-store/watch-dispatcher';
+import {ORIGIN} from '../../constants/http-constant';
 
-const ORIGIN = 'http://localhost:7777';
-const ALL_WATCH_FACE_API = ORIGIN + '/api/watch/face/all';
-const ALL_WATCH_BAND_API = ORIGIN + '/api/watch/band/all';
-const ALL_WARRANTIES_API = ORIGIN + '/api/watch/warranty/all';
 // props 是用来接受外界给BuildWatch这个component的property
 
 const BuildWatch = (props) => {
@@ -50,9 +49,6 @@ const BuildWatch = (props) => {
   const [warranties, setWarranties] = useState([]);
   const [openWarrantyOption, setWarrantyOption] = useState(false);
   const [trackingError, setTrackingError] = useState('');
-
-  const ORIGIN = 'http://localhost:7777';
-  const ADD_INVOICE_API = ORIGIN + '/api/invoice';
 
   // fetch from redux store/cache
   // console.log(props.storeFaces);
@@ -74,7 +70,7 @@ const BuildWatch = (props) => {
         onSubmit={async (event, errors, values) => {
           event.persist();
           if (errors.length !== 0) return;
-          const response = await fetch(`${ADD_INVOICE_API}/${watchId}`);
+          const response = await fetch(`${ORIGIN}/api/invoice/${watchId}`);
           if (response.status === 200) {
             const data = await response.json();
             console.log(data);
@@ -131,7 +127,7 @@ const BuildWatch = (props) => {
         setWatchFace(storeFaces[0]);
       } else {
         const fetchWatchFaces = async () => {
-          const response = await fetch(ALL_WATCH_FACE_API);
+          const response = await fetch(ORIGIN + '/api/watch/face/all');
           const watchFaces = await response.json();
           await updateFacesToStore(watchFaces);
           setWatchFaces(watchFaces); //是用来做备选项的，是dropdown menu里面的选项
@@ -145,7 +141,7 @@ const BuildWatch = (props) => {
         setWarranty(storeWarranties[0]);
       } else {
         const fetchWarranties = async () => {
-          const response = await fetch(ALL_WARRANTIES_API);
+          const response = await fetch(ORIGIN + '/api/watch/warranty/all');
           const warranties = await response.json();
           await updateWarrantiesToStore(warranties);
           setWarranties(warranties);
@@ -159,7 +155,7 @@ const BuildWatch = (props) => {
         setWatchBand(storeBands[0]);
       } else {
         const fetchWatchBands = async () => {
-          const response = await fetch(ALL_WATCH_BAND_API);
+          const response = await fetch(ORIGIN + '/api/watch/band/all');
           const watchBands = await response.json();
           await updateBandsToStore(watchBands);
           setWatchBands(watchBands);
@@ -361,7 +357,7 @@ const BuildWatch = (props) => {
                         band: watchBand,
                         warranty: warranty,
                       };
-                      const response = await fetch(ADD_INVOICE_API, {
+                      const response = await fetch(ORIGIN + '/api/invoice', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify(form),

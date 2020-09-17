@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   AvForm,
   AvGroup,
@@ -7,8 +8,8 @@ import {
 } from 'availity-reactstrap-validation';
 import {Container, Row, Col, Button, Label} from 'reactstrap';
 import {useState} from 'react';
+import {ORIGIN} from '../../constants/http-constant';
 
-const ORIGIN = 'http://localhost:7777';
 const WatchBandForm = () => {
   const [watchBand, setWatchBand] = useState('');
   const [watchBandSource, setWatchBandSource] = useState('');
@@ -32,7 +33,7 @@ const WatchBandForm = () => {
       <Container>
         <Label for='watch-band'>Watch Band</Label>
         <Row>
-          <Col  sm={12} className='watchFace-col mb-md-0'>
+          <Col sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Watch Band</span>
@@ -52,7 +53,7 @@ const WatchBandForm = () => {
             </AvGroup>
           </Col>
 
-          <Col  sm={12} className='watchFace-col mb-md-0'>
+          <Col sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Watch Band Source</span>
@@ -72,7 +73,7 @@ const WatchBandForm = () => {
             </AvGroup>
           </Col>
 
-          <Col  sm={12} className='watchFace-col mb-md-0'>
+          <Col sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
               <div className='input-group-prepend'>
                 <span className='input-group-text'>Watchband Price </span>
@@ -138,7 +139,7 @@ const WatchBandForm = () => {
         </Row>
 
         <Row>
-          <Col xs={12} sm={3}  className='ml-auto align-self-end'>
+          <Col xs={12} sm={3} className='ml-auto align-self-end'>
             <Button className='btn-block' color='primary' type='submit'>
               Add Band
             </Button>

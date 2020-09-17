@@ -19,7 +19,7 @@
 
 ## 启动project
 ```bash
-npm run start
+npm run dev
 ```
 
 ## 关闭sever是control +c
@@ -212,3 +212,17 @@ app.use(route_path, 随便取一个名字)
 ## 数据库类型
 - SQL 关系型数据库，代表有mySQL 和PostgreSQL
 -  noSQL 非关系型数据库 代表有mongoDB dynamoDB, firebase
+
+
+## 发布前build project
+``` bash
+./deploy.sh
+```
+
+## app.yaml
+- 用来配置app在GCP上的环境和设定
+
+## 发布命令
+``` bash
+gcloud app deploy ./app.yaml
+```

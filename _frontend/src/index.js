@@ -4,6 +4,7 @@ import AppComponent from './components/app/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
+import HttpsRedirect from 'react-https-redirect';
 
 import {configStore} from './store/store';
 
@@ -13,9 +14,11 @@ const store = configStore();
 // 然后把 app component放在“root”的tag(DOM,document object model)
 // provider是一个加载器
 ReactDOM.render(
-  <Provider store={store}>
-    <AppComponent />
-  </Provider>,
+  <HttpsRedirect>
+    <Provider store={store}>
+      <AppComponent />
+    </Provider>
+  </HttpsRedirect>,
   document.getElementById('root')
 );
 

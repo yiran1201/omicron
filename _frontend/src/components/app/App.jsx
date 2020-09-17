@@ -1,10 +1,13 @@
-import './App.scss';
+import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import React, {useState} from 'react';
+
 import BuildWatchPage from '../build-watch/BuildWatch';
 import ContractPage from '../contract/Contract';
-import PartnershipPage from '../partnership/Partnership';
 import InventoryPage from '../inventory/Inventory';
-import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
+import PartnershipPage from '../partnership/Partnership';
+
+import './App.scss';
+
 import {
   Collapse,
   Navbar,
@@ -13,11 +16,7 @@ import {
   Nav,
   NavItem,
 } from 'reactstrap';
-
-const ORIGIN = 'http://localhost:7777';
-const RESET_FACES_API = ORIGIN + '/api/mock/faces';
-const RESET_BANDS_API = ORIGIN + '/api/mock/bands';
-const RESET_PARTNERS_API = ORIGIN + '/api/mock/partners';
+import {ORIGIN} from '../../constants/http-constant';
 
 const App = () => {
   const [openNav, setNavOpen] = useState(false);
@@ -72,9 +71,9 @@ const App = () => {
       <button
         className='btn btn-outline-primary btn-reset'
         onClick={async () => {
-          await fetch(RESET_BANDS_API, {method: 'POST'});
-          await fetch(RESET_FACES_API, {method: 'POST'});
-          await fetch(RESET_PARTNERS_API, {method: 'POST'});
+          await fetch(ORIGIN + '/api/mock/faces', {method: 'POST'});
+          await fetch(ORIGIN + '/api/mock/bands', {method: 'POST'});
+          await fetch(ORIGIN + '/api/mock/partners', {method: 'POST'});
         }}>
         <span className='fa fa-sync'></span>
       </button>

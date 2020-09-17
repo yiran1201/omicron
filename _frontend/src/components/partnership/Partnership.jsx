@@ -1,14 +1,15 @@
-import React from 'react';
 import './Partnership.scss';
-import {Container, Row, Card, Col, CardBody} from 'reactstrap';
 import {Chart} from 'react-google-charts';
-import {useState} from 'react';
-import {useEffect} from 'react';
-import {updatePartnersRedux} from '../../store/brand-store/brand-dispatcher';
 import {connect} from 'react-redux';
+import {Container, Row, Card, Col, CardBody} from 'reactstrap';
+import {useEffect} from 'react';
+import {useState} from 'react';
+import React from 'react';
 
-const ORIGIN = 'http://localhost:7777';
-const ALL_PARTNER_API = ORIGIN + '/api/watch/partner/all';
+import {ORIGIN} from '../../constants/http-constant';
+import {updatePartnersRedux} from '../../store/brand-store/brand-dispatcher';
+import {detect} from 'detect-browser';
+const browser = detect();
 
 const Partnership = (props) => {
   const [brands, setBrands] = useState([]);
@@ -21,7 +22,7 @@ const Partnership = (props) => {
       setSelectedBrand(storePartners[0]);
     } else {
       const fetchPartners = async () => {
-        const response = await fetch(ALL_PARTNER_API);
+        const response = await fetch(ORIGIN + '/api/watch/partner/all');
         const partners = await response.json();
         await updatePartnersToStore(partners);
         setBrands(partners);
@@ -36,6 +37,7 @@ const Partnership = (props) => {
     //每次Render都要check selectedBrand 是否为空
     return '';
   }
+  console.log(browser.name);
   return (
     <div className='my-4' id='samples-page'>
       <Container>
@@ -58,8 +60,18 @@ const Partnership = (props) => {
                 <Card
                   className={`brand-card shadow-sm ${backgroundColor}`}
                   onClick={() => setSelectedBrand(brand)}>
-                  <CardBody className='text-center'>
-                    <img height='100%' src={brand.source} alt={brand.name} />
+                  <CardBody className='text-center' style={{height: '100%'}}>
+                    <img
+                      height='100%'
+                      style={{
+                        width:
+                          browser && browser.name === 'safari'
+                            ? '100%'
+                            : 'inherit',
+                      }}
+                      src={brand.source}
+                      alt={brand.name}
+                    />
                   </CardBody>
                 </Card>
               </Col>

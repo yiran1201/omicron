@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   AvForm,
   AvGroup,
@@ -7,7 +8,7 @@ import {
 } from 'availity-reactstrap-validation';
 import {Container, Row, Col, Button, Label} from 'reactstrap';
 import {useState} from 'react';
-const ORIGIN = 'http://localhost:7777';
+import {ORIGIN} from '../../constants/http-constant';
 const PartnershipForm = () => {
   const [name, setName] = useState('');
   const [source, setSource] = useState('');
