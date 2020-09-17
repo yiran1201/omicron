@@ -62,7 +62,6 @@ const Contract = () => {
   //client ID
   const [clientId, setClientId] = useState('');
 
-
   const generateInvoice = () => {
     setSubmitForm({
       unitPrice: Number(unitPrice),
@@ -169,12 +168,12 @@ const Contract = () => {
       <AvForm
         onSubmit={async (event, errors, values) => {
           event.persist();
-          console.log(errors);
           if (errors.length !== 0) return;
 
           const response = await fetch(`${ADD_CLIENT_API}/${trackingId}`);
           if (response.status === 200) {
             const data = await response.json();
+            console.log(data);
             setQuantity(data.quantity);
             setUnitPrice(data.unitPrice);
             setClientName(data.clientName);

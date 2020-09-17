@@ -52,14 +52,14 @@ router.post('/partners', async (request, response) => {
       source: brand.source,
       shops: shops,
     });
-    const data = await partnerDocument.save();
+    await partnerDocument.save();
   }
   response.status(200).json('sync partners metadata');
 });
 
 router.post('/bands', async (request, response) => {
   print('POST', '/api/mock/bands');
-  await WatchBandModel.deleteMany();//先删除数据，再添加
+  await WatchBandModel.deleteMany(); //先删除数据，再添加
   for (const band of WATCHBANDS) {
     const watchBandDocument = new WatchBandModel({
       name: band.name,
@@ -68,7 +68,7 @@ router.post('/bands', async (request, response) => {
       case_color: band.case_color,
       background: band.background,
     });
-    await watchBandDocument.save();//添加数据
+    await watchBandDocument.save(); //添加数据
   }
   response.status(200).json('sync bands metadata');
 });

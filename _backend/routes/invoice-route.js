@@ -10,7 +10,43 @@ const print = (type, route) => {
   console.log(`${type} ${'*'.repeat(6)} ${route} ${'*'.repeat(6)} ${time}`);
 };
 
-router.post('/', async(request, response) => {
+router.get('/:id', async (request, response) => {
+  const invoiceId = request.params.id;
+  print('GET', `/api/invoice/${invoiceId}`);
+  try {
+    const invoice = await InvoiceModel.findOne({
+      _id: Types.ObjectId(invoiceId),
+    }); //Types.ObjectId 是casting成了object id
+
+    if (invoice) {
+      const parsedInvoice = {
+        //把数据格式转成前端可读
+        face: {
+          name: invoice.face.name,
+          source: invoice.face.source,
+          price: Number(invoice.face.price),
+        },
+        band: {
+          name: invoice.band.name,
+          source: invoice.band.source,
+          caseColor: invoice.band.case_color,
+          background: invoice.band.background,
+          price: Number(invoice.band.price),
+        },
+        warranty: {
+          name: invoice.warranty.name,
+          price: Number(invoice.warranty.price),
+        },
+      };
+      response.status(200).json(parsedInvoice);
+    }
+  } catch (error) {
+    console.log(error);
+    response.status(404).json({error: 'invoice not found'});
+  }
+});
+
+router.post('/', async (request, response) => {
   print('POST', '/api/invoice/');
   const invoiceDocument = new invoiceModel({
     face: {
@@ -30,15 +66,8 @@ router.post('/', async(request, response) => {
       price: Number(request.body.warranty.price),
     },
   });
-  const data= await invoiceDocument.save()
-  response.status(200).json(data._id)
-
-});
-
-
-router.get('/invoice/:id', (request, response) => {
-  const invoiceId = request.params.id;
-  print('GET', `/api/invoice/${invoiceId}`);
+  const data = await invoiceDocument.save();
+  response.status(200).json(data._id);
 });
 
 export default router;

@@ -49,6 +49,7 @@ const BuildWatch = (props) => {
   const [warranty, setWarranty] = useState(null);
   const [warranties, setWarranties] = useState([]);
   const [openWarrantyOption, setWarrantyOption] = useState(false);
+  const [trackingError, setTrackingError] = useState('');
 
   const ORIGIN = 'http://localhost:7777';
   const ADD_INVOICE_API = ORIGIN + '/api/invoice';
@@ -66,7 +67,6 @@ const BuildWatch = (props) => {
   const updateWarrantiesToStore = props.updateWarrantiesToStore;
 
   const [watchId, setWatchId] = useState('');
-  const [watchTrackingError, setWatchTrackingError] = useState('');
 
   const TrackingWatchForm = () => {
     return (
@@ -74,6 +74,16 @@ const BuildWatch = (props) => {
         onSubmit={async (event, errors, values) => {
           event.persist();
           if (errors.length !== 0) return;
+          const response = await fetch(`${ADD_INVOICE_API}/${watchId}`);
+          if (response.status === 200) {
+            const data = await response.json();
+            console.log(data);
+            setWatchBand(data.band);
+            setWatchFace(data.face);
+            setWarranty(data.warranty);
+          } else {
+            setTrackingError('Invoice Not Found');
+          }
         }}>
         <AvGroup className='input-group'>
           <div className='input-group-prepend'>
@@ -89,8 +99,8 @@ const BuildWatch = (props) => {
             value={watchId}
             onChange={(event) => {
               setWatchId(event.target.value);
-              if (watchTrackingError !== '') {
-                setWatchTrackingError(''); //当user输入ID信息的时候重新reset
+              if (trackingError !== '') {
+                setTrackingError(''); //当user输入ID信息的时候重新reset
               }
             }}
           />
@@ -104,6 +114,11 @@ const BuildWatch = (props) => {
           </div>
           <AvFeedback>Field cannot be empty</AvFeedback>
         </AvGroup>
+        {trackingError.length > 0 ? (
+          <div className='text-danger'>{trackingError}</div>
+        ) : (
+          ''
+        )}
       </AvForm>
     );
   };
@@ -384,7 +399,8 @@ const BuildWatch = (props) => {
         </ol>
       </nav>
 
-      <TrackingWatchForm />
+      {TrackingWatchForm()}
+      {/* <TrackingWatchForm />  stop propagation当一个function来用，每次的input有记忆，如果当作component来用没有记忆而且页面Input打不了字  */}
 
       <div className='model-wrapper'>
         <div
