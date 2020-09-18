@@ -49,6 +49,13 @@
     justify-content: space-around;
     padding: 1rem;
 
+    @media (max-width: 450px) {
+      .btn btn-circle btn-theme{
+          font: 3px;
+      }
+  }
+
+
     .watch-dropdown {
       height: auto;
       max-height: 185px;
