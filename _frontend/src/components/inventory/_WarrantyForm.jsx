@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   AvForm,
   AvGroup,
@@ -16,8 +16,16 @@ const WARRANTY_OPTIONS = ['12 months', '24 months'];
 const WatchWarrantyForm = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
+  const formRef = useRef(null);
+  const clearForm = () => {
+    setName('');
+    setPrice(0);
+
+    formRef.current.reset();
+  };
   return (
     <AvForm
+      ref={formRef}
       onSubmit={async (event, errors, values) => {
         event.persist();
         if (errors.length === 0) {
@@ -27,6 +35,7 @@ const WatchWarrantyForm = () => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(values),
           });
+          clearForm();
         }
       }}>
       <Container>

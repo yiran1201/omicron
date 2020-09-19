@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 
 import {
   AvForm,
@@ -14,9 +14,18 @@ const WatchFaceForm = () => {
   const [watchFace, setWatchFace] = useState('');
   const [watchPrice, setWatchPrice] = useState(0);
   const [watchFaceSource, setWatchFaceSource] = useState('');
+  const formRef = useRef(null); // 元素指针, mutable可改变,初始值给NULL
+
+  const clearForm = () => {
+    setWatchFace('');
+    setWatchPrice(0);
+    setWatchFaceSource('');
+    formRef.current.reset();
+  };
 
   return (
     <AvForm
+      ref={formRef}
       onSubmit={async (event, errors, values) => {
         //values是拿AvInput里面的name，实际是一个Object里面的Key
         //这个Key会有对应的值，{name='name':value={watchFace}}
@@ -33,8 +42,10 @@ const WatchFaceForm = () => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(form),
           });
+          clearForm();
         }
       }}>
+
       <Container>
         <Label for='watch-face'>Watch Face</Label>
         <Row>

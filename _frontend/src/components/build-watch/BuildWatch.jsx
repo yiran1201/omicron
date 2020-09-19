@@ -37,17 +37,17 @@ const BuildWatch = (props) => {
   const ref = React.createRef();
 
   const [watchFaces, setWatchFaces] = useState([]);
-  const [watchBands, setWatchBands] = useState([]);
-
   const [watchFace, setWatchFace] = useState(null);
   const [openFaceOption, setFaceOption] = useState(false);
 
+  const [watchBands, setWatchBands] = useState([]);
   const [watchBand, setWatchBand] = useState(null);
   const [openBandOption, setBandOption] = useState(false);
 
   const [warranty, setWarranty] = useState(null);
   const [warranties, setWarranties] = useState([]);
   const [openWarrantyOption, setWarrantyOption] = useState(false);
+
   const [trackingError, setTrackingError] = useState('');
 
   // fetch from redux store/cache
@@ -63,6 +63,77 @@ const BuildWatch = (props) => {
   const updateWarrantiesToStore = props.updateWarrantiesToStore;
 
   const [watchId, setWatchId] = useState('');
+
+  // useEffect(callback function, [trigger condition])
+  useEffect(
+    () => {
+      if (storeFaces.length > 0) {
+        setWatchFaces(storeFaces);
+        const targetFace = storeFaces.find((face) => face.name === '珍珠白');
+        if (targetFace) {
+          setWatchFace(targetFace);
+        } else {
+          setWatchFace(storeFaces[0]);
+        }
+      } else {
+        const fetchWatchFaces = async () => {
+          const response = await fetch(ORIGIN + '/api/watch/face/all');
+          const watchFaces = await response.json();
+          await updateFacesToStore(watchFaces);
+          setWatchFaces(watchFaces); //是用来做备选项的，是dropdown menu里面的选项
+          const targetFace = watchFaces.find((face) => face.name === '珍珠白');
+          if (targetFace) {
+            setWatchFace(targetFace);
+          } else {
+            setWatchFace(watchFaces[0]); //初始，如果没有页面Render不出来
+          }
+        };
+        fetchWatchFaces();
+      }
+
+      if (storeWarranties.length > 0) {
+        setWarranties(storeWarranties);
+        setWarranty(storeWarranties[0]);
+      } else {
+        const fetchWarranties = async () => {
+          const response = await fetch(ORIGIN + '/api/watch/warranty/all');
+          const warranties = await response.json();
+          await updateWarrantiesToStore(warranties);
+          setWarranties(warranties);
+          setWarranty(warranties[0]);
+        };
+        fetchWarranties();
+      }
+
+      if (storeBands.length > 0) {
+        setWatchBands(storeBands);
+
+        const targetBand = storeBands.find((band) => band.name === '深棕');
+        if (targetBand) {
+          setWatchBand(targetBand);
+        } else {
+          setWatchBand(storeBands[0]);
+        }
+      } else {
+        const fetchWatchBands = async () => {
+          const response = await fetch(ORIGIN + '/api/watch/band/all');
+          const watchBands = await response.json();
+          await updateBandsToStore(watchBands);
+          setWatchBands(watchBands);
+
+          const targetBand = watchBands.find((band) => band.name === '深棕');
+          if (targetBand) {
+            setWatchBand(targetBand);
+          } else {
+            setWatchBand(watchBands[0]);
+          }
+        };
+        fetchWatchBands();
+      }
+    },
+    // eslint-disable-next-line
+    []
+  ); //定义了useEffect要对“哪些跟新的property” 负责
 
   const TrackingWatchForm = () => {
     return (
@@ -83,9 +154,7 @@ const BuildWatch = (props) => {
         }}>
         <AvGroup className='input-group'>
           <div className='input-group-prepend'>
-            <span className='input-group-text text-success'>
-              Tracking Watch ID
-            </span>
+            <span className='input-group-text text-success tracking-id-input'></span>
           </div>
           <AvInput
             required
@@ -119,62 +188,6 @@ const BuildWatch = (props) => {
     );
   };
 
-  // useEffect(callback function, [trigger condition])
-  useEffect(
-    () => {
-      if (storeFaces.length > 0) {
-        setWatchFaces(storeFaces);
-        setWatchFace(storeFaces[0]);
-      } else {
-        const fetchWatchFaces = async () => {
-          const response = await fetch(ORIGIN + '/api/watch/face/all');
-          const watchFaces = await response.json();
-          await updateFacesToStore(watchFaces);
-          setWatchFaces(watchFaces); //是用来做备选项的，是dropdown menu里面的选项
-          setWatchFace(watchFaces[0]); //初始，如果没有页面Render不出来
-        };
-        fetchWatchFaces();
-      }
-
-      if (storeWarranties.length > 0) {
-        setWarranties(storeWarranties);
-        setWarranty(storeWarranties[0]);
-      } else {
-        const fetchWarranties = async () => {
-          const response = await fetch(ORIGIN + '/api/watch/warranty/all');
-          const warranties = await response.json();
-          await updateWarrantiesToStore(warranties);
-          setWarranties(warranties);
-          setWarranty(warranties[0]);
-        };
-        fetchWarranties();
-      }
-
-      if (storeBands.length > 0) {
-        setWatchBands(storeBands);
-        setWatchBand(storeBands[0]);
-      } else {
-        const fetchWatchBands = async () => {
-          const response = await fetch(ORIGIN + '/api/watch/band/all');
-          const watchBands = await response.json();
-          await updateBandsToStore(watchBands);
-          setWatchBands(watchBands);
-          setWatchBand(watchBands[0]);
-        };
-        fetchWatchBands();
-      }
-    },
-    // eslint-disable-next-line
-    [
-      // storeFaces,
-      // updateFacesToStore,
-      // storeBands,
-      // updateBandsToStore,
-      // storeWarranties,
-      // updateWarrantiesToStore,
-    ]
-  ); //定义了useEffect要对“哪些跟新的property” 负责
-
   const OptionBar = () => {
     return (
       <div className='option-bar'>
@@ -185,7 +198,7 @@ const BuildWatch = (props) => {
           <DropdownToggle
             caret
             tag='button'
-            className='btn btn-circle btn-theme'>
+            className='btn btn-circle btn-theme btn-dropdown'>
             {watchFace.name}
           </DropdownToggle>
           <DropdownMenu className='watch-dropdown'>
@@ -210,7 +223,7 @@ const BuildWatch = (props) => {
           <DropdownToggle
             caret
             tag='button'
-            className='btn btn-circle btn-theme'>
+            className='btn btn-circle btn-theme btn-dropdown'>
             {warranty.name}
           </DropdownToggle>
           <DropdownMenu className='watch-dropdown'>
@@ -234,7 +247,7 @@ const BuildWatch = (props) => {
           <DropdownToggle
             caret
             tag='button'
-            className='btn btn-circle btn-theme'>
+            className='btn btn-circle btn-theme btn-dropdown'>
             {watchBand.name}
           </DropdownToggle>
           <DropdownMenu className='watch-dropdown'>

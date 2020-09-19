@@ -1,7 +1,7 @@
 import './configs/database';
 
 import cors from 'cors'; //Cross Origin Resource Share
-import Express from 'express';
+import Express, {request, response} from 'express';
 import path from 'path';
 import InvoiceRoute from './routes/invoice-route';
 import MockRoute from './routes/mock-route';
@@ -39,6 +39,25 @@ app.use('/api/mock', MockRoute);
 // app.use('/', (request, response) => {
 //   response.status(200).json('nina');
 // });
+
+app.use((request, response, next) => {
+  if (port !== 7777 && request.get('X-Forwarded-Proto') === 'http') {
+    // http -> https跳转
+    // 在production，用户输入了http（不安全）开头的域名
+    response.redirect(301, `https://omicron-nina.com${request.url}`);
+  } else if (
+    port !== 7777 &&
+    request.headers.host &&
+    request.headers.host.match(/^www\..*/i)
+  ) {
+    // 在production，用户输入了www开头的域名
+    response.redirect(301, `https://omicron-nina.com${request.url}`);
+  } else {
+    // localhost
+    // 指在开发环境, port不用改
+    next();
+  }
+});
 
 app.use('*', (request, response) => {
   response.sendFile('index.html', {root: path.join(__dirname, './build')});

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 import './Contract.scss';
 
@@ -62,6 +62,7 @@ const Contract = () => {
 
   //client ID
   const [clientId, setClientId] = useState('');
+  const formRef = useRef(null);
 
   const generateInvoice = () => {
     setSubmitForm({
@@ -104,6 +105,7 @@ const Contract = () => {
     setCity('');
     setState('');
     setZipCode('');
+    formRef.current.reset();
   };
 
   /********************
@@ -301,6 +303,7 @@ const Contract = () => {
         {/**通过Call function的形式来读到component */}
 
         <AvForm
+          ref={formRef}
           onSubmit={(event, errors, values) => {
             event.persist();
 

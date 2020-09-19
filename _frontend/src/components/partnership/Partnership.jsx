@@ -37,7 +37,6 @@ const Partnership = (props) => {
     //每次Render都要check selectedBrand 是否为空
     return '';
   }
-  console.log(browser.name);
   return (
     <div className='my-4' id='samples-page'>
       <Container>

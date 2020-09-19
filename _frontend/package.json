@@ -20,7 +20,6 @@
     "react-currency-format": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-google-charts": "^3.0.15",
-    "react-https-redirect": "^1.1.0",
     "react-image-gallery": "^1.0.8",
     "react-image-lightbox": "^5.1.1",
     "react-moment": "^0.9.7",

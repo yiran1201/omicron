@@ -20,6 +20,8 @@ import {ORIGIN} from '../../constants/http-constant';
 
 const App = () => {
   const [openNav, setNavOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
   const NavigationBar = () => {
     return (
       <Navbar color='light' light expand='sm'>
@@ -69,13 +71,22 @@ const App = () => {
         </Switch>
       </BrowserRouter>
       <button
-        className='btn btn-outline-primary btn-reset'
+        className='btn btn-outline-primary btn-reset bg-white'
+        disabled={submitting}
         onClick={async () => {
+          await setSubmitting(true);
           await fetch(ORIGIN + '/api/mock/faces', {method: 'POST'});
           await fetch(ORIGIN + '/api/mock/bands', {method: 'POST'});
           await fetch(ORIGIN + '/api/mock/partners', {method: 'POST'});
+          await fetch(ORIGIN + '/api/mock/warranties', {method: 'POST'});
+          await fetch(ORIGIN + '/api/mock/invoices', {method: 'DELETE'});
+          setSubmitting(false);
         }}>
-        <span className='fa fa-sync'></span>
+        {submitting ? (
+          <span className='fa fa-ellipsis-h' />
+        ) : (
+          <span className='fa fa-sync' />
+        )}
       </button>
     </div>
   );

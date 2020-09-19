@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 
 import {
   AvForm,
@@ -14,11 +14,20 @@ const WatchBandForm = () => {
   const [watchBand, setWatchBand] = useState('');
   const [watchBandSource, setWatchBandSource] = useState('');
   const [watchCase, setWatchCase] = useState('');
-  const [watchBandPrice, setWatchbandPrice] = useState(0);
+  const [watchBandPrice, setWatchBandPrice] = useState(0);
   const [background, setBackground] = useState('');
-
+  const formRef = useRef(null);
+  const clearForm = () => {
+    setWatchBand('');
+    setWatchBandPrice(0);
+    setWatchBandSource('');
+    setWatchCase('')
+    setBackground('')
+    formRef.current.reset();
+  };
   return (
     <AvForm
+      ref={formRef}
       onSubmit={async (event, errors, values) => {
         event.persist();
         if (errors.length === 0) {
@@ -28,6 +37,7 @@ const WatchBandForm = () => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(values),
           });
+          clearForm();
         }
       }}>
       <Container>
@@ -86,7 +96,7 @@ const WatchBandForm = () => {
                 value={watchBandPrice}
                 onChange={(event) => {
                   event.preventDefault();
-                  setWatchbandPrice(event.target.value);
+                  setWatchBandPrice(event.target.value);
                 }}
               />
               <AvFeedback>Enter watchband price</AvFeedback>

@@ -11,9 +11,12 @@
 }
 
 .invoice-modal {
-  max-width: 80% !important;
+  max-width: 720px !important;
+  padding: 0 15px;
 
-  @media (max-width: 578px) { // media query
+  @media (max-width: 578px) {
+    // media query
+    padding: 0;
     max-width: 100% !important;
   }
 }

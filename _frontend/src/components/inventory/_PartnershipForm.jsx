@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 
 import {
   AvForm,
@@ -13,7 +13,14 @@ const PartnershipForm = () => {
   const [name, setName] = useState('');
   const [source, setSource] = useState('');
   const [shops, setShops] = useState([]);
+  const formRef = useRef(null);
+  const clearForm = () => {
+    setName('');
+    setSource('');
+    setShops([]);
 
+    formRef.current.reset();
+  };
   const ShopsInput = () => {
     if (shops.length === 0) {
       return (
@@ -79,6 +86,7 @@ const PartnershipForm = () => {
 
   return (
     <AvForm
+      ref={formRef}
       className='mt-4'
       onSubmit={async (event, errors, values) => {
         event.persist();
@@ -95,6 +103,7 @@ const PartnershipForm = () => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(form),
           });
+          clearForm();
         }
       }}>
       <Container>

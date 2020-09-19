@@ -49,11 +49,11 @@
     justify-content: space-around;
     padding: 1rem;
 
-    @media (max-width: 450px) {
-      .btn btn-circle btn-theme{
-          font: 3px;
+    @media (max-width: 576px) {
+      .btn-dropdown {
+        font-size: 13px;
       }
-  }
+    }
 
 
     .watch-dropdown {
@@ -79,5 +79,13 @@
   .price-font {
     font-family: Roboto, sans-serif;
     font-weight: 600;
+  }
+}
+
+.tracking-id-input::after {
+  content: 'Tracking Watch ID';
+
+  @media (max-width: 578px) {
+    content: 'Tracking'
   }
 }

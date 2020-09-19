@@ -1,13 +1,16 @@
 import _ from 'lodash';
-import {Router, response, request} from 'express';
+import {Router} from 'express';
 
 import PartnerModel from '../models/partner-model';
+import WarrantyModel from '../models/warranty-model';
+import InvoiceModel from '../models/invoice-model';
 import WatchBandModel from '../models/watch-band-model';
-import watchFaceModel from '../models/watch-face-model';
+import WatchFaceModel from '../models/watch-face-model';
 
 import BRANDS from '../mocks/brands.json';
 import COUNTRIES from '../mocks/countries.json';
 import FACES from '../mocks/faces.json';
+import WARRANTIES from '../mocks/warranty.json';
 import WATCHBANDS from '../mocks/bands.json';
 
 // choice 是用来拿arr里面随机的元素
@@ -75,9 +78,9 @@ router.post('/bands', async (request, response) => {
 
 router.post('/faces', async (request, response) => {
   print('POST', '/api/mock/faces');
-  await watchFaceModel.deleteMany();
+  await WatchFaceModel.deleteMany();
   for (const face of FACES) {
-    const watchFaceDocument = new watchFaceModel({
+    const watchFaceDocument = new WatchFaceModel({
       name: face.name,
       source: face.source,
       price: Number(face.price),
@@ -85,6 +88,25 @@ router.post('/faces', async (request, response) => {
     await watchFaceDocument.save();
   }
   response.status(200).json('sync faces metadata');
+});
+
+router.post('/warranties', async (request, response) => {
+  print('POST', '/api/mock/warranties');
+  await WarrantyModel.deleteMany();
+  for (const warranty of WARRANTIES) {
+    const warrantyDocument = new WarrantyModel({
+      name: warranty.name,
+      price: Number(warranty.price),
+    });
+    await warrantyDocument.save();
+  }
+  response.status(200).json('sync warranties metadata');
+});
+
+router.delete('/invoices', async (request, response) => {
+  print('DELETE', '/api/mock/invoices');
+  await InvoiceModel.deleteMany();
+  response.status(200).json('clear invoices metadata');
 });
 
 export default router;
