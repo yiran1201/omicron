@@ -126,7 +126,7 @@ const Contract = () => {
           </Button>
 
           <button
-            className='btn btn-primary'
+            className='btn btn-theme shadow'
             onClick={async () => {
               const response = await fetch(ORIGIN + '/api/watch/client', {
                 method: 'POST',
@@ -213,8 +213,7 @@ const Contract = () => {
             />
             <div className='input-group-append'>
               <Button
-                className='btn-block rounded-right'
-                color='primary'
+                className='btn-block rounded-right btn-theme'
                 type='submit'>
                 Track
               </Button>
@@ -256,7 +255,7 @@ const Contract = () => {
         <Row>
           <Col xs={12}>
             <button
-              className='btn btn-block btn-outline-danger'
+              className='btn btn-block btn-outline-info'
               onClick={() => clearForm()}
               type='button'>
               Clear
@@ -267,7 +266,7 @@ const Contract = () => {
         <Row>
           <Col xs={12}>
             <button
-              className='btn btn-warning btn-block'
+              className='btn btn-block btn-outline-info'
               onClick={() => fillDemoData()}
               type='button'>
               Demo
@@ -277,7 +276,7 @@ const Contract = () => {
 
         <Row>
           <Col xs={12}>
-            <button className='btn btn-primary btn-block' type='submit'>
+            <button className='btn btn-block btn-theme shadow' type='submit'>
               Generate
             </button>
           </Col>
@@ -293,7 +292,7 @@ const Contract = () => {
   return (
     <>
       <Banner />
-      <div className='mt-4' id='contract-page'>
+      <div className='mt-4 mb-5' id='contract-page'>
         <div className='text-center'>
           <img src={Logo} alt='logo' />
         </div>
@@ -322,7 +321,7 @@ const Contract = () => {
                     direction='down'
                     isOpen={openTermOption}
                     toggle={() => setTermOption(!openTermOption)}>
-                    <DropdownToggle className='btn btn-info btn-block' caret>
+                    <DropdownToggle className='btn btn-theme btn-block shadow' caret>
                       {paymentTerm}
                     </DropdownToggle>
                     <DropdownMenu>
@@ -347,7 +346,7 @@ const Contract = () => {
                     direction='down'
                     isOpen={openLogisticOption}
                     toggle={() => setLogisticOption(!openLogisticOption)}>
-                    <DropdownToggle className='btn btn-info btn-block' caret>
+                    <DropdownToggle className='btn btn-theme btn-block shadow' caret>
                       {selectedLogistic}
                     </DropdownToggle>
                     <DropdownMenu>

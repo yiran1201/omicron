@@ -6,7 +6,7 @@ import {
   AvInput,
   AvFeedback,
 } from 'availity-reactstrap-validation';
-import {Container, Row, Col, Button, Label} from 'reactstrap';
+import {Container, Row, Col, Label} from 'reactstrap';
 import {useState} from 'react';
 import {ORIGIN} from '../../constants/http-constant';
 
@@ -26,6 +26,7 @@ const WatchFaceForm = () => {
   return (
     <AvForm
       ref={formRef}
+      className='mb-4'
       onSubmit={async (event, errors, values) => {
         //values是拿AvInput里面的name，实际是一个Object里面的Key
         //这个Key会有对应的值，{name='name':value={watchFace}}
@@ -45,9 +46,10 @@ const WatchFaceForm = () => {
           clearForm();
         }
       }}>
-
       <Container>
-        <Label for='watch-face'>Watch Face</Label>
+        <Label for='watch-face' className='title-theme'>
+          Watch Face
+        </Label>
         <Row>
           <Col sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
@@ -112,9 +114,9 @@ const WatchFaceForm = () => {
         </Row>
         <Row>
           <Col xs={12} sm={3} className='ml-auto align-self-end'>
-            <Button className='btn-block' color='primary' type='submit'>
+            <button className='btn btn-block btn-theme shadow' type='submit'>
               Add Face
-            </Button>
+            </button>
           </Col>
         </Row>
       </Container>

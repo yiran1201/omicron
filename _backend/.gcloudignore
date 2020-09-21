@@ -17,3 +17,9 @@
 
 # Node.js dependencies:
 node_modules/
+BACKUP.md
+DEBUG.md
+README.md
+jsconfig.json
+package-lock.json
+deploy.sh

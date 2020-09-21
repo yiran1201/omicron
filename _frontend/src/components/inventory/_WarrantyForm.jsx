@@ -7,7 +7,7 @@ import {
   AvRadioGroup,
   AvRadio,
 } from 'availity-reactstrap-validation';
-import {Container, Row, Col, Button, Label} from 'reactstrap';
+import {Container, Row, Col, Label} from 'reactstrap';
 import {useState} from 'react';
 import {ORIGIN} from '../../constants/http-constant';
 
@@ -25,6 +25,7 @@ const WatchWarrantyForm = () => {
   };
   return (
     <AvForm
+      className='mb-4'
       ref={formRef}
       onSubmit={async (event, errors, values) => {
         event.persist();
@@ -39,7 +40,9 @@ const WatchWarrantyForm = () => {
         }
       }}>
       <Container>
-        <Label for='watch-warranty'>Watch Warranty </Label>
+        <Label for='watch-warranty' className='title-theme'>
+          Watch Warranty
+        </Label>
         <Row>
           <Col xs={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
@@ -86,9 +89,9 @@ const WatchWarrantyForm = () => {
 
         <Row>
           <Col xs={12} sm={3} className='ml-auto align-self-end'>
-            <Button className='btn-block ' color='primary' type='submit'>
+            <button className='btn btn-block btn-theme shadow' type='submit'>
               Add Warranty
-            </Button>
+            </button>
           </Col>
         </Row>
       </Container>

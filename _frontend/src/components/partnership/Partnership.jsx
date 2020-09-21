@@ -1,14 +1,16 @@
-import './Partnership.scss';
 import {Chart} from 'react-google-charts';
 import {connect} from 'react-redux';
 import {Container, Row, Card, Col, CardBody} from 'reactstrap';
+import {detect} from 'detect-browser';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import React from 'react';
 
 import {ORIGIN} from '../../constants/http-constant';
 import {updatePartnersRedux} from '../../store/brand-store/brand-dispatcher';
-import {detect} from 'detect-browser';
+
+import './Partnership.scss';
+
 const browser = detect();
 
 const Partnership = (props) => {
@@ -16,6 +18,7 @@ const Partnership = (props) => {
   const [selectedBrand, setSelectedBrand] = useState(null);
   const storePartners = props.storePartners;
   const updatePartnersToStore = props.updatePartnersToStore;
+
   useEffect(() => {
     if (storePartners.length > 0) {
       setBrands(storePartners);
@@ -37,8 +40,9 @@ const Partnership = (props) => {
     //每次Render都要check selectedBrand 是否为空
     return '';
   }
+
   return (
-    <div className='my-4' id='samples-page'>
+    <div className='mt-4 mb-5' id='samples-page'>
       <Container>
         <nav aria-label='breadcrumb'>
           <ol className='breadcrumb'>
@@ -53,11 +57,11 @@ const Partnership = (props) => {
         <Row>
           {brands.map((brand) => {
             const backgroundColor =
-              selectedBrand.name === brand.name ? 'bg-light' : 'bg-white';
+              selectedBrand.name === brand.name ? 'bg-theme' : 'bg-white';
             return (
               <Col xs={12} sm={6} md={4} key={brand.name} className='mb-4'>
                 <Card
-                  className={`brand-card shadow-sm ${backgroundColor}`}
+                  className={`brand-card shadow-sm ${backgroundColor} border-theme`}
                   onClick={() => setSelectedBrand(brand)}>
                   <CardBody className='text-center' style={{height: '100%'}}>
                     <img
@@ -98,7 +102,7 @@ const Partnership = (props) => {
             // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
             mapsApiKey='AIzaSyAgTMGcSDOCFW8FjkfY3xBIaKc1Emwd01w' // maps API key
             options={{
-              colorAxis: {colors: ['#bbdefb', '#64b5f6', '#1976d2']},
+              colorAxis: {colors: ['#cfd8dc', '#78909c', '#455a64']},
               backgroundColor: '#ffffff',
               datalessRegionColor: '#e0e0e0',
               defaultColor: '#ffffff',

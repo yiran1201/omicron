@@ -7,7 +7,7 @@ import PartnershipForm from './_PartnershipForm';
 
 const InputForm = () => {
   return (
-    <div style={{maxWidth: 750, margin: '0 auto'}}>
+    <div style={{maxWidth: 750, margin: '0 auto'}} className='mb-5'>
       <Container className='mt-4'>
         <nav aria-label='breadcrumb'>
           <ol className='breadcrumb'>

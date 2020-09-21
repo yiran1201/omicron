@@ -24,31 +24,44 @@ const App = () => {
 
   const NavigationBar = () => {
     return (
-      <Navbar color='light' light expand='sm'>
-        <NavbarBrand href='/'>Omicron</NavbarBrand>
+      <Navbar color='light' light expand='sm' className='nav-bg'>
+        <NavbarBrand href='/' className='text-light font-weight-bold'>
+          Omicron
+        </NavbarBrand>
 
         {/** hamburger */}
         <NavbarToggler onClick={() => setNavOpen(!openNav)} />
         <Collapse isOpen={openNav} navbar>
           <Nav className='ml-auto' navbar>
             <NavItem>
-              {/* <NavLink href='/'>Build Watch</NavLink> */}
-              <Link to='/' className='text-dark mx-2'>
+              <Link
+                onClick={() => setNavOpen(false)}
+                to='/'
+                className='text-light mx-2 no-underline'>
                 Build Watch
               </Link>
             </NavItem>
             <NavItem>
-              <Link to='/contract' className='text-dark mx-2'>
+              <Link
+                onClick={() => setNavOpen(false)}
+                to='/contract'
+                className='text-light mx-2 no-underline'>
                 Contract
               </Link>
             </NavItem>
             <NavItem>
-              <Link to='/partnership' className='text-dark mx-2'>
+              <Link
+                onClick={() => setNavOpen(false)}
+                to='/partnership'
+                className='text-light mx-2 no-underline'>
                 Partnership
               </Link>
             </NavItem>
             <NavItem>
-              <Link to='/inventory' className='text-dark mx-2'>
+              <Link
+                onClick={() => setNavOpen(false)}
+                to='/inventory'
+                className='text-light mx-2 no-underline'>
                 Inventory
               </Link>
             </NavItem>

@@ -1,48 +1,48 @@
 [
   {
-    "name": "通用双射",
+    "name": "Lemon",
     "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529677/omicron/%E9%80%9A%E7%94%A8%E5%8F%8C%E5%B0%84%E8%A1%A8%E5%B8%A6_ekrnoe.png",
     "price": 150,
     "case_color": "#444444",
     "background": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597870804/omicron/Screen_Shot_2020-08-19_at_1.59.48_PM_f1tyyo.png"
   },
   {
-    "name": "浅棕",
+    "name": "Khaki",
     "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529683/omicron/%E6%B5%85%E6%A3%95_aiqa4g.png",
     "price": 200,
     "case_color": "#8d6e63",
     "background": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597814274/omicron/%E6%B5%85%E6%A3%95.png"
   },
   {
-    "name": "硅胶表带",
+    "name": "Silicon",
     "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529676/omicron/%E7%A1%85%E8%83%B6%E8%A1%A8%E5%B8%A6_yzr4r0.png",
     "price": 100,
     "case_color": "#444444",
     "background": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597815477/omicron/Screen_Shot_2020-08-18_at_10.36.42_PM_ouiizs.png"
   },
   {
-    "name": "表带白",
+    "name": "Snowy",
     "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529676/omicron/%E8%A1%A8%E5%B8%A6%E7%99%BD_fagcrc.png",
     "price": 150,
     "case_color": "#eceff1",
     "background": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1599414392/omicron/pexels-francesco-ungaro-998641_lsluql.jpg"
   },
   {
-    "name": "黑橘",
+    "name": "Sunset",
     "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529683/omicron/%E9%BB%91%E6%A9%98_i34w9q.png",
     "price": 600,
     "case_color": "#444444",
     "background": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597811391/omicron/97d4270dd9cca1a0d7bf7abb4ce374ca_kvduhd.jpg"
   },
   {
-    "name": "全黑",
+    "name": "Phantom",
     "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529678/omicron/%E5%85%A8%E9%BB%91_jnaegd.png",
     "price": 500,
     "case_color": "#444444",
     "background": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597805825/omicron/%E5%85%A8%E9%BB%91%E8%A1%A8%E5%B8%A6%E8%83%8C%E6%99%AF_ju9sxl.jpg"
   },
   {
-    "name": "深棕",
+    "name": "Coffee",
     "source": "https://res.cloudinary.com/dgiji0wxc/image/upload/v1597529680/omicron/%E6%B7%B1%E6%A3%95_z20qes.png",
     "price": 300,
     "case_color": "#795548",

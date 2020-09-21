@@ -21,7 +21,6 @@ import {
 import React from 'react';
 
 import {useState} from 'react';
-import Pdf from 'react-to-pdf';
 import {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {
@@ -63,13 +62,14 @@ const BuildWatch = (props) => {
   const updateWarrantiesToStore = props.updateWarrantiesToStore;
 
   const [watchId, setWatchId] = useState('');
+  const [invoiceId, setInvoiceId] = useState('');
 
   // useEffect(callback function, [trigger condition])
   useEffect(
     () => {
       if (storeFaces.length > 0) {
         setWatchFaces(storeFaces);
-        const targetFace = storeFaces.find((face) => face.name === '珍珠白');
+        const targetFace = storeFaces.find((face) => face.name === 'Premium');
         if (targetFace) {
           setWatchFace(targetFace);
         } else {
@@ -81,7 +81,7 @@ const BuildWatch = (props) => {
           const watchFaces = await response.json();
           await updateFacesToStore(watchFaces);
           setWatchFaces(watchFaces); //是用来做备选项的，是dropdown menu里面的选项
-          const targetFace = watchFaces.find((face) => face.name === '珍珠白');
+          const targetFace = watchFaces.find((face) => face.name === 'Premium');
           if (targetFace) {
             setWatchFace(targetFace);
           } else {
@@ -108,7 +108,7 @@ const BuildWatch = (props) => {
       if (storeBands.length > 0) {
         setWatchBands(storeBands);
 
-        const targetBand = storeBands.find((band) => band.name === '深棕');
+        const targetBand = storeBands.find((band) => band.name === 'Snowy');
         if (targetBand) {
           setWatchBand(targetBand);
         } else {
@@ -121,7 +121,7 @@ const BuildWatch = (props) => {
           await updateBandsToStore(watchBands);
           setWatchBands(watchBands);
 
-          const targetBand = watchBands.find((band) => band.name === '深棕');
+          const targetBand = watchBands.find((band) => band.name === 'Snowy');
           if (targetBand) {
             setWatchBand(targetBand);
           } else {
@@ -134,6 +134,26 @@ const BuildWatch = (props) => {
     // eslint-disable-next-line
     []
   ); //定义了useEffect要对“哪些跟新的property” 负责
+
+  const Banner = () => {
+    return invoiceId === '' ? (
+      <div />
+    ) : (
+      <div className='alert alert-success mb-0' role='alert'>
+        <strong>Watch ID:</strong> {invoiceId}
+        <button
+          type='button'
+          className='close'
+          data-dismiss='alert'
+          aria-label='Close'
+          onClick={() => {
+            setInvoiceId('');
+          }}>
+          <span aria-hidden='true'>&times;</span>
+        </button>
+      </div>
+    );
+  };
 
   const TrackingWatchForm = () => {
     return (
@@ -171,8 +191,7 @@ const BuildWatch = (props) => {
           />
           <div className='input-group-append'>
             <Button
-              className='btn-block rounded-right'
-              color='primary'
+              className='btn-block rounded-right btn-theme'
               type='submit'>
               Track
             </Button>
@@ -198,7 +217,7 @@ const BuildWatch = (props) => {
           <DropdownToggle
             caret
             tag='button'
-            className='btn btn-circle btn-theme btn-dropdown'>
+            className='btn btn-square btn-dropdown btn-theme shadow'>
             {watchFace.name}
           </DropdownToggle>
           <DropdownMenu className='watch-dropdown'>
@@ -223,7 +242,7 @@ const BuildWatch = (props) => {
           <DropdownToggle
             caret
             tag='button'
-            className='btn btn-circle btn-theme btn-dropdown'>
+            className='btn btn-square btn-dropdown btn-theme shadow'>
             {warranty.name}
           </DropdownToggle>
           <DropdownMenu className='watch-dropdown'>
@@ -247,7 +266,7 @@ const BuildWatch = (props) => {
           <DropdownToggle
             caret
             tag='button'
-            className='btn btn-circle btn-theme btn-dropdown'>
+            className='btn btn-square btn-dropdown btn-theme shadow'>
             {watchBand.name}
           </DropdownToggle>
           <DropdownMenu className='watch-dropdown'>
@@ -273,17 +292,21 @@ const BuildWatch = (props) => {
     return (
       <Table bordered className='table-border table-hover'>
         <thead>
-          <tr>
-            <th>Price List</th>
-            <th>Name</th>
-            <th>Price</th>
+          <tr className='d-flex'>
+            <th scope='row' className='col-4'>
+              Price List
+            </th>
+            <th className='col-4'>Name</th>
+            <th className='col-4'>Price</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope='row'>Watch Face</th>
-            <td>{watchFace.name}</td>
-            <td className='price-font'>
+          <tr className='d-flex'>
+            <th scope='row' className='col-4'>
+              Watch Face
+            </th>
+            <td className='col-4'>{watchFace.name}</td>
+            <td className='price-font col-4'>
               <CurrencyFormat
                 thousandSeparator={true}
                 prefix={'$'}
@@ -294,10 +317,13 @@ const BuildWatch = (props) => {
               />
             </td>
           </tr>
-          <tr>
-            <th scope='row'>Watch Band</th>
-            <td>{watchBand.name}</td>
-            <td className='price-font'>
+
+          <tr className='d-flex'>
+            <th scope='row' className='col-4'>
+              Watch Band
+            </th>
+            <td className='col-4'>{watchBand.name}</td>
+            <td className='price-font col-4'>
               <CurrencyFormat
                 thousandSeparator={true}
                 prefix={'$'}
@@ -308,10 +334,13 @@ const BuildWatch = (props) => {
               />
             </td>
           </tr>
-          <tr>
-            <th scope='row'>Warranty</th>
-            <td>{warranty.name}</td>
-            <td className='price-font'>
+
+          <tr className='d-flex'>
+            <th scope='row' className='col-4'>
+              Warranty
+            </th>
+            <td className='col-4'>{warranty.name}</td>
+            <td className='price-font col-4'>
               <CurrencyFormat
                 thousandSeparator={true}
                 prefix={'$'}
@@ -323,10 +352,12 @@ const BuildWatch = (props) => {
             </td>
           </tr>
 
-          <tr>
-            <th scope='row'>Tax</th>
-            <td></td>
-            <td className='price-font'>
+          <tr className='d-flex'>
+            <th scope='row' className='col-4'>
+              Tax
+            </th>
+            <td className='col-4'></td>
+            <td className='price-font col-4'>
               <CurrencyFormat
                 thousandSeparator={true}
                 prefix={'$'}
@@ -339,10 +370,13 @@ const BuildWatch = (props) => {
               />
             </td>
           </tr>
-          <tr>
-            <th scope='row'>Total</th>
-            <td></td>
-            <td className='price-font'>
+
+          <tr className='d-flex'>
+            <th scope='row' className='col-4'>
+              Total
+            </th>
+            <td className='col-4'></td>
+            <td className='price-font col-4'>
               <CurrencyFormat
                 thousandSeparator={true}
                 prefix={'$'}
@@ -355,32 +389,31 @@ const BuildWatch = (props) => {
               />
             </td>
           </tr>
+
           <tr>
             <th colSpan={3}>
-              <Pdf
-                targetRef={ref}
-                filename='omicron-invoice.pdf'
-                options={{unit: 'in'}}>
-                {({toPdf}) => (
-                  <button
-                    className='btn btn-theme btn-block'
-                    onClick={async () => {
-                      const form = {
-                        face: watchFace,
-                        band: watchBand,
-                        warranty: warranty,
-                      };
-                      const response = await fetch(ORIGIN + '/api/invoice', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(form),
-                      });
-                      console.log(response);
-                    }}>
-                    Print Invoice
-                  </button>
-                )}
-              </Pdf>
+              <button
+                className='btn btn-theme btn-block shadow'
+                onClick={async () => {
+                  const form = {
+                    face: watchFace,
+                    band: watchBand,
+                    warranty: warranty,
+                  };
+                  const response = await fetch(ORIGIN + '/api/invoice', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(form),
+                  });
+                  if (response.status === 200) {
+                    const savedInvoiceId = await response.json();
+                    console.log(savedInvoiceId);
+                    setInvoiceId(savedInvoiceId);
+                    window.scrollTo(0, 0);
+                  }
+                }}>
+                Print Invoice
+              </button>
             </th>
           </tr>
         </tbody>
@@ -395,45 +428,48 @@ const BuildWatch = (props) => {
 
   // console.log('return HTML');
   return (
-    <div ref={ref} className='mt-4' id='build-watch-page'>
-      {/* <div className='text-center h2'>Customization</div> */}
-      <nav aria-label='breadcrumb'>
-        <ol className='breadcrumb'>
-          <li className='breadcrumb-item active' aria-current='page'>
-            Omicron
-          </li>
-          <li className='breadcrumb-item active' aria-current='page'>
-            Build Your Watch
-          </li>
-        </ol>
-      </nav>
+    <>
+      <Banner />
+      <div ref={ref} className='mt-2' id='build-watch-page'>
+        {/* <div className='text-center h2'>Customization</div> */}
+        <nav aria-label='breadcrumb'>
+          <ol className='breadcrumb'>
+            <li className='breadcrumb-item active' aria-current='page'>
+              Omicron
+            </li>
+            <li className='breadcrumb-item active' aria-current='page'>
+              Build Your Watch
+            </li>
+          </ol>
+        </nav>
 
-      {TrackingWatchForm()}
-      {/* <TrackingWatchForm />  stop propagation当一个function来用，每次的input有记忆，如果当作component来用没有记忆而且页面Input打不了字  */}
+        {TrackingWatchForm()}
+        {/* <TrackingWatchForm />  stop propagation当一个function来用，每次的input有记忆，如果当作component来用没有记忆而且页面Input打不了字  */}
 
-      <div className='model-wrapper'>
-        <div
-          className='watch-card'
-          style={{
-            backgroundImage: `url(${watchBand.background})`, //在jsx里面只能放带变量的style,scss里放的是常量的style
-            //$里面走的是variable JS逻辑
-            backgroundSize: 'cover', //这个可以放SCSS
-          }}>
+        <div className='model-wrapper'>
           <div
-            className='watch-face'
-            style={{border: `6px outset ${watchBand.caseColor}`}}>
-            <img src={watchFace.source} alt='watch-face' />
-          </div>
-          <div className='watch-band'>
-            <img src={watchBand.source} alt='watch-band' />
+            className='watch-card'
+            style={{
+              backgroundImage: `url(${watchBand.background})`, //在jsx里面只能放带变量的style,scss里放的是常量的style
+              //$里面走的是variable JS逻辑
+              backgroundSize: 'cover', //这个可以放SCSS
+            }}>
+            <div
+              className='watch-face'
+              style={{border: `6px outset ${watchBand.caseColor}`}}>
+              <img src={watchFace.source} alt='watch-face' />
+            </div>
+            <div className='watch-band'>
+              <img src={watchBand.source} alt='watch-band' />
+            </div>
           </div>
         </div>
+
+        <OptionBar />
+
+        <PriceTable />
       </div>
-
-      <OptionBar />
-
-      <PriceTable />
-    </div>
+    </>
   );
 };
 

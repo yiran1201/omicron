@@ -6,7 +6,7 @@ import {
   AvInput,
   AvFeedback,
 } from 'availity-reactstrap-validation';
-import {Container, Row, Col, Button, Label} from 'reactstrap';
+import {Container, Row, Col, Label} from 'reactstrap';
 import {useState} from 'react';
 import {ORIGIN} from '../../constants/http-constant';
 
@@ -21,13 +21,14 @@ const WatchBandForm = () => {
     setWatchBand('');
     setWatchBandPrice(0);
     setWatchBandSource('');
-    setWatchCase('')
-    setBackground('')
+    setWatchCase('');
+    setBackground('');
     formRef.current.reset();
   };
   return (
     <AvForm
       ref={formRef}
+      className='mb-4'
       onSubmit={async (event, errors, values) => {
         event.persist();
         if (errors.length === 0) {
@@ -41,7 +42,7 @@ const WatchBandForm = () => {
         }
       }}>
       <Container>
-        <Label for='watch-band'>Watch Band</Label>
+        <Label for='watch-band' className='title-theme'>Watch Band</Label>
         <Row>
           <Col sm={12} className='watchFace-col mb-md-0'>
             <AvGroup className='input-group'>
@@ -150,9 +151,9 @@ const WatchBandForm = () => {
 
         <Row>
           <Col xs={12} sm={3} className='ml-auto align-self-end'>
-            <Button className='btn-block' color='primary' type='submit'>
+            <button className='btn btn-block btn-theme shadow' type='submit'>
               Add Band
-            </Button>
+            </button>
           </Col>
         </Row>
       </Container>

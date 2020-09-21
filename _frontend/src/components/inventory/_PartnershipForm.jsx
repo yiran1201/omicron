@@ -6,7 +6,7 @@ import {
   AvInput,
   AvFeedback,
 } from 'availity-reactstrap-validation';
-import {Container, Row, Col, Button, Label} from 'reactstrap';
+import {Container, Row, Col, Label} from 'reactstrap';
 import {useState} from 'react';
 import {ORIGIN} from '../../constants/http-constant';
 const PartnershipForm = () => {
@@ -164,9 +164,8 @@ const PartnershipForm = () => {
 
         <Row>
           <Col xs={12} sm={3} className='ml-auto align-self-end'>
-            <Button
-              className='btn-block'
-              color='info'
+            <button
+              className='btn btn-block btn-outline-info'
               type='button'
               onClick={() => {
                 const newShops = shops.slice();
@@ -174,15 +173,15 @@ const PartnershipForm = () => {
                 setShops(newShops);
               }}>
               Add Shop
-            </Button>
+            </button>
           </Col>
         </Row>
 
         <Row>
           <Col xs={12} sm={3} className='ml-auto mt-2 align-self-end'>
-            <Button className='btn-block' color='primary' type='submit'>
+            <button className='btn btn-block btn-theme shadow' type='submit'>
               Add Partner
-            </Button>
+            </button>
           </Col>
         </Row>
       </Container>

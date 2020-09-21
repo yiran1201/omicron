@@ -74,6 +74,18 @@
         margin: 0 6px;
       }
     }
+
+    .btn-square {
+      width: 120px;
+      height: 52px;
+      text-align: center;
+
+      @media screen and (max-width: 576px) {
+        width: 96px;
+        height: 42px;
+        margin: 0 6px;
+      }
+    }
   }
 
   .price-font {
