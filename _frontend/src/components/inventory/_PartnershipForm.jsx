@@ -7,13 +7,19 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 import {Container, Row, Col, Label} from 'reactstrap';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {ORIGIN} from '../../constants/http-constant';
 const PartnershipForm = () => {
   const [name, setName] = useState('');
   const [source, setSource] = useState('');
   const [shops, setShops] = useState([]);
   const formRef = useRef(null);
+
+  useEffect(()=>{
+  return(console.log('chenyiran'))
+
+  },[]);
+
   const clearForm = () => {
     setName('');
     setSource('');
