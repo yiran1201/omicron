@@ -15,11 +15,6 @@ const PartnershipForm = () => {
   const [shops, setShops] = useState([]);
   const formRef = useRef(null);
 
-  useEffect(()=>{
-  return(console.log('chenyiran'))
-
-  },[]);
-
   const clearForm = () => {
     setName('');
     setSource('');
@@ -27,6 +22,7 @@ const PartnershipForm = () => {
 
     formRef.current.reset();
   };
+
   const ShopsInput = () => {
     if (shops.length === 0) {
       return (
