@@ -5,6 +5,7 @@ import BuildWatchPage from '../build-watch/BuildWatch';
 import ContractPage from '../contract/Contract';
 import InventoryPage from '../inventory/Inventory';
 import PartnershipPage from '../partnership/Partnership';
+import SummaryPage from '../summary/Summary';
 
 import './App.scss';
 
@@ -65,6 +66,14 @@ const App = () => {
                 Inventory
               </Link>
             </NavItem>
+            <NavItem>
+              <Link
+                onClick={() => setNavOpen(false)}
+                to='/summary'
+                className='text-light mx-2 no-underline'>
+                Summary
+              </Link>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
@@ -81,6 +90,7 @@ const App = () => {
           <Route path='/contract' component={ContractPage} exact />
           <Route path='/partnership' component={PartnershipPage} exact />
           <Route path='/inventory' component={InventoryPage} exact />
+          <Route path='/summary' component={SummaryPage} exact/>
         </Switch>
       </BrowserRouter>
       <button
