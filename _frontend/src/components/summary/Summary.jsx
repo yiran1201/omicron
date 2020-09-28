@@ -1,21 +1,31 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import React from 'react';
+import './Summary.scss';
 
 const Summary = () => {
   const [count, setCount] = useState(0);
   const [backgroundColor, setBackgroundColor] = useState('#FFFFFF');
 
-  useEffect(() => {
-    document.title = `you click ${count} times`;
-  });
-
   return (
     <>
       <p>You clicked {count}times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
       <button
+        onClick={() => {
+          const newCount = count+1;
+          if (newCount % 10 === 0) {
+            setBackgroundColor('#ffe6e6');
+          } else if (newCount % 2=== 0) {
+            setBackgroundColor('#80aaff');
+          }else
+          setBackgroundColor('#b3ffcc');
+         setCount(newCount)
+        }}>
+        Click me
+      </button>
+      <button
+        className="buttonEffect"
         style={{backgroundColor: backgroundColor}}
-        onClick={() => setBackgroundColor('#7FFF00')}>
+        onClick={() => setBackgroundColor('#ff9900')}>
         hello
       </button>
     </>

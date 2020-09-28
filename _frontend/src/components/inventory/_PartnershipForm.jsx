@@ -7,7 +7,7 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 import {Container, Row, Col, Label} from 'reactstrap';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {ORIGIN} from '../../constants/http-constant';
 const PartnershipForm = () => {
   const [name, setName] = useState('');
